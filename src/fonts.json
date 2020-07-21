@@ -1,0 +1,22 @@
+{
+    "google-fonts-plugin": {
+        "fonts": [
+            {
+                "family": "Raleway",
+                "variants": [
+                    "400",
+                    "500",
+                    "700"
+                ],
+                "subsets": [
+                    "latin-ext"
+                ]
+            }
+        ],
+        "formats": [
+            "woff",
+            "woff2"
+        ],
+        "filename": "assets/css/[name].css"
+    }
+}

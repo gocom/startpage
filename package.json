@@ -1,0 +1,53 @@
+{
+    "name": "startpage",
+    "version": "0.0.0",
+    "description": "New tab page",
+    "repository": {
+        "url": "https://github.com/gocom/startpage.git"
+    },
+    "author": {
+        "name": "Jukka Svahn",
+        "url": "https://github.com/gocom"
+    },
+    "license": "MIT",
+    "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.14.0",
+        "focus-visible": "^5.1.0",
+        "lunr": "^2.3.8",
+        "moment": "^2.27.0",
+        "vue": "^2.6.11"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.10.5",
+        "@babel/plugin-proposal-class-properties": "^7.10.4",
+        "@babel/plugin-proposal-optional-chaining": "^7.10.4",
+        "@babel/preset-env": "^7.10.4",
+        "@babel/runtime-corejs3": "^7.10.5",
+        "@types/chrome": "^0.0.121",
+        "babel-loader": "^8.1.0",
+        "copy-webpack-plugin": "^6.0.3",
+        "core-js": "^3.6.5",
+        "cross-env": "^7.0.2",
+        "css-loader": "^3.6.0",
+        "ejs": "^3.1.3",
+        "file-loader": "^6.0.0",
+        "google-fonts-plugin": "^5.0.2",
+        "html-webpack-plugin": "^4.3.0",
+        "less": "^3.12.2",
+        "less-loader": "^6.2.0",
+        "mini-css-extract-plugin": "^0.9.0",
+        "vue-loader": "^15.9.3",
+        "vue-template-compiler": "^2.6.11",
+        "webpack": "^4.43.0",
+        "webpack-cli": "^3.3.12",
+        "webpack-dev-server": "^3.11.0",
+        "webpack-extension-reloader": "^1.1.4"
+    },
+    "scripts": {
+        "build": "cross-env NODE_ENV=production webpack --hide-modules",
+        "build:dev": "cross-env NODE_ENV=development webpack --hide-modules",
+        "watch": "npm run build -- --watch",
+        "watch:dev": "cross-env HMR=true npm run build:dev -- --watch"
+    },
+    "private": true
+}

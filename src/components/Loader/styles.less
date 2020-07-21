@@ -1,0 +1,41 @@
+.loader {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 1em;
+    max-width: 960px;
+    margin: auto;
+    user-select: none;
+
+    &__bubble {
+        animation: loader__animation--bubble 1000ms ease infinite 0ms;
+        border: 0.125em solid rgba(0, 0, 0, 0.3);
+        border-radius: 50%;
+        height: 1em;
+        transform: scale(0);
+        width: 1em;
+
+        &:nth-child(2) {
+            animation: loader__animation--bubble 1000ms ease infinite 300ms;
+        }
+
+        &:nth-child(3) {
+            animation: loader__animation--bubble 1000ms ease infinite 600ms;
+        }
+    }
+
+    .ready & {
+        display: none;
+    }
+}
+
+@keyframes loader__animation--bubble {
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}

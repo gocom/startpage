@@ -1,0 +1,8 @@
+.*
+!.babelrc
+!.editorconfig
+!.gitignore
+/dist
+/node_modules
+/src/config.js
+/src/assets/thumbnail
