@@ -1,5 +1,6 @@
 import 'focus-visible';
 import '@fortawesome/fontawesome-free/css/all.css';
+import './external.css';
 import Loader from '../Loader/index';
 import Clock from '../Clock/index';
 import Search from '../Search/index';
