@@ -17,14 +17,11 @@ jobs:
         with:
           node-version: '12.x'
 
-      - name: Install dependencies
+      - name: Install
         run: npm install
 
       - name: Test
         run: npm test
-
-      - name: Build
-        run: npm run build
 
       - name: Package
         run: npm run package
