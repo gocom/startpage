@@ -1,0 +1,37 @@
+#!/usr/bin/env node
+
+const fs = require('fs');
+const path = require('path');
+const archiver = require('archiver');
+const { name } = require('../package.json');
+
+const root = path.dirname(__dirname);
+const build = path.join(root, 'build');
+const directory = path.join(root, 'dist');
+const filename = path.join(directory, `${name}.zip`);
+
+try {
+  fs.mkdirSync(directory, {recursive: true});
+} catch (e) {
+  // Directory already exists.
+
+  try {
+    fs.unlinkSync(filename);
+  } catch (e) {
+    // File does not exist.
+  }
+}
+
+const output = fs.createWriteStream(filename);
+
+const archive = archiver('zip', {
+  zlib: {
+    level: 9,
+  },
+});
+
+archive.pipe(output);
+
+archive.directory(build, false);
+
+archive.finalize();

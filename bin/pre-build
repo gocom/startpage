@@ -1,0 +1,13 @@
+#!/usr/bin/env node
+
+const fs = require('fs');
+const path = require('path');
+
+const root = path.dirname(__dirname);
+const src = path.join(root, 'src');
+const template = path.join(src, 'config.template.js');
+const config = path.join(src, 'config.js');
+
+if (!fs.existsSync(config)) {
+  fs.copyFileSync(template, config);
+}
