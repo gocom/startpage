@@ -53,7 +53,7 @@ class Site {
     this.textColor = options.textColor || null;
     this.thumbnail = options.thumbnail || null;
     this.icon = options.icon || null;
-    this.position = null;
+    this.position = Site.idCounter;
     this.id = Site.idCounter;
   }
 }

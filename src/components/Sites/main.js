@@ -27,6 +27,7 @@
  */
 
 import Shortcut from '../../lib/Shortcut';
+import Storage from '../../lib/Storage';
 import config from '../../config';
 import SiteSearch from '../../model/SiteSearch';
 import Pagination from '../Pagination';
@@ -34,10 +35,21 @@ import Pagination from '../Pagination';
 export default {
   data() {
     return {
-      sites: config.sites,
+      sites: [],
       limit: 8,
       page: 1,
       showNumbers: false,
+      positions: [
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '9',
+      ],
     };
   },
 
@@ -47,14 +59,42 @@ export default {
 
   methods: {
     /**
+     * Gets position identifier for the given index.
+     *
+     * @param {Number} index
+     *
+     * @returns {string|null}
+     */
+    getPosition(index) {
+      return this.positions[index] || null;
+    },
+
+    /**
+     * Opens site by the given position.
+     *
+     * @param {string} position
+     *
+     * @return {void}
+     */
+    openByPosition(position) {
+      const site = this.getByPosition(position);
+
+      if (site) {
+        this.open(site);
+      }
+    },
+
+    /**
      * Gets site by position.
      *
-     * @param {number} position
+     * @param {string} position
      *
      * @return {Site|null}
      */
     getByPosition(position) {
-      return this.items.filter((site) => (site.position === position))[0] || null;
+      const index = this.positions.findIndex((value) => value === position);
+
+      return this.items[index] || null;
     },
 
     /**
@@ -102,6 +142,22 @@ export default {
     isSiteSearch(site) {
       return SiteSearch.site === site;
     },
+
+    /**
+     * Reloads items from storage table.
+     *
+     * @return {void}
+     */
+    reload() {
+      const table = Storage.get('sites');
+      const sites = [];
+
+      table.iterate((value) => {
+        sites.push(value);
+      }).then(() => {
+        this.sites = sites;
+      });
+    },
   },
 
   computed: {
@@ -123,18 +179,25 @@ export default {
       const start = Math.max(0, (this.page * this.limit) - this.limit);
       const end = start + this.limit;
 
-      return this.sites.slice(start, end).map((site, index) => {
-        const result = site;
-
-        result.position = index + 1;
-
-        return result;
-      });
+      return this.sites
+        .sort((a, b) => a.position - b.position)
+        .slice(start, end);
     },
   },
 
   mounted() {
+    this.reload();
+
+    Storage.insert('sites', config.sites)
+      .then(() => {
+        this.reload();
+      });
+
     Shortcut.once('Alt', () => this.togglePositionNumbers());
+
+    this.positions.forEach((position) => {
+      Shortcut.once(position, () => this.openByPosition(position));
+    });
 
     this.$on('change-page', (page) => {
       this.page = page;
@@ -143,5 +206,7 @@ export default {
 
   beforeDestroy() {
     Shortcut.remove('Alt');
+
+    this.positions.forEach((position) => Shortcut.remove(position));
   },
 };

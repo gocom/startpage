@@ -60,7 +60,7 @@ export default {
      * @return {void}
      */
     setPage(number) {
-      this.page = Math.min(Math.max(1, Math.min(this.pageCount, number)), this.pageCount);
+      this.page = Math.max(1, number);
 
       this.$parent.$emit('change-page', this.page);
 

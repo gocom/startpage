@@ -17,6 +17,8 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.14.0",
     "focus-visible": "^5.1.0",
+    "localforage": "^1.8.1",
+    "localforage-webextensionstorage-driver": "^1.2.2",
     "lunr": "^2.3.8",
     "moment": "^2.27.0",
     "vue": "^2.6.11"
