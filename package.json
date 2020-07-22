@@ -9,6 +9,10 @@
     "name": "Jukka Svahn",
     "url": "https://github.com/gocom"
   },
+  "files": [
+    "/build"
+  ],
+  "main": "build/main.js",
   "license": "MIT",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.14.0",
@@ -56,13 +60,14 @@
     "webpack-cli": "^3.3.12"
   },
   "scripts": {
+    "prepare": "npm run build",
     "lint": "eslint --ext .js,.vue ./",
     "lint:fix": "eslint --fix --ext .js,.vue ./",
     "test": "npm run lint && npm run test:unit",
     "test:unit": "jest",
     "init": "node bin/init",
-    "build": "npm run init && cross-env NODE_ENV=production webpack --hide-modules",
-    "build:dev": "npm run init && cross-env NODE_ENV=development webpack --hide-modules",
+    "build": "cross-env NODE_ENV=production webpack --hide-modules",
+    "build:dev": "cross-env NODE_ENV=development webpack --hide-modules",
     "package": "node bin/package",
     "watch": "npm run build:dev -- --watch",
     "coveralls": "coveralls < coverage/lcov.info"

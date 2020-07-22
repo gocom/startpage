@@ -12,5 +12,4 @@ Todo.
 
 ```shell
 $ npm install
-$ npm build
 ```
