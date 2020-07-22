@@ -35,11 +35,11 @@ import Search from '../Search/index';
 import Sites from '../Sites/index';
 
 export default {
-    name: 'app',
-    components: {
-        Loader,
-        Clock,
-        Search,
-        Sites,
-    },
+  name: 'app',
+  components: {
+    Loader,
+    Clock,
+    Search,
+    Sites,
+  },
 };

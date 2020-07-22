@@ -29,49 +29,44 @@
 /**
  * Navigate.
  */
-class Navigate
-{
-    /**
-     * Gets query parameter.
-     *
-     * @param {string} name
-     *
-     * @returns {string}
-     */
-    getParam(name) {
-        return this.getParams().get(name);
+class Navigate {
+  /**
+   * Constructor.
+   */
+  constructor() {
+    this.params = new URLSearchParams(window.location.hash.substring(1));
+  }
+
+  /**
+   * Gets query parameter.
+   *
+   * @param {string} name
+   *
+   * @returns {string}
+   */
+  getParam(name) {
+    return this.params.get(name);
+  }
+
+  /**
+   * Sets query parameter.
+   *
+   * @param {string}      name
+   * @param {string|null|number} value
+   *
+   * @return {this}
+   */
+  setParam(name, value) {
+    if (value === null) {
+      this.params.delete(name);
+    } else {
+      this.params.set(name, value);
     }
 
-    /**
-     * Sets query parameter.
-     *
-     * @param {string}      name
-     * @param {string|null|number} value
-     *
-     * @return {this}
-     */
-    setParam(name, value) {
-        const params = this.getParams();
+    window.location.hash = this.params.toString();
 
-        if (value === null) {
-            params.delete(name);
-        } else {
-            params.set(name, value);
-        }
-
-        window.location.hash = params.toString();
-
-        return this;
-    }
-
-    /**
-     * Gets parameters.
-     *
-     * @returns {URLSearchParams}
-     */
-    getParams() {
-        return new URLSearchParams(window.location.hash.substring(1));
-    }
+    return this;
+  }
 }
 
 export default new Navigate();

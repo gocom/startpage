@@ -1,6 +1,8 @@
 .*
 !.babelrc
 !.editorconfig
+!.eslintignore
+!.eslintrc.js
 !.gitignore
 /dist
 /node_modules

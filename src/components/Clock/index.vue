@@ -29,8 +29,12 @@
 <template>
     <section class="clock">
         <div class="clock__date">
-            <span class="clock__date-component clock__date-component--weekday">{{ format('dddd') }}</span>
-            <span class="clock__date-component clock__date-component--day">{{ format('MMMM Do, YYYY') }}</span>
+            <span class="clock__date-component clock__date-component--weekday">
+              {{ format('dddd') }}
+            </span>
+            <span class="clock__date-component clock__date-component--day">
+              {{ format('MMMM Do, YYYY') }}
+            </span>
         </div>
         <div class="clock__time">
             <span class="clock__time-component clock__time-component--hours">{{hours}}</span>

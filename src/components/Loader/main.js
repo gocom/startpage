@@ -27,7 +27,7 @@
  */
 
 export default {
-    mounted() {
-        document.body.classList.add('ready');
-    },
+  mounted() {
+    document.body.classList.add('ready');
+  },
 };

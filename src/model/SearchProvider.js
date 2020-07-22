@@ -29,23 +29,20 @@
 /**
  * Search engine provider.
  */
-class SearchProvider
-{
-    /**
-     * Constructor.
-     *
-     * @param {object} options
-     * @param {string} options.url URL template
-     * @param {string} [options.name] Provider name
-     * @param {string} [options.siteTerm] Site search term template
-     */
-    constructor(
-        options
-    ) {
-        this.url = options.url;
-        this.name = options.name || 'Web';
-        this.siteTerm = options.siteTerm || 'site:%s';
-    }
+class SearchProvider {
+  /**
+   * Constructor.
+   *
+   * @param {object} options
+   * @param {string} options.url URL template
+   * @param {string} [options.name] Provider name
+   * @param {string} [options.siteTerm] Site search term template
+   */
+  constructor(options) {
+    this.url = options.url;
+    this.name = options.name || 'Web';
+    this.siteTerm = options.siteTerm || 'site:%s';
+  }
 }
 
 export default SearchProvider;

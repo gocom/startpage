@@ -26,117 +26,117 @@
  * SOFTWARE.
  */
 
+import lunr from 'lunr';
 import SiteSearch from '../../model/SiteSearch';
 import Shortcut from '../../lib/Shortcut';
-import lunr from 'lunr';
 import config from '../../config';
 
 export default {
-    name: 'search',
+  name: 'search',
 
-    data() {
-        return {
-            query: null,
-            placeholderTemplate: 'Search %s...',
-            idx: null,
-            results: []
-        };
+  data() {
+    return {
+      query: null,
+      placeholderTemplate: 'Search %s...',
+      idx: null,
+      results: [],
+    };
+  },
+
+  computed: {
+    provider() {
+      return config.search.provider;
     },
 
-    computed: {
-        provider() {
-            return config.search.provider;
-        },
+    placeholder() {
+      const name = SiteSearch.site
+        ? SiteSearch.site.name
+        : this.provider.name;
 
-        placeholder() {
-            const name = SiteSearch.site
-                ? SiteSearch.site.name
-                : this.provider.name;
-
-            return this.placeholderTemplate.replace('%s', name);
-        },
-
-        items() {
-            return this.results;
-        },
+      return this.placeholderTemplate.replace('%s', name);
     },
 
-    methods: {
-        submit() {
-            const terms = [
-                this.query,
-            ];
+    items() {
+      return this.results;
+    },
+  },
 
-            if (SiteSearch.site) {
-                terms.push(
-                    this.provider.siteTerm
-                        .replace('%s', SiteSearch.site.url.hostname)
-                );
-            }
+  methods: {
+    submit() {
+      const terms = [
+        this.query,
+      ];
 
-            const url = this.provider.url
-                .replace('%s', encodeURIComponent(terms.join(' ')));
+      if (SiteSearch.site) {
+        terms.push(
+          this.provider.siteTerm
+            .replace('%s', SiteSearch.site.url.hostname),
+        );
+      }
 
-            this.query = null;
+      const url = this.provider.url
+        .replace('%s', encodeURIComponent(terms.join(' ')));
 
-            window.location.href = url;
-        },
+      this.query = null;
 
-        focus() {
-            Shortcut.on('!<SearchClose>Escape', () => this.closeField());
-        },
-
-        blur() {
-            Shortcut.remove('<SearchClose>');
-        },
-
-        focusToField() {
-            document.querySelector('.search input[name=query]').focus();
-        },
-
-        closeField() {
-            document.querySelector('.search input[name=query]').blur();
-        },
-
-        buildIndex() {
-            if (this.idx !== null) {
-                return;
-            }
-
-            this.idx = lunr(function () {
-                this.field('name');
-                this.field('url');
-
-                for (const site of config.sites) {
-                    this.add(site);
-                }
-            });
-        },
-
-        search() {
-            if (this.query) {
-                this.buildIndex();
-
-                this.results = this.idx.search(this.query);
-
-                return;
-            }
-
-            this.results = [];
-        },
+      window.location.href = url;
     },
 
-    mounted() {
-        SiteSearch.onChange(site => {
-            if (site) {
-                this.focus();
-            }
+    focus() {
+      Shortcut.on('!<SearchClose>Escape', () => this.closeField());
+    },
+
+    blur() {
+      Shortcut.remove('<SearchClose>');
+    },
+
+    focusToField() {
+      document.querySelector('.search input[name=query]').focus();
+    },
+
+    closeField() {
+      document.querySelector('.search input[name=query]').blur();
+    },
+
+    buildIndex() {
+      if (this.idx !== null) {
+        return;
+      }
+
+      this.idx = lunr(function index() {
+        this.field('name');
+        this.field('url');
+
+        config.sites.forEach((site) => {
+          this.add(site);
         });
-
-        Shortcut.on('<SearchFocus>Cmd+F', () => this.focusToField());
+      });
     },
 
-    beforeDestroy() {
-        Shortcut.remove('<SearchFocus>');
-    }
+    search() {
+      if (this.query) {
+        this.buildIndex();
+
+        this.results = this.idx.search(this.query);
+
+        return;
+      }
+
+      this.results = [];
+    },
+  },
+
+  mounted() {
+    SiteSearch.onChange((site) => {
+      if (site) {
+        this.focus();
+      }
+    });
+
+    Shortcut.on('<SearchFocus>Cmd+F', () => this.focusToField());
+  },
+
+  beforeDestroy() {
+    Shortcut.remove('<SearchFocus>');
+  },
 };
