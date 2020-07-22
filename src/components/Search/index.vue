@@ -1,6 +1,6 @@
 <template>
     <section class="search">
-        <form class="search__form" v-on:submit.prevent="submit(url)">
+        <form class="search__form" v-on:submit.prevent="submit">
             <label for="search__query">Search</label>
             <input name="query" type="search" id="search__query" v-model="query" v-bind:placeholder="placeholder" @change="search" @focus="focus" @blur="blur"/>
             <button type="reset">Reset</button>

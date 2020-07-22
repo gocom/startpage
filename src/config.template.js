@@ -1,4 +1,5 @@
 import Site from './model/Site';
+import SearchProvider from "./model/SearchProvider";
 
 const config = {
     sites: [
@@ -129,6 +130,12 @@ const config = {
             textColor: '#c7d5e0',
         }),
     ],
+    search: {
+        provider: new SearchProvider({
+            url: 'https://www.google.com/search?q=%s&hl=en&pws=0',
+            name: 'Google',
+        }),
+    },
 };
 
 export default config;

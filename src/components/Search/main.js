@@ -8,9 +8,7 @@ export default {
 
     data() {
         return {
-            url: 'https://www.google.com/search?q=%s&hl=en&pws=0',
             query: null,
-            provider: 'Google',
             placeholderTemplate: 'Search %s...',
             idx: null,
             results: []
@@ -18,10 +16,14 @@ export default {
     },
 
     computed: {
+        provider() {
+            return config.search.provider;
+        },
+
         placeholder() {
             const name = SiteSearch.site
                 ? SiteSearch.site.name
-                : this.provider;
+                : this.provider.name;
 
             return this.placeholderTemplate.replace('%s', name);
         },
@@ -32,18 +34,24 @@ export default {
     },
 
     methods: {
-        submit(url) {
-            const components = [
+        submit() {
+            const terms = [
                 this.query,
             ];
 
             if (SiteSearch.site) {
-                components.push(`site:${SiteSearch.site.url.hostname}`);
+                terms.push(
+                    this.provider.siteTerm
+                        .replace('%s', SiteSearch.site.url.hostname)
+                );
             }
+
+            const url = this.provider.url
+                .replace('%s', encodeURIComponent(terms.join(' ')));
 
             this.query = null;
 
-            window.location.href = url.replace('%s', encodeURIComponent(components.join(' ')));
+            window.location.href = url;
         },
 
         focus() {
