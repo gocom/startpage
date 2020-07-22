@@ -2,7 +2,6 @@ const webpack = require('webpack');
 const ejs = require('ejs');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-const ExtensionReloader = require('webpack-extension-reloader');
 const GoogleFontsPlugin = require('google-fonts-plugin');
 const path = require('path');
 const { VueLoaderPlugin } = require('vue-loader');
@@ -120,14 +119,6 @@ if (config.mode === 'production') {
       'process.env': {
         NODE_ENV: '"production"',
       },
-    }),
-  ]);
-}
-
-if (process.env.HMR === 'true') {
-  config.plugins = (config.plugins || []).concat([
-    new ExtensionReloader({
-      manifest: path.join(__dirname, '/src/manifest.json'),
     }),
   ]);
 }
