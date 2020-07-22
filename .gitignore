@@ -4,6 +4,7 @@
 !.eslintignore
 !.eslintrc.js
 !.gitignore
+/coverage
 /dist
 /node_modules
 /src/config.js

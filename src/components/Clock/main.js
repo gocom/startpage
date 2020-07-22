@@ -31,16 +31,28 @@ import moment from 'moment';
 export default {
   data() {
     return {
-      hours: '',
-      minutes: '',
-      seconds: '',
-      amPm: '',
+      now: moment(),
     };
   },
 
   methods: {
     format(format) {
-      return moment().format(format);
+      return this.now.format(format);
+    },
+  },
+
+  computed: {
+    hours() {
+      return this.format('hh');
+    },
+    minutes() {
+      return this.format('mm');
+    },
+    seconds() {
+      return this.format('ss');
+    },
+    amPm() {
+      return this.format('a');
     },
   },
 
@@ -48,34 +60,7 @@ export default {
     const self = this;
 
     const clockTimer = function clockTimer() {
-      const date = new Date();
-
-      const time = {
-        hours: date.getHours(),
-        minutes: date.getMinutes(),
-        seconds: date.getSeconds(),
-        amPm: 'AM',
-      };
-
-      if (time.hours === 0) {
-        time.hours = 12;
-      }
-
-      if (time.hours > 12) {
-        time.hours -= 12;
-        time.amPm = 'PM';
-      }
-
-      Object.keys(time).forEach((component) => {
-        let value = time[component];
-
-        if (Number.isInteger(value) && value < 10) {
-          value = `0${value}`;
-        }
-
-        self[component] = value;
-      });
-
+      self.now = moment();
       self.clockTimer = setTimeout(clockTimer, 1000);
     };
 
