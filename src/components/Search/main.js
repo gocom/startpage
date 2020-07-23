@@ -26,9 +26,9 @@
  * SOFTWARE.
  */
 
-import lunr from 'lunr';
 import SiteSearch from '../../model/SiteSearch';
 import Shortcut from '../../lib/Shortcut';
+import SearchIndex from '../../lib/SearchIndex';
 import config from '../../config';
 
 export default {
@@ -70,7 +70,7 @@ export default {
       if (SiteSearch.site) {
         terms.push(
           this.provider.siteTerm
-            .replace('%s', SiteSearch.site.url.hostname),
+            .replace('%s', SiteSearch.site.hostname),
         );
       }
 
@@ -98,31 +98,15 @@ export default {
       document.querySelector('.search input[name=query]').blur();
     },
 
-    buildIndex() {
-      if (this.idx !== null) {
-        return;
-      }
-
-      this.idx = lunr(function index() {
-        this.field('name');
-        this.field('url');
-
-        config.sites.forEach((site) => {
-          this.add(site);
-        });
-      });
-    },
-
     search() {
-      if (this.query) {
-        this.buildIndex();
+      const keys = [
+        'name',
+      ];
 
-        this.results = this.idx.search(this.query);
-
-        return;
-      }
-
-      this.results = [];
+      SearchIndex.create('sites', { keys })
+        .then((fuse) => {
+          this.results = fuse.search(this.query).map((result) => result.item);
+        });
     },
   },
 

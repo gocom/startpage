@@ -33,7 +33,7 @@
             <input name="query" type="search" id="search__query"
                    v-model="query"
                    v-bind:placeholder="placeholder"
-                   @change="search"
+                   @input="search"
                    @focus="focus"
                    @blur="blur"/>
             <button type="reset">Reset</button>
@@ -41,8 +41,13 @@
         </form>
 
         <aside class="search__suggestions">
-            <article v-for="item in items" v-bind:key="item.id" class="search-item">
-                <h1 class="search-item__id">{{ item.id }}</h1>
+            <article v-for="item in results" v-bind:key="item.id" class="search-item">
+              <a class="search-item__link" rel="external noreferrer noopener"
+                 v-bind:href="item.url"
+                 v-bind:itemid="item.id">
+                <h1 class="search-item__name">{{ item.name }}</h1>
+                <div class="search-item__domain">{{ item.hostname }}</div>
+              </a>
             </article>
         </aside>
     </section>

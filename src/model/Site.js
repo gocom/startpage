@@ -45,14 +45,17 @@ class Site {
    * @param {string} [options.icon Logo] icon image URL
    */
   constructor(options) {
+    const url = new URL(options.url);
+
     Site.idCounter += 1;
-    this.url = new URL(options.url);
+    this.url = options.url;
     this.name = options.name || null;
     this.fa = options.fa || null;
     this.backgroundColor = options.backgroundColor || null;
     this.textColor = options.textColor || null;
     this.thumbnail = options.thumbnail || null;
     this.icon = options.icon || null;
+    this.hostname = url.hostname;
     this.position = Site.idCounter;
     this.id = Site.idCounter;
   }
