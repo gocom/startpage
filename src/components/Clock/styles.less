@@ -27,44 +27,44 @@
  */
 
 .clock {
-    align-self: flex-end;
-    justify-self: flex-end;
-    grid-area: footer;
-    align-items: center;
+  align-self: flex-end;
+  justify-self: flex-end;
+  grid-area: footer;
+  align-items: center;
+  display: flex;
+  font: 2.5rem/1.5 "Raleway", sans-serif;
+  margin: 0 3rem 3rem 0;
+  user-select: none;
+
+  &__date {
+    align-items: flex-end;
     display: flex;
-    font: 2.5rem/1.5 "Raleway", sans-serif;
-    margin: 0 3rem 3rem 0;
-    user-select: none;
+    font-size: 1rem;
+    flex-direction: column;
+    margin: 0 0.5rem 0 0;
+  }
 
-    &__date {
-        align-items: flex-end;
-        display: flex;
-        font-size: 1rem;
-        flex-direction: column;
-        margin: 0 0.5rem 0 0;
-    }
+  &__weekday {
+    letter-spacing: 0.25ch;
+    text-transform: uppercase;
+  }
 
-    &__weekday {
-        letter-spacing: 0.25ch;
-        text-transform: uppercase;
-    }
+  &__time {
+    display: flex;
+    font-weight: bold;
+  }
 
-    &__time {
-        display: flex;
-        font-weight: bold;
-    }
+  &__time-component {
+    min-width: 2.25ch;
+    text-align: center;
+  }
 
-    &__time-component {
-        min-width: 2.25ch;
-        text-align: center;
-    }
+  &__time-component--separator {
+    min-width: 0;
+  }
 
-    &__time-component--separator {
-        min-width: 0;
-    }
-
-    &__time-component--am-pm {
-        font-size: 0.5em;
-        letter-spacing: 0.15ch;
-    }
+  &__time-component--am-pm {
+    font-size: 0.5em;
+    letter-spacing: 0.15ch;
+  }
 }

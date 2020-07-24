@@ -5,6 +5,8 @@
 !.eslintrc.js
 !.github
 !.gitignore
+!.stylelintignore
+!.stylelintrc.json
 /coverage
 /build
 /dist

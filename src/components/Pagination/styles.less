@@ -27,53 +27,53 @@
  */
 
 .pagination {
-    &__pages {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        list-style: none;
-        margin: 2em 0 0 0;
-    }
+  &__pages {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    list-style: none;
+    margin: 2em 0 0 0;
+  }
 
-    &__page {
-        display: flex;
-    }
+  &__page {
+    display: flex;
+  }
 
-    &__link {
-        background: transparent;
-        border: 0;
-        color: inherit;
-        display: inline-block;
-        font: inherit;
-        outline: 0;
-        padding: 0.25em;
-    }
+  &__link {
+    background: transparent;
+    border: 0;
+    color: inherit;
+    display: inline-block;
+    font: inherit;
+    outline: 0;
+    padding: 0.25em;
+  }
 
-    &__page-number {
-        background: rgba(255, 255, 255, 0.25);
-        border-radius: 50%;
-        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
-        cursor: pointer;
-        display: inline-block;
-        height: 0.5em;
-        overflow: hidden;
-        text-indent: -9000px;
-        transition: 0.25s all;
-        width: 0.5em;
-    }
+  &__page-number {
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    display: inline-block;
+    height: 0.5em;
+    overflow: hidden;
+    text-indent: -9000px;
+    transition: 0.25s all;
+    width: 0.5em;
+  }
 
-    &__link--active > &__page-number {
-        background: rgba(255, 255, 255, 0.75);
-        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.75), 0 0 0 2px rgba(0, 0, 0, 0.15);
-    }
+  &__link--active > &__page-number {
+    background: rgba(255, 255, 255, 0.75);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.75), 0 0 0 2px rgba(0, 0, 0, 0.15);
+  }
 
-    .js-focus-visible &__link.focus-visible &__page-number,
-    &__link:hover > &__page-number {
-        background: #fff;
-        box-shadow: 0 0 0 2px #fff;
-    }
+  &__link:hover > &__page-number,
+  .js-focus-visible &__link.focus-visible &__page-number {
+    background: #fff;
+    box-shadow: 0 0 0 2px #fff;
+  }
 
-    .js-focus-visible &__link:focus:not(.focus-visible) {
-        outline: none;
-    }
+  .js-focus-visible &__link:focus:not(.focus-visible) {
+    outline: none;
+  }
 }
