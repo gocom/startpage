@@ -29,8 +29,8 @@
 import Shortcut from '../../lib/Shortcut';
 import Storage from '../../lib/Storage';
 import config from '../../config';
-import SiteSearch from '../../model/SiteSearch';
 import Pagination from '../Pagination';
+import Site from '../Site';
 
 export default {
   data() {
@@ -38,7 +38,7 @@ export default {
       sites: [],
       limit: 8,
       page: 1,
-      showNumbers: false,
+      isPositionVisible: false,
       positions: [
         '1',
         '2',
@@ -55,6 +55,7 @@ export default {
 
   components: {
     Pagination,
+    Site,
   },
 
   methods: {
@@ -113,34 +114,8 @@ export default {
      *
      * @return {void}
      */
-    togglePositionNumbers() {
-      this.showNumbers = !this.showNumbers;
-    },
-
-    /**
-     * Sets site search.
-     *
-     * Actives site search for the given site.
-     *
-     * @param {Site} site
-     *
-     * @return {void}
-     */
-    setSiteSearch(site) {
-      SiteSearch.site = SiteSearch.site === site
-        ? null
-        : site;
-    },
-
-    /**
-     * Whether site search is active for the given site.
-     *
-     * @param {Site} site
-     *
-     * @return {boolean}
-     */
-    isSiteSearch(site) {
-      return SiteSearch.site === site;
+    togglePositionVisible() {
+      this.isPositionVisible = !this.isPositionVisible;
     },
 
     /**
@@ -193,7 +168,7 @@ export default {
         this.reload();
       });
 
-    Shortcut.once('Alt', () => this.togglePositionNumbers());
+    Shortcut.once('Alt', () => this.togglePositionVisible());
 
     this.positions.forEach((position) => {
       Shortcut.once(position, () => this.openByPosition(position));

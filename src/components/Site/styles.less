@@ -1,0 +1,191 @@
+/**
+ * Start Page - New tab speed dial.
+ *
+ * {@link https://github.com/gocom/startpage GitHub}
+ */
+
+/*
+ * Copyright (C) 2020 Jukka Svahn
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+.site {
+  position: relative;
+
+  &__link {
+    color: inherit;
+    display: grid;
+    grid-row-gap: 0.5em;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr auto;
+    grid-template-areas: "thumbnail thumbnail" "info info";
+    pointer-events: all;
+    text-decoration: none;
+    transition: all 0.25s;
+
+    &:hover,
+    &:focus {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
+
+  &__preview {
+    border-radius: 0.25em;
+    box-shadow:
+      inset 0 0 0 1px rgba(0, 0, 0, 0.1),
+      0 1px 0 0 rgba(255, 255, 255, 0.15),
+      0 0.25em 0.42em 0 rgba(0, 0, 0, 0.15);
+    display: block;
+    filter: grayscale(30%);
+    grid-area: thumbnail;
+    opacity: 0.85;
+    pointer-events: none;
+    height: 0;
+    padding-top: 56.25%;
+    position: relative;
+    width: 100%;
+    min-width: 192px;
+    transition: all 0.25s;
+
+    .site__link:hover &,
+    .js-focus-visible .site__link.focus-visible & {
+      box-shadow: 0 0 0 3px #fff, 0 0.25em 0.25em 0 rgba(0, 0, 0, 0.25);
+      filter: grayscale(0%);
+      opacity: 1;
+    }
+  }
+
+  &__thumbnail {
+    border-radius: 0.25em;
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: auto;
+    min-height: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  &__preview > i,
+  &__icon {
+    align-items: center;
+    display: flex;
+    font-size: 65px;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    padding: 1rem 2rem;
+  }
+
+  &__info {
+    grid-area: info;
+    font: inherit;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: 0.25s opacity;
+    white-space: nowrap;
+
+    &--title {
+      font-weight: bold;
+    }
+
+    &--domain {
+      font-size: 0.65em;
+      opacity: 0;
+      padding: 0.25em 0 0 0;
+    }
+
+    .site__link:hover &,
+    .js-focus-visible .site__link.focus-visible {
+      &--title {
+        opacity: 0;
+      }
+
+      &--domain {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__position {
+    background: rgba(0, 0, 0, 0.95);
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    text-align: center;
+    position: absolute;
+    top: -0.25rem;
+    right: -0.25rem;
+  }
+
+  &__actions {
+    color: rgba(0, 0, 0, 0.45);
+    font-size: 0.75em;
+    margin: -1.5rem 0 0 0;
+    position: absolute;
+    right: 0;
+    text-shadow: 0 0 1px rgba(255, 255, 255, 0.15);
+  }
+
+  &__action {
+    background: transparent;
+    border: 0;
+    color: inherit;
+    opacity: 0;
+    outline: 0;
+    transition: 0.25s all;
+
+    &--active {
+      color: #55d0e0;
+      opacity: 1;
+    }
+
+    &:hover {
+      color: #facf5a;
+      opacity: 1;
+    }
+  }
+
+  &:hover &__action,
+  &:focus &__action,
+  &:focus-within &__action {
+    opacity: 1;
+  }
+
+  .js-focus-visible &__action:focus:not(.focus-visible) {
+    outline: none;
+  }
+
+  .js-focus-visible &__action.focus-visible {
+    color: #55d0e0;
+    text-shadow: 0 0 1px #000, 0 0.1em 0.25em #55d0e0;
+    outline: none;
+  }
+}

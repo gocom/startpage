@@ -1,10 +1,10 @@
-<!--
+/**
  * Start Page - New tab speed dial.
  *
  * {@link https://github.com/gocom/startpage GitHub}
--->
+ */
 
-<!--
+/*
  * Copyright (C) 2020 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -24,23 +24,51 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
--->
+ */
 
-<template>
-  <section class="sites">
-    <div class="site-grid">
-      <Site
-        v-for="(site, index) in items"
-        v-bind:key="site.id"
-        v-bind:site="site"
-        v-bind:isPositionVisible="isPositionVisible"
-        v-bind:position="getPosition(index)"
-      />
-    </div>
+import SiteSearch from '../../model/SiteSearch';
 
-    <Pagination v-bind:total="totalCount" v-bind:limit="limit"/>
-  </section>
-</template>
+export default {
+  props: {
+    site: {
+      type: Object,
+      default: {},
+    },
+    isPositionVisible: {
+      type: Boolean,
+      default: false,
+    },
+    position: {
+      type: String,
+      default: '',
+    },
+  },
 
-<style lang="less" src="./styles.less"></style>
-<script src="./main.js"></script>
+  methods: {
+    /**
+     * Sets site search.
+     *
+     * Actives site search for the given site.
+     *
+     * @param {Site} site
+     *
+     * @return {void}
+     */
+    setSiteSearch(site) {
+      SiteSearch.site = SiteSearch.site === site
+        ? null
+        : site;
+    },
+
+    /**
+     * Whether site search is active for the given site.
+     *
+     * @param {Site} site
+     *
+     * @return {boolean}
+     */
+    isSiteSearch(site) {
+      return SiteSearch.site === site;
+    },
+  },
+};
