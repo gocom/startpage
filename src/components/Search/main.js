@@ -37,7 +37,7 @@ export default {
   data() {
     return {
       query: '',
-      placeholderTemplate: 'Search %s and sites...',
+      placeholderTemplate: 'Search %s...',
       idx: null,
       results: [],
       isActive: false,
