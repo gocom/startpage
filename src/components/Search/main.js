@@ -67,7 +67,9 @@ export default {
     },
 
     items() {
-      return this.results.slice(0, 5);
+      return this.isSuggestionsOpen
+        ? this.results.slice(0, 5)
+        : [];
     },
 
     isSuggestionsOpen() {
