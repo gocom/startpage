@@ -116,6 +116,11 @@ class Shortcut {
   add(type, shortcut, fn) {
     const { isExcludedIncluded, name, shortcut: alias } = this.getShortcutComponents(shortcut);
 
+    if (name) {
+      this.shortcuts[type] = this.shortcuts[type]
+        .filter((item) => (item.name !== name));
+    }
+
     this.shortcuts[type].push({
       isExcludedIncluded,
       name,
@@ -159,8 +164,8 @@ class Shortcut {
 
     ['on', 'once'].forEach((type) => {
       this.shortcuts[type] = this.shortcuts[type]
-        .filter((item) => (!(match.shortcut && item.shortcut !== match.shortcut)
-          || !(match.name && item.name !== match.name)
+        .filter((item) => ((!match.shortcut || item.shortcut !== match.shortcut)
+          && (!match.name || item.name !== match.name)
         ));
     });
 

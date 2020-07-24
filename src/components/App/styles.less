@@ -1,10 +1,10 @@
-/**
+/*!
  * Start Page - New tab speed dial.
  *
  * {@link https://github.com/gocom/startpage GitHub}
  */
 
-/*
+/*!
  * Copyright (C) 2020 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -26,85 +26,67 @@
  * SOFTWARE.
  */
 
+@import "styles/config";
+
 * {
-    box-sizing: border-box;
-    margin: 0;
-    outline: none;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  outline: none;
+  padding: 0;
 }
 
 ::selection {
-    background: #000;
-    color: #fff;
+  background: @config[@selection][@background];
+  color: @config[@selection][@color];
 }
 
 a {
-    color: #4f9da6;
-    text-decoration: none;
+  color: @config[@link][@color];
+  text-decoration: @config[@link][@text-decoration];
 }
 
 a:hover,
 a:focus {
-    color: #facf5a;
-    text-decoration: underline;
+  color: @config[@link][@hover][@color];
+  text-decoration: @config[@link][@hover][@text-decoration];
 }
 
 html {
-    background: #eceaf2;
-    color: #525763;
+  background: @config[@body][@background];
+  color: @config[@body][@color];
 }
 
 html, body {
-    font: 1em/1.5 Raleway, sans-serif;
-    height: 100%;
+  font: @config[@body][@font];
+  height: 100%;
 }
 
 main {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 0.5fr 1fr 0.5fr;
-    grid-template-areas: "header" "content" "footer";
-    min-height: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 0.5fr 1fr 0.5fr;
+  grid-template-areas: "header" "content" "footer";
+  min-height: 100%;
 }
 
 body:not(.ready) > main {
-    display: none;
-}
-
-input[type=search],
-input[type=text] {
-    background: rgba(255, 255, 255, 0.25);
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    border-radius: 0.25em;
-    display: inline-block;
-    font: inherit;
-    outline: 0;
-    padding: 0.5em 1em;
-    vertical-align: middle;
-}
-
-input[type=search]:focus,
-input[type=text]:focus {
-    background: rgba(255, 255, 255, 0.75);
-    border: 1px solid #4f9da6;
-    box-shadow: 0 1px 0.25em 0 rgba(0, 0, 0, 0.15);
-    transition: all 0.5s;
+  display: none;
 }
 
 ::placeholder {
-    color: rgba(0, 0, 0, 0.3);
-    user-select: none;
+  color: @config[@placeholder][@color];
+  user-select: none;
 }
 
 input[type="search"]::-webkit-search-cancel-button {
-    -webkit-appearance: none;
+  -webkit-appearance: none;
 }
 
 button {
-    background: none;
-    border: 0;
-    color: inherit;
-    cursor: pointer;
-    display: inline-block;
-    font: inherit;
+  background: none;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  display: inline-block;
+  font: inherit;
 }

@@ -1,10 +1,10 @@
-<!--
+/**
  * Start Page - New tab speed dial.
  *
  * {@link https://github.com/gocom/startpage GitHub}
--->
+ */
 
-<!--
+/*
  * Copyright (C) 2020 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -24,37 +24,32 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
--->
+ */
 
-<template>
-  <section class="search" v-bind:class="{ 'search--active': isActive }">
-    <form class="search__form" v-on:submit.prevent="submit">
-      <label v-bind:for="uid">Search</label>
-      <input name="q"
-             type="search"
-             v-bind:id="uid"
-             v-model="query"
-             v-bind:placeholder="placeholder"
-             v-bind:class="{ search__input: true, 'search__input--active': isActive }"
-             @input="search"
-             @focus="focus"
-             @blur="blur"
-             ref="searchInput"/>
-      <button type="reset">Reset</button>
-      <button type="submit">Search</button>
-      <aside class="search__suggestions"
-             v-bind:class="{ 'search__suggestions--open': isSuggestionsOpen }">
-        <SearchSuggestion
-          v-for="(item, index) in items"
-          v-bind:key="item.id"
-          v-bind:id="item.id"
-          v-bind:name="item.name"
-          v-bind:url="item.url"
-          v-bind:isActive="isActiveIndex(index)"/>
-      </aside>
-    </form>
-  </section>
-</template>
+export default {
+  props: {
+    id: {
+      default: '',
+    },
+    name: {
+      type: String,
+      default: '',
+    },
+    url: {
+      type: String,
+      default: '',
+    },
+    isActive: {
+      type: Boolean,
+      default: false,
+    },
+  },
 
-<style lang="less" src="./styles.less"></style>
-<script src="./main.js"></script>
+  computed: {
+    hostname() {
+      const { hostname } = new URL(this.url);
+
+      return hostname;
+    },
+  },
+};

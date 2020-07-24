@@ -30,18 +30,28 @@ import SiteSearch from '../../model/SiteSearch';
 import Shortcut from '../../lib/Shortcut';
 import SearchIndex from '../../lib/SearchIndex';
 import config from '../../config';
+import SearchSuggestion from '../SearchSuggestion';
+import UniqueId from '../../mixins/UniqueId';
 
 export default {
-  name: 'search',
-
   data() {
     return {
-      query: null,
-      placeholderTemplate: 'Search %s...',
+      query: '',
+      placeholderTemplate: 'Search %s and sites...',
       idx: null,
       results: [],
+      isActive: false,
+      selected: 0,
     };
   },
+
+  components: {
+    SearchSuggestion,
+  },
+
+  mixins: [
+    UniqueId,
+  ],
 
   computed: {
     provider() {
@@ -57,7 +67,11 @@ export default {
     },
 
     items() {
-      return this.results;
+      return this.results.slice(0, 5);
+    },
+
+    isSuggestionsOpen() {
+      return this.isActive && this.results.length >= 1 && !SiteSearch.site;
     },
   },
 
@@ -77,25 +91,90 @@ export default {
       const url = this.provider.url
         .replace('%s', encodeURIComponent(terms.join(' ')));
 
-      this.query = null;
+      this.query = '';
 
       window.location.href = url;
     },
 
+    prev() {
+      this.selected -= 1;
+
+      if (this.selected < -1) {
+        this.selected = this.items.length - 1;
+      }
+    },
+
+    next() {
+      this.selected += 1;
+
+      if (this.selected > (this.items.length - 1)) {
+        this.selected = -1;
+      }
+    },
+
+    open() {
+      const item = this.items[this.selected];
+
+      if (item) {
+        const url = item.url.toString();
+
+        this.reset();
+
+        window.location.href = url;
+      }
+    },
+
+    isActiveIndex(index) {
+      return index === this.selected;
+    },
+
+    addShortcuts() {
+      Shortcut
+        .on('!<SearchClose>Escape', () => this.closeField())
+        .on('!<SearchPrev>ArrowUp', () => this.prev())
+        .on('!<SearchNext>ArrowDown', () => this.next())
+        .on('!<SearchOpen>Enter', () => this.open());
+    },
+
+    removeShortcuts() {
+      Shortcut
+        .remove('<SearchClose>')
+        .remove('<SearchPrev>')
+        .remove('<SearchNext>')
+        .remove('<SearchOpen>');
+    },
+
+    reset() {
+      this.query = '';
+      this.results = [];
+    },
+
     focus() {
-      Shortcut.on('!<SearchClose>Escape', () => this.closeField());
+      this.selected = -1;
+      this.isActive = true;
+      this.addShortcuts();
     },
 
     blur() {
-      Shortcut.remove('<SearchClose>');
+      this.selected = -1;
+
+      if (this.query === '') {
+        this.isActive = false;
+        this.removeShortcuts();
+      }
     },
 
     focusToField() {
-      document.querySelector('.search input[name=query]').focus();
+      this.$refs.searchInput.focus();
     },
 
     closeField() {
-      document.querySelector('.search input[name=query]').blur();
+      this.isActive = false;
+      this.$refs.searchInput.blur();
+
+      if (this.query !== '') {
+        this.removeShortcuts();
+      }
     },
 
     search() {
@@ -113,7 +192,7 @@ export default {
   mounted() {
     SiteSearch.onChange((site) => {
       if (site) {
-        this.focus();
+        this.focusToField();
       }
     });
 

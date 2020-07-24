@@ -27,33 +27,19 @@
 -->
 
 <template>
-  <section class="search" v-bind:class="{ 'search--active': isActive }">
-    <form class="search__form" v-on:submit.prevent="submit">
-      <label v-bind:for="uid">Search</label>
-      <input name="q"
-             type="search"
-             v-bind:id="uid"
-             v-model="query"
-             v-bind:placeholder="placeholder"
-             v-bind:class="{ search__input: true, 'search__input--active': isActive }"
-             @input="search"
-             @focus="focus"
-             @blur="blur"
-             ref="searchInput"/>
-      <button type="reset">Reset</button>
-      <button type="submit">Search</button>
-      <aside class="search__suggestions"
-             v-bind:class="{ 'search__suggestions--open': isSuggestionsOpen }">
-        <SearchSuggestion
-          v-for="(item, index) in items"
-          v-bind:key="item.id"
-          v-bind:id="item.id"
-          v-bind:name="item.name"
-          v-bind:url="item.url"
-          v-bind:isActive="isActiveIndex(index)"/>
-      </aside>
-    </form>
-  </section>
+  <article class="search-suggestion">
+    <a
+      rel="external noreferrer noopener"
+      v-bind:class="{
+        'search-suggestion__link': true,
+        'search-suggestion__link--active': isActive,
+      }"
+      v-bind:href="url"
+      v-bind:itemid="id">
+      <h1 class="search-suggestion__name">{{ name }}</h1>
+      <div class="search-suggestion__domain">{{ hostname }}</div>
+    </a>
+  </article>
 </template>
 
 <style lang="less" src="./styles.less"></style>

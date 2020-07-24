@@ -26,22 +26,35 @@
  * SOFTWARE.
  */
 
+@import "../App/styles/components/dropdown";
+@import "../App/styles/components/form";
+
+/**
+ * Search.
+ */
 .search {
-    margin: auto;
-    padding: 2em 0;
+  margin: auto;
+  padding: 2em 0;
+  position: relative;
 
-    [type=search] {
-        box-sizing: initial;
-        width: 40ch;
+  .search__input {
+    .form > .text-input();
+    box-sizing: initial;
+    width: 40ch;
 
-        &:focus {
-            margin-top: -0.5em;
-            padding: 1em 2em;
-        }
+    &--active,
+    &:focus {
+      margin-top: -0.5em;
+      padding: 1em 2em;
     }
+  }
 
-    label,
-    button {
-        display: none;
-    }
+  label,
+  button {
+    display: none;
+  }
+
+  &__suggestions {
+    .dropdown > .menu();
+  }
 }
