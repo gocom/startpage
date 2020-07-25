@@ -126,8 +126,8 @@ export default {
     reload() {
       const sites = [];
 
-      SiteCollection.iterate((value) => {
-        sites.push(value);
+      SiteCollection.iterate((model) => {
+        sites.push(model);
       }).then(() => {
         this.sites = sites;
       });

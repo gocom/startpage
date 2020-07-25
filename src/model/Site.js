@@ -51,13 +51,13 @@ class Site extends AbstractModel {
    * @return {string}
    */
   get hostname() {
-    try {
-      const { hostname } = new URL(this.data.url);
+    if (this.url) {
+      const { hostname } = new URL(this.url);
 
       return hostname;
-    } catch (e) {
-      return '';
     }
+
+    return '';
   }
 }
 
