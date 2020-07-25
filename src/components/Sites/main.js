@@ -36,7 +36,7 @@ export default {
   data() {
     return {
       sites: [],
-      limit: 8,
+      limit: 12,
       page: 1,
       isPositionVisible: false,
       positions: [

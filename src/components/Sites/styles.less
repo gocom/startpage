@@ -26,15 +26,47 @@
  * SOFTWARE.
  */
 
+@import "../App/styles/mixins/helpers";
+
 .site-grid {
   display: grid;
-  grid-template-columns: 192px 192px 192px 192px;
-  grid-template-rows: 1fr 1fr;
+  grid-template-columns: repeat(4, 192px);
+  grid-template-rows: repeat(3, 1fr);
   grid-column-gap: 3em;
   grid-row-gap: 2em;
   justify-content: center;
-  list-style: none;
-  max-width: 960px;
-  margin: auto;
+  padding: 0 2em;
   user-select: none;
+}
+
+@media only screen and (max-width: 1024px) {
+  .site-grid {
+    grid-template-columns: repeat(3, 192px);
+    grid-template-rows: repeat(4, 1fr);
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .site-grid {
+    margin: 0;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .site-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    grid-column-gap: 1em;
+    grid-row-gap: 1.5em;
+  }
+}
+
+@media only screen and (max-width: 319px) {
+  .site-grid {
+    grid-template-columns: repeat(1, 1fr);
+    grid-column-gap: 2em;
+    grid-row-gap: 1em;
+  }
 }

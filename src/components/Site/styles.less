@@ -26,6 +26,8 @@
  * SOFTWARE.
  */
 
+@import "../App/styles/mixins/helpers";
+
 .site {
   position: relative;
 
@@ -56,13 +58,13 @@
     display: block;
     filter: grayscale(30%);
     grid-area: thumbnail;
+    min-height: .rem(96px)[];
+    min-width: .rem(96px)[];
     opacity: 0.85;
     pointer-events: none;
-    height: 0;
     padding-top: 56.25%;
     position: relative;
     width: 100%;
-    min-width: 192px;
     transition: all 0.25s;
 
     .site__link:hover &,
@@ -103,28 +105,11 @@
     font: inherit;
     overflow: hidden;
     text-overflow: ellipsis;
-    transition: 0.25s opacity;
     white-space: nowrap;
-
-    &--title {
-      font-weight: bold;
-    }
 
     &--domain {
       font-size: 0.65em;
-      opacity: 0;
-      padding: 0.25em 0 0 0;
-    }
-
-    .site__link:hover &,
-    .js-focus-visible .site__link.focus-visible {
-      &--title {
-        opacity: 0;
-      }
-
-      &--domain {
-        opacity: 1;
-      }
+      padding: 2em 0 0 0;
     }
   }
 
@@ -148,7 +133,7 @@
   &__actions {
     color: rgba(0, 0, 0, 0.45);
     font-size: 0.75em;
-    margin: -1.5rem 0 0 0;
+    margin: -2rem -0.5rem 0 0;
     position: absolute;
     right: 0;
     text-shadow: 0 0 1px rgba(255, 255, 255, 0.15);
@@ -158,25 +143,17 @@
     background: transparent;
     border: 0;
     color: inherit;
-    opacity: 0;
     outline: 0;
+    padding: 0.5rem;
     transition: 0.25s all;
 
     &--active {
       color: #55d0e0;
-      opacity: 1;
     }
 
     &:hover {
       color: #facf5a;
-      opacity: 1;
     }
-  }
-
-  &:hover &__action,
-  &:focus &__action,
-  &:focus-within &__action {
-    opacity: 1;
   }
 
   .js-focus-visible &__action:focus:not(.focus-visible) {
@@ -187,5 +164,47 @@
     color: #55d0e0;
     text-shadow: 0 0 1px #000, 0 0.1em 0.25em #55d0e0;
     outline: none;
+  }
+}
+
+@media (hover: hover) {
+  .site {
+    &__info {
+      transition: 0.25s opacity;
+
+      &--domain {
+        opacity: 0;
+        padding: 0.25em 0 0 0;
+      }
+
+      .site__link:hover &,
+      .js-focus-visible .site__link.focus-visible {
+        &--title {
+          opacity: 0;
+        }
+
+        &--domain {
+          opacity: 1;
+        }
+      }
+    }
+
+    &__action {
+      opacity: 0;
+
+      &--active {
+        opacity: 1;
+      }
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    &:hover &__action,
+    &:focus &__action,
+    &:focus-within &__action {
+      opacity: 1;
+    }
   }
 }

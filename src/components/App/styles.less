@@ -62,12 +62,18 @@ body {
   height: 100%;
 }
 
+body {
+  display: flex;
+  flex: 1 1 auto;
+}
+
 main {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 0.5fr 1fr 0.5fr;
+  grid-template-rows: max-content 1fr min-content;
   grid-template-areas: "header" "content" "footer";
-  min-height: 100%;
+  margin: 0 auto;
+  min-width: 100%;
 }
 
 body:not(.ready) > main {
@@ -90,4 +96,11 @@ button {
   cursor: pointer;
   display: inline-block;
   font: inherit;
+}
+
+@media only screen and (min-width: 769px) {
+  main {
+    margin: auto;
+    min-width: 320px;
+  }
 }

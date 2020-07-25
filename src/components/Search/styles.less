@@ -26,27 +26,36 @@
  * SOFTWARE.
  */
 
+@import "../App/styles/mixins/helpers";
 @import "../App/styles/components/dropdown";
 @import "../App/styles/components/form";
+@import "../App/styles/config";
 
 /**
  * Search.
  */
 .search {
-  margin: auto;
-  padding: 2em 0;
-  position: relative;
+  padding: 0 2em 0.5em 2em;
 
-  .search__input {
-    .form > .text-input();
+  &__form {
+    margin: auto;
+    position: relative;
+    width: 100%;
+  }
 
-    box-sizing: initial;
-    width: 40ch;
+  &__input {
+    background: @config[@input][@background];
+    border: 0;
+    border-bottom: 1px solid @config[@input][@border-color];
+    color: inherit;
+    font: inherit;
+    margin: 0 -2em 1.5em -2em;
+    padding: 2em;
+    width: calc(100% + 4em);
 
     &--active,
     &:focus {
-      margin-top: -0.5em;
-      padding: 1em 2em;
+      background: @config[@input][@hover][@background];
     }
   }
 
@@ -57,5 +66,41 @@
 
   &__suggestions {
     .dropdown > .menu();
+  }
+}
+
+@media only screen and (min-width: 769px) {
+  .search {
+    padding: 2em;
+
+    &__form {
+      max-width: 40ch;
+    }
+
+    &__input {
+      .form > .text-input();
+
+      margin: 0;
+      width: 100%;
+
+      &--active,
+      &:focus {
+        margin: -0.5em 0 -0.5em -2em;
+        padding: 1em 2em;
+        width: calc(100% + 4em);
+      }
+    }
+
+    &__input--active ~ &__suggestions,
+    &__input:focus ~ &__suggestions {
+      margin-left: -2em;
+      width: calc(100% + 4em);
+    }
+  }
+}
+
+@media only screen and (min-width: 1025px) {
+  .search {
+    padding-bottom: 5rem;
   }
 }
