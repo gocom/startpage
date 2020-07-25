@@ -22,6 +22,16 @@ module.exports = {
       js: 'never',
       vue: 'never'
     }],
+    'class-methods-use-this': ['error', {
+      exceptMethods: [
+        'table',
+        'model',
+        'init',
+        'defaults',
+        'indexKeys',
+      ],
+    }],
+    'no-underscore-dangle': 'off',
   },
   settings: {
     'import/resolver': {

@@ -26,39 +26,27 @@
  * SOFTWARE.
  */
 
-import AbstractModel from './AbstractModel';
+import AbstractCollection from './AbstractCollection';
+import Site from './Site';
 
 /**
- * Site.
+ * Site collection.
  */
-class Site extends AbstractModel {
-  get defaults() {
-    return {
-      url: '',
-      name: '',
-      fa: '',
-      backgroundColor: '',
-      textColor: '',
-      thumbnail: '',
-      icon: '',
-      position: 0,
-    };
+class SiteCollection extends AbstractCollection {
+  get model() {
+    return Site;
   }
 
-  /**
-   * Hostname.
-   *
-   * @return {string}
-   */
-  get hostname() {
-    try {
-      const { hostname } = new URL(this.data.url);
+  get table() {
+    return 'sites';
+  }
 
-      return hostname;
-    } catch (e) {
-      return '';
-    }
+  get indexKeys() {
+    return [
+      'name',
+      'url',
+    ];
   }
 }
 
-export default Site;
+export default new SiteCollection();

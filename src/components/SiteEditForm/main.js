@@ -26,39 +26,22 @@
  * SOFTWARE.
  */
 
-import AbstractModel from './AbstractModel';
+import Storage from '../../lib/Storage';
 
-/**
- * Site.
- */
-class Site extends AbstractModel {
-  get defaults() {
+export default {
+  data() {
     return {
-      url: '',
-      name: '',
-      fa: '',
-      backgroundColor: '',
-      textColor: '',
-      thumbnail: '',
-      icon: '',
-      position: 0,
+      name: null,
+      url: null,
     };
-  }
+  },
 
-  /**
-   * Hostname.
-   *
-   * @return {string}
-   */
-  get hostname() {
-    try {
-      const { hostname } = new URL(this.data.url);
-
-      return hostname;
-    } catch (e) {
-      return '';
-    }
-  }
-}
-
-export default Site;
+  methods: {
+    save() {
+      Storage.get('sites').setItem({
+        name: this.name,
+        url: this.url,
+      });
+    },
+  },
+};

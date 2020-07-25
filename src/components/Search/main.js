@@ -28,10 +28,10 @@
 
 import SiteSearch from '../../model/SiteSearch';
 import Shortcut from '../../lib/Shortcut';
-import SearchIndex from '../../lib/SearchIndex';
 import config from '../../config';
 import SearchSuggestion from '../SearchSuggestion';
 import UniqueId from '../../mixins/UniqueId';
+import SiteCollection from '../../model/SiteCollection';
 
 export default {
   data() {
@@ -180,13 +180,9 @@ export default {
     },
 
     search() {
-      const keys = [
-        'name',
-      ];
-
-      SearchIndex.create('sites', { keys })
-        .then((fuse) => {
-          this.results = fuse.search(this.query).map((result) => result.item);
+      SiteCollection.search(this.query)
+        .then((results) => {
+          this.results = results;
         });
     },
   },

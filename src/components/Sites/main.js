@@ -27,10 +27,10 @@
  */
 
 import Shortcut from '../../lib/Shortcut';
-import Storage from '../../lib/Storage';
 import config from '../../config';
 import Pagination from '../Pagination';
 import Site from '../Site';
+import SiteCollection from '../../model/SiteCollection';
 
 export default {
   data() {
@@ -119,15 +119,14 @@ export default {
     },
 
     /**
-     * Reloads items from storage table.
+     * Reloads items from collection.
      *
      * @return {void}
      */
     reload() {
-      const table = Storage.get('sites');
       const sites = [];
 
-      table.iterate((value) => {
+      SiteCollection.iterate((value) => {
         sites.push(value);
       }).then(() => {
         this.sites = sites;
@@ -163,7 +162,7 @@ export default {
   mounted() {
     this.reload();
 
-    Storage.insert('sites', config.sites)
+    SiteCollection.import(config.sites)
       .then(() => {
         this.reload();
       });

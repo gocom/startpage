@@ -26,39 +26,44 @@
  * SOFTWARE.
  */
 
-import AbstractModel from './AbstractModel';
+import defaultsDeep from 'lodash/defaultsDeep';
 
 /**
- * Site.
+ * Abstract data model.
+ *
+ * @abstract
  */
-class Site extends AbstractModel {
-  get defaults() {
-    return {
-      url: '',
-      name: '',
-      fa: '',
-      backgroundColor: '',
-      textColor: '',
-      thumbnail: '',
-      icon: '',
-      position: 0,
-    };
+class AbstractModel {
+  /**
+   * Identifier.
+   *
+   * @return {String}
+   */
+  id = '';
+
+  /**
+   * Constructor.
+   *
+   * @param {Object} data
+   */
+  constructor(data = {}) {
+    defaultsDeep(this, data, this.defaults);
+
+    this.id = data.id || '';
   }
 
   /**
-   * Hostname.
+   * Defaults.
    *
-   * @return {string}
+   * @return {Object}
+   *
+   * @abstract
+   *
+   * @protected
    */
-  get hostname() {
-    try {
-      const { hostname } = new URL(this.data.url);
-
-      return hostname;
-    } catch (e) {
-      return '';
-    }
+  get defaults() {
+    return {};
   }
 }
 
-export default Site;
+export default AbstractModel;

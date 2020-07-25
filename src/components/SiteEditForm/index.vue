@@ -1,10 +1,10 @@
-/**
+<!--
  * Start Page - New tab speed dial.
  *
  * {@link https://github.com/gocom/startpage GitHub}
- */
+-->
 
-/*
+<!--
  * Copyright (C) 2020 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -24,41 +24,25 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- */
+-->
 
-import AbstractModel from './AbstractModel';
+<template>
+  <form class="site-edit-form">
+    <div class="site-edit-form__control">
+      <label v-bind:for="uid">URL</label>
+      <input v-bind="uid" type="url" name="url"/>
+    </div>
 
-/**
- * Site.
- */
-class Site extends AbstractModel {
-  get defaults() {
-    return {
-      url: '',
-      name: '',
-      fa: '',
-      backgroundColor: '',
-      textColor: '',
-      thumbnail: '',
-      icon: '',
-      position: 0,
-    };
-  }
+    <div class="site-edit-form__control">
+      <label v-bind:for="uid">Name</label>
+      <input v-bind="uid" type="text" name="name"/>
+    </div>
 
-  /**
-   * Hostname.
-   *
-   * @return {string}
-   */
-  get hostname() {
-    try {
-      const { hostname } = new URL(this.data.url);
+    <div class="site-edit-form__control">
+      <button type="submit">Save</button>
+    </div>
+  </form>
+</template>
 
-      return hostname;
-    } catch (e) {
-      return '';
-    }
-  }
-}
-
-export default Site;
+<style lang="less" src="./styles.less"></style>
+<script src="./main.js"></script>
