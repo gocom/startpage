@@ -26,22 +26,54 @@
  * SOFTWARE.
  */
 
-import Storage from '../../lib/Storage';
+import SiteCollection from '../../model/SiteCollection';
+import Site from '../../model/Site';
+import UniqueId from '../../mixins/UniqueId';
+import ColorPicker from '../Form/ColorPicker';
+import IconPicker from '../Form/IconPicker';
+import FilePicker from '../Form/FilePicker';
 
 export default {
   data() {
     return {
       name: null,
       url: null,
+      fa: null,
+      backgroundColor: null,
+      textColor: null,
+      thumbnail: null,
+      icon: null,
+      position: null,
     };
   },
 
+  components: {
+    ColorPicker,
+    IconPicker,
+    FilePicker,
+  },
+
+  mixins: [
+    UniqueId,
+  ],
+
   methods: {
     save() {
-      Storage.get('sites').setItem({
-        name: this.name,
+      const model = new Site({
         url: this.url,
+        name: this.name,
+        fa: this.fa,
+        backgroundColor: this.backgroundColor,
+        textColor: this.textColor,
+        thumbnail: this.thumbnail,
+        icon: this.icon,
+        position: this.position,
       });
+
+      SiteCollection.save(model)
+        .then(() => {
+          this.$parent.$emit('reload');
+        });
     },
   },
 };

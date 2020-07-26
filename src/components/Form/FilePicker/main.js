@@ -26,18 +26,50 @@
  * SOFTWARE.
  */
 
-/**
- * Unique identifier mixin.
- */
-
-let counter = 0;
-
 export default {
-  beforeCreate() {
-    this.uid = `uid__${counter}`;
+  props: {
+    id: {
+      type: String,
+      default: 'file',
+    },
+    name: {
+      type: String,
+      default: 'file',
+    },
+  },
 
-    this.getUid = (suffix) => `${this.uid}--${suffix}`;
+  data() {
+    return {
+      file: null,
+    };
+  },
 
-    counter += 1;
+  computed: {
+    hasPreview() {
+      return Boolean(this.file);
+    },
+
+    preview() {
+      return this.file;
+    },
+  },
+
+  methods: {
+    upload() {
+      const { files } = this.$refs.upload;
+      const file = files[0] || null;
+
+      if (file) {
+        const fr = new FileReader();
+
+        fr.readAsDataURL(file);
+
+        fr.onload = () => {
+          this.file = fr.result;
+
+          this.$parent.$emit(`uploaded-file-${this.name}`, this.file);
+        };
+      }
+    },
   },
 };

@@ -39,6 +39,8 @@
     </div>
 
     <Pagination v-bind:total="totalCount" v-bind:limit="limit"/>
+
+    <SiteEditForm/>
   </section>
 </template>
 

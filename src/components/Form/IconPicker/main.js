@@ -26,18 +26,35 @@
  * SOFTWARE.
  */
 
-/**
- * Unique identifier mixin.
- */
-
-let counter = 0;
+import fa from './fa';
 
 export default {
+  props: {
+    icon: {
+      type: String,
+      default: '',
+    },
+  },
+
+  data() {
+    return {
+      selected: null,
+    };
+  },
+
   beforeCreate() {
-    this.uid = `uid__${counter}`;
+    this.fa = fa;
+  },
 
-    this.getUid = (suffix) => `${this.uid}--${suffix}`;
+  methods: {
+    select(icon) {
+      this.selected = icon;
 
-    counter += 1;
+      this.$parent.$emit('selected-icon', icon);
+    },
+
+    isSelected(icon) {
+      return this.selected && this.selected.icon === icon.icon;
+    },
   },
 };

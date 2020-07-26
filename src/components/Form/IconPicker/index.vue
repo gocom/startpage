@@ -1,10 +1,10 @@
-/**
+<!--
  * Start Page - New tab speed dial.
  *
  * {@link https://github.com/gocom/startpage GitHub}
- */
+-->
 
-/*
+<!--
  * Copyright (C) 2020 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -24,20 +24,20 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- */
+-->
 
-/**
- * Unique identifier mixin.
- */
+<template>
+  <div class="form-icon-picker">
+    <span
+      class="form-icon-picker__icon"
+      v-for="(icon, index) in fa"
+      v-bind:key="index"
+      @click="select(icon)"
+      v-bind:class="{ 'form-icon-picker__icon--active': isSelected(icon) }">
+      <i v-bind:class="'fas fa-' + icon.icon"></i>
+    </span>
+  </div>
+</template>
 
-let counter = 0;
-
-export default {
-  beforeCreate() {
-    this.uid = `uid__${counter}`;
-
-    this.getUid = (suffix) => `${this.uid}--${suffix}`;
-
-    counter += 1;
-  },
-};
+<style lang="less" src="./styles.less"></style>
+<script src="./main.js"></script>

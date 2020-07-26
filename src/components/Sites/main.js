@@ -29,6 +29,7 @@
 import Shortcut from '../../lib/Shortcut';
 import config from '../../config';
 import Pagination from '../Pagination';
+import SiteEditForm from '../SiteEditForm';
 import Site from '../Site';
 import SiteCollection from '../../model/SiteCollection';
 
@@ -56,6 +57,7 @@ export default {
   components: {
     Pagination,
     Site,
+    SiteEditForm,
   },
 
   methods: {
@@ -175,6 +177,10 @@ export default {
 
     this.$on('change-page', (page) => {
       this.page = page;
+    });
+
+    this.$on('reload', () => {
+      this.reload();
     });
   },
 

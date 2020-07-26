@@ -26,18 +26,47 @@
  * SOFTWARE.
  */
 
-/**
- * Unique identifier mixin.
- */
-
-let counter = 0;
-
 export default {
-  beforeCreate() {
-    this.uid = `uid__${counter}`;
+  data() {
+    return {
+      value: null,
+    };
+  },
 
-    this.getUid = (suffix) => `${this.uid}--${suffix}`;
+  props: {
+    name: {
+      type: String,
+      default: 'color',
+    },
+    id: {
+      type: String,
+      default: 'color',
+    },
+    color: {
+      type: String,
+      default: '#efefef',
+    },
+  },
 
-    counter += 1;
+  computed: {
+    isAccepted() {
+      return this.value && /^#[a-z0-9]{3,6}$/i.test(this.value);
+    },
+
+    cssColor() {
+      return this.isAccepted
+        ? this.value
+        : '';
+    },
+  },
+
+  methods: {
+    change() {
+      this.$parent.$emit(`picked-color-${this.name}`, this.value);
+    },
+  },
+
+  mounted() {
+    this.value = this.color;
   },
 };

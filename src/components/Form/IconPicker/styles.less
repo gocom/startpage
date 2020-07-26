@@ -26,18 +26,35 @@
  * SOFTWARE.
  */
 
-/**
- * Unique identifier mixin.
- */
+@import "../../App/styles/mixins/helpers";
+@import "../../App/styles/config";
 
-let counter = 0;
+.form-icon-picker {
+  border-bottom: 1px solid #eee;
+  border-top: 1px solid #eee;
+  display: grid;
+  grid-template-columns: repeat(5, 3.5rem);
+  grid-gap: 1px;
+  margin: 0 -2rem;
+  max-height: calc(3.5rem * 5 + 5px);
+  padding: 1rem;
+  overflow: auto;
 
-export default {
-  beforeCreate() {
-    this.uid = `uid__${counter}`;
+  &__icon {
+    align-items: center;
+    border-radius: .rem(3px)[];
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 2rem;
+    justify-content: center;
+    min-height: 3.5rem;
+    min-width: 3.5rem;
+    padding: .rem(3px)[];
 
-    this.getUid = (suffix) => `${this.uid}--${suffix}`;
-
-    counter += 1;
-  },
-};
+    &--active,
+    &:hover {
+      background: @config[@body][@color];
+      color: #fff;
+    }
+  }
+}

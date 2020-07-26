@@ -36,7 +36,7 @@
   .text-input() {
     background: @config[@input][@background];
     border: 1px solid @config[@input][@border-color];
-    border-radius: 0.25em;
+    border-radius: .rem(3px)[];
     color: inherit;
     display: inline-block;
     font: inherit;
@@ -52,4 +52,16 @@
       box-shadow: 0 1px 0.25em 0 rgba(0, 0, 0, 0.15);
     }
   }
+}
+
+button[type=submit] {
+  background: @config[@input][@border-color];
+  border-radius: .rem(3px)[];
+  padding: 1em;
+}
+
+input[type=date],
+input[type=url],
+input[type=text] {
+  .form > .text-input();
 }

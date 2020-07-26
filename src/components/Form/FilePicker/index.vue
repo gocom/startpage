@@ -1,10 +1,10 @@
-/**
+<!--
  * Start Page - New tab speed dial.
  *
  * {@link https://github.com/gocom/startpage GitHub}
- */
+-->
 
-/*
+<!--
  * Copyright (C) 2020 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -24,20 +24,25 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- */
+-->
 
-/**
- * Unique identifier mixin.
- */
+<template>
+  <div class="form-file-picker">
+    <div class="form-file-picker__preview" v-if="hasPreview">
+      <img class="form-file-picker__image" v-bind:src="preview"/>
+    </div>
+    <div class="form-file-picker__input">
+      <input
+        class="form-file-picker__upload-input"
+        v-bind:id="id"
+        type="file"
+        v-bind:name="name"
+        @change="upload"
+        ref="upload"
+      />
+    </div>
+  </div>
+</template>
 
-let counter = 0;
-
-export default {
-  beforeCreate() {
-    this.uid = `uid__${counter}`;
-
-    this.getUid = (suffix) => `${this.uid}--${suffix}`;
-
-    counter += 1;
-  },
-};
+<style lang="less" src="./styles.less"></style>
+<script src="./main.js"></script>

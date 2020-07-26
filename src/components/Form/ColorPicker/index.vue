@@ -1,10 +1,10 @@
-/**
+<!--
  * Start Page - New tab speed dial.
  *
  * {@link https://github.com/gocom/startpage GitHub}
- */
+-->
 
-/*
+<!--
  * Copyright (C) 2020 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -24,20 +24,31 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- */
+-->
 
-/**
- * Unique identifier mixin.
- */
+<template>
+  <div class="form-color-picker">
+    <div class="form-color-picker__input">
+      <input
+        class="form-color-picker__color-input"
+        v-bind:id="id"
+        v-bind:name="name"
+        type="color"
+        v-model="value"
+        v-bind:placeholder="color"
+        @change="change"
+      />
+      <label v-bind:for="id">
+        <span class="form-color-picker__color">
+          <span
+            class="form-color-picker__preview"
+            v-bind:style="{backgroundColor: cssColor}"></span>
+          <span class="form-color-picker__code">{{cssColor}}</span>
+        </span>
+      </label>
+    </div>
+  </div>
+</template>
 
-let counter = 0;
-
-export default {
-  beforeCreate() {
-    this.uid = `uid__${counter}`;
-
-    this.getUid = (suffix) => `${this.uid}--${suffix}`;
-
-    counter += 1;
-  },
-};
+<style lang="less" src="./styles.less"></style>
+<script src="./main.js"></script>

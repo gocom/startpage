@@ -26,18 +26,17 @@
  * SOFTWARE.
  */
 
-/**
- * Unique identifier mixin.
- */
+.form-file-picker {
+  background: #efefef;
 
-let counter = 0;
+  &__preview {
+    width: 5rem;
+  }
 
-export default {
-  beforeCreate() {
-    this.uid = `uid__${counter}`;
-
-    this.getUid = (suffix) => `${this.uid}--${suffix}`;
-
-    counter += 1;
-  },
-};
+  &__image {
+    display: block;
+    height: auto;
+    max-width: 100%;
+    width: auto;
+  }
+}
