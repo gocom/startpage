@@ -27,82 +27,95 @@
 -->
 
 <template>
-  <form class="site-edit-form" @submit="save">
-    <div class="site-edit-form__control">
-      <div class="site-edit-form__label">
-        <label v-bind:for="getUid('url')">URL</label>
-      </div>
-      <div class="site-edit-form__input">
-        <input
-          v-bind:id="getUid('url')"
-          type="url"
-          name="url"
-          v-model="url"/>
-      </div>
-    </div>
+  <div class="site-edit-form">
+    <button
+        @click="toggle"
+        title="Add new site"
+        v-bind:class="{
+          'site-edit-form__open-button': true,
+          'site-edit-form__open-button--active': isOpen,
+        }">
+      <i class="fas fa-plus-circle"></i>
+    </button>
 
-    <div class="site-edit-form__control">
-      <div class="site-edit-form__label">
-        <label v-bind:for="getUid('name')">Name</label>
-      </div>
-      <div class="site-edit-form__input">
-        <input
-          v-bind:id="getUid('name')"
-          type="text"
-          name="name"
-          v-model="name"/>
-      </div>
-    </div>
-
-    <div class="site-edit-form__control">
-      <div class="site-edit-form__label">
-        <label v-bind:for="getUid('backgroundColor')">Background Color</label>
+    <form class="site-edit-form__modal" @submit="save" v-if="isOpen">
+      <div class="site-edit-form__control">
+        <div class="site-edit-form__label">
+          <label v-bind:for="getUid('url')">URL</label>
+        </div>
         <div class="site-edit-form__input">
-          <ColorPicker v-bind:name="backgroundColor" v-bind:id="getUid('backgroundColor')"/>
+          <input
+            v-bind:id="getUid('url')"
+            type="url"
+            name="url"
+            v-model="url"/>
         </div>
       </div>
-    </div>
 
-    <div class="site-edit-form__control">
-      <div class="site-edit-form__label">
-        <label v-bind:for="getUid('textColor')">Text Color</label>
+      <div class="site-edit-form__control">
+        <div class="site-edit-form__label">
+          <label v-bind:for="getUid('name')">Name</label>
+        </div>
         <div class="site-edit-form__input">
-          <ColorPicker v-bind:name="backgroundColor" v-bind:id="getUid('textColor')"/>
+          <input
+            v-bind:id="getUid('name')"
+            type="text"
+            name="name"
+            v-model="name"/>
         </div>
       </div>
-    </div>
 
-    <div class="site-edit-form__control">
-      <div class="site-edit-form__label">
-        <label v-bind:for="getUid('thumbnail')">Thumbnail</label>
+      <div class="site-edit-form__control">
+        <div class="site-edit-form__label">
+          <label v-bind:for="getUid('backgroundColor')">Background Color</label>
+          <div class="site-edit-form__input">
+            <ColorPicker v-bind:name="backgroundColor" v-bind:id="getUid('backgroundColor')"/>
+          </div>
+        </div>
       </div>
-      <div class="site-edit-form__input">
-        <FilePicker v-bind:name="thumbnail" v-bind:id="getUid('thumbnail')"/>
-      </div>
-    </div>
 
-    <div class="site-edit-form__control">
-      <div class="site-edit-form__label">
-        <label v-bind:for="getUid('icon')">Icon</label>
+      <div class="site-edit-form__control">
+        <div class="site-edit-form__label">
+          <label v-bind:for="getUid('textColor')">Text Color</label>
+          <div class="site-edit-form__input">
+            <ColorPicker v-bind:name="backgroundColor" v-bind:id="getUid('textColor')"/>
+          </div>
+        </div>
       </div>
-      <div class="site-edit-form__input">
-        <FilePicker v-bind:name="thumbnail" v-bind:id="getUid('icon')"/>
-      </div>
-    </div>
 
-    <div class="site-edit-form__control">
-      <div class="site-edit-form__label">
-        <label v-bind:for="getUid('fa')">Icon</label>
+      <div class="site-edit-form__control">
+        <div class="site-edit-form__label">
+          <label v-bind:for="getUid('thumbnail')">Thumbnail</label>
+        </div>
+        <div class="site-edit-form__input">
+          <FilePicker v-bind:name="thumbnail" v-bind:id="getUid('thumbnail')"/>
+        </div>
       </div>
-      <div class="site-edit-form__input">
-        <IconPicker/>
-      </div>
-    </div>
 
-    <div class="site-edit-form__control">
-      <button type="submit">Save</button>
-    </div>
-  </form>
+      <div class="site-edit-form__control">
+        <div class="site-edit-form__label">
+          <label v-bind:for="getUid('icon')">Icon</label>
+        </div>
+        <div class="site-edit-form__input">
+          <FilePicker v-bind:name="thumbnail" v-bind:id="getUid('icon')"/>
+        </div>
+      </div>
+
+      <div class="site-edit-form__control">
+        <div class="site-edit-form__label">
+          <label v-bind:for="getUid('fa')">Icon</label>
+        </div>
+        <div class="site-edit-form__input">
+          <IconPicker/>
+        </div>
+      </div>
+
+      <div class="site-edit-form__control">
+        <button type="submit">Save</button>
+        <button type="reset" @click="toggle">Close</button>
+      </div>
+    </form>
+  </div>
 </template>
 
 <style lang="less" src="./styles.less"></style>

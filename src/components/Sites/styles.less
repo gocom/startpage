@@ -28,6 +28,12 @@
 
 @import "../App/styles/mixins/helpers";
 
+.sites {
+  display: flex;
+  flex-direction: column;
+  padding: 0 2em;
+}
+
 .site-grid {
   display: grid;
   grid-template-columns: repeat(4, 192px);
@@ -35,7 +41,6 @@
   grid-column-gap: 3em;
   grid-row-gap: 2em;
   justify-content: center;
-  padding: 0 2em;
   user-select: none;
 }
 

@@ -44,6 +44,7 @@ export default {
       thumbnail: null,
       icon: null,
       position: null,
+      isOpen: false,
     };
   },
 
@@ -58,6 +59,10 @@ export default {
   ],
 
   methods: {
+    toggle() {
+      this.isOpen = !this.isOpen;
+    },
+
     save() {
       const model = new Site({
         url: this.url,
