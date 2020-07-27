@@ -32,7 +32,6 @@ module.exports = {
         'collection',
       ],
     }],
-    'no-underscore-dangle': 'off',
   },
   settings: {
     'import/resolver': {
