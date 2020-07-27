@@ -31,7 +31,7 @@ import config from '../../config';
 import Pagination from '../Pagination';
 import SiteEditForm from '../SiteEditForm';
 import Site from '../Site';
-import SiteCollection from '../../model/SiteCollection';
+import SiteCollection from '../../model/Site/SiteCollection';
 
 export default {
   data() {

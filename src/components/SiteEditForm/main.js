@@ -26,8 +26,8 @@
  * SOFTWARE.
  */
 
-import SiteCollection from '../../model/SiteCollection';
-import Site from '../../model/Site';
+import SiteCollection from '../../model/Site/SiteCollection';
+import Site from '../../model/Site/Site';
 import UniqueId from '../../mixins/UniqueId';
 import ColorPicker from '../Form/ColorPicker';
 import IconPicker from '../Form/IconPicker';

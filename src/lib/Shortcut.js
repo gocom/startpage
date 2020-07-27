@@ -78,7 +78,7 @@ class Shortcut {
    *
    * @return {this}
    *
-   * @api
+   * @public
    */
   on(shortcut, fn) {
     this.add('on', shortcut, fn);
@@ -94,7 +94,7 @@ class Shortcut {
    *
    * @return {this}
    *
-   * @api
+   * @public
    */
   once(shortcut, fn) {
     this.add('once', shortcut, fn);
@@ -157,7 +157,7 @@ class Shortcut {
    *
    * @return {this}
    *
-   * @api
+   * @public
    */
   remove(shortcut) {
     const match = this.getShortcutComponents(shortcut);

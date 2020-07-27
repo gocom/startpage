@@ -35,6 +35,24 @@ import defaultsDeep from 'lodash/defaultsDeep';
  */
 class AbstractModel {
   /**
+   * Identifier prefix.
+   *
+   * @type {String}
+   *
+   * @static
+   */
+  static idPrefix = '_id_';
+
+  /**
+   * Prefix added to imported item's identifiers.
+   *
+   * @type {String}
+   *
+   * @static
+   */
+  static importIdPrefix = '_im_';
+
+  /**
    * Identifier.
    *
    * @return {String}

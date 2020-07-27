@@ -31,7 +31,7 @@ import Shortcut from '../../lib/Shortcut';
 import config from '../../config';
 import SearchSuggestion from '../SearchSuggestion';
 import UniqueId from '../../mixins/UniqueId';
-import SiteCollection from '../../model/SiteCollection';
+import SiteIndex from '../../model/Site/SiteIndex';
 
 export default {
   data() {
@@ -180,7 +180,7 @@ export default {
     },
 
     search() {
-      SiteCollection.search(this.query)
+      SiteIndex.search(this.query)
         .then((results) => {
           this.results = results;
         });

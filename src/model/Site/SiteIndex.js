@@ -26,22 +26,18 @@
  * SOFTWARE.
  */
 
-import AbstractCollection from './AbstractCollection';
-import Site from './Site';
+import AbstractIndex from '../AbstractIndex';
+import SiteCollection from './SiteCollection';
 
 /**
- * Site collection.
+ * Site index.
  */
-class SiteCollection extends AbstractCollection {
-  get model() {
-    return Site;
+class SiteIndex extends AbstractIndex {
+  get collection() {
+    return SiteCollection;
   }
 
-  get table() {
-    return 'sites';
-  }
-
-  get indexKeys() {
+  get keys() {
     return [
       'name',
       'url',
@@ -49,4 +45,4 @@ class SiteCollection extends AbstractCollection {
   }
 }
 
-export default new SiteCollection();
+export default new SiteIndex();

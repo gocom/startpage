@@ -26,7 +26,7 @@
  * SOFTWARE.
  */
 
-import AbstractModel from './AbstractModel';
+import AbstractModel from '../AbstractModel';
 
 /**
  * Site.

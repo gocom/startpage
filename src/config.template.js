@@ -1,4 +1,4 @@
-import Site from './model/Site';
+import Site from './model/Site/Site';
 import SearchProvider from './model/SearchProvider';
 
 const config = {

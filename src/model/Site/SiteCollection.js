@@ -26,81 +26,20 @@
  * SOFTWARE.
  */
 
-import LocalForage from 'localforage';
-import SyncDriver from 'localforage-webextensionstorage-driver/sync';
+import AbstractCollection from '../AbstractCollection';
+import Site from './Site';
 
 /**
- * Storage.
+ * Site collection.
  */
-class Storage {
-  /**
-   * Database name.
-   *
-   * @type {string}
-   */
-  db = 'start_page';
-
-  /**
-   * Table instances.
-   *
-   * Keys match the name of the table.
-   *
-   * @type {Object}
-   */
-  tables = {};
-
-  /**
-   * An array of drivers.
-   *
-   * @type {Array}
-   */
-  drivers = [];
-
-  /**
-   * Constructor.
-   */
-  constructor() {
-    this.drivers = [
-      SyncDriver,
-      LocalForage.LOCALSTORAGE,
-      LocalForage.WEBSQL,
-      LocalForage.INDEXEDDB,
-    ];
+class SiteCollection extends AbstractCollection {
+  get model() {
+    return Site;
   }
 
-  /**
-   * Creates a table.
-   *
-   * @param {String} table
-   *
-   * @returns {LocalForage}
-   *
-   * @private
-   */
-  create(table) {
-    const store = LocalForage.createInstance({
-      name: this.db,
-      storeName: table,
-      driver: this.drivers,
-    });
-
-    this.tables[table] = store;
-
-    return store;
-  }
-
-  /**
-   * Gets a table by name.
-   *
-   * @param {String} table
-   *
-   * @returns {LocalForage}
-   *
-   * @public
-   */
-  get(table) {
-    return this.tables[table] || this.create(table);
+  get table() {
+    return 'sites';
   }
 }
 
-export default new Storage();
+export default new SiteCollection();

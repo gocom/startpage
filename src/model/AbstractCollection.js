@@ -27,7 +27,6 @@
  */
 
 import Storage from '../lib/Storage';
-import SearchIndex from '../lib/SearchIndex';
 
 /**
  * Abstract collection.
@@ -36,23 +35,9 @@ import SearchIndex from '../lib/SearchIndex';
  */
 class AbstractCollection {
   /**
-   * Identifier prefix.
-   *
-   * @type {String}
-   */
-  idPrefix = '_id_';
-
-  /**
-   * Prefix added to imported item's identifiers.
-   *
-   * @type {String}
-   */
-  importIdPrefix = '_im_';
-
-  /**
    * Model.
    *
-   * @return {AbstractModel}
+   * @return {class<AbstractModel>}
    *
    * @abstract
    */
@@ -72,17 +57,6 @@ class AbstractCollection {
   }
 
   /**
-   * Search index keys.
-   *
-   * @return {String[]}
-   *
-   * @abstract
-   */
-  get indexKeys() {
-    throw new Error('AbstractCollection.indexKeys needs to be implemented.');
-  }
-
-  /**
    * Gets an item.
    *
    * @param {string} id
@@ -90,9 +64,9 @@ class AbstractCollection {
    * @return {Promise<AbstractModel>}
    */
   async getItem(id) {
-    const data = await this._db.getItem(id);
+    const data = await this.db.getItem(id);
 
-    return this._getInstance(data);
+    return this.getInstance(data);
   }
 
   /**
@@ -120,8 +94,8 @@ class AbstractCollection {
   async iterate(fn) {
     let current = null;
 
-    await this._db.iterate((data) => {
-      const model = this._getInstance(data);
+    await this.db.iterate((data) => {
+      const model = this.getInstance(data);
 
       current = model;
 
@@ -142,12 +116,12 @@ class AbstractCollection {
     const entity = model;
 
     if (!entity.id) {
-      await this._getNextId().then((nextId) => {
+      await this.getNextId().then((nextId) => {
         entity.id = nextId;
       });
     }
 
-    await this._db.setItem(entity.id, entity);
+    await this.db.setItem(entity.id, entity);
 
     return entity;
   }
@@ -185,7 +159,7 @@ class AbstractCollection {
       if (!entity.id) {
         const positional = String(index + 1);
 
-        entity.id = `${this.importIdPrefix}${positional}`;
+        entity.id = `${this.model.importIdPrefix}${positional}`;
       }
 
       ids.push(entity.id);
@@ -198,7 +172,7 @@ class AbstractCollection {
     });
 
     await this.iterate((model) => {
-      if (String(model.id || '').startsWith(this.importIdPrefix) && !ids.includes(model.id)) {
+      if (String(model.id || '').startsWith(this.model.importIdPrefix) && !ids.includes(model.id)) {
         this.delete(model);
       }
     });
@@ -229,24 +203,7 @@ class AbstractCollection {
    * @return {Promise<void>}
    */
   async deleteById(id) {
-    return this._db.removeItem(id);
-  }
-
-  /**
-   * Searches the collection using index.
-   *
-   * @param {string} query
-   *
-   * @return {Promise<AbstractModel[]>}
-   */
-  async search(query) {
-    const fuse = await this._getIndex();
-
-    return fuse.search(query).map((result) => {
-      const { item } = result;
-
-      return this._getInstance(item);
-    });
+    return this.db.removeItem(id);
   }
 
   /**
@@ -256,14 +213,14 @@ class AbstractCollection {
    *
    * @private
    */
-  async _getNextId() {
+  async getNextId() {
     let count = 1;
 
-    await this._db.length().then((numberOfKeys) => {
+    await this.db.length().then((numberOfKeys) => {
       count = numberOfKeys + 1;
     });
 
-    return `${this.idPrefix}${count}`;
+    return `${this.model.idPrefix}${count}`;
   }
 
   /**
@@ -273,19 +230,8 @@ class AbstractCollection {
    *
    * @private
    */
-  get _db() {
+  get db() {
     return Storage.get(this.table);
-  }
-
-  /**
-   * Gets index.
-   *
-   * @return {Promise<Fuse>}
-   */
-  async _getIndex() {
-    return SearchIndex.create(this.table, {
-      keys: this.indexKeys,
-    });
   }
 
   /**
@@ -295,9 +241,9 @@ class AbstractCollection {
    *
    * @return {AbstractModel}
    *
-   * @private
+   * @public
    */
-  _getInstance(data) {
+  getInstance(data) {
     const Model = this.model;
 
     return new Model(data || {});
