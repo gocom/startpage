@@ -26,47 +26,12 @@
  * SOFTWARE.
  */
 
-import SiteSearch from '../../model/Site/SiteSearch';
+import AbstractEventBus from '../AbstractEventBus';
 
-export default {
-  props: {
-    site: {
-      type: Object,
-      default: {},
-    },
-    isPositionVisible: {
-      type: Boolean,
-      default: false,
-    },
-    position: {
-      type: String,
-      default: '',
-    },
-  },
+/**
+ * Site search.
+ */
+class SiteSearch extends AbstractEventBus {
+}
 
-  computed: {
-    /**
-     * Whether site search is active for the given site.
-     *
-     * @return {boolean}
-     */
-    isSiteSearch() {
-      return this.site === SiteSearch.value;
-    },
-  },
-
-  methods: {
-    /**
-     * Sets site search.
-     *
-     * Actives site search for the given site.
-     *
-     * @return {void}
-     */
-    toggleSearch() {
-      SiteSearch.value = SiteSearch.value === this.site
-        ? null
-        : this.site;
-    },
-  },
-};
+export default new SiteSearch();

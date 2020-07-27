@@ -29,9 +29,11 @@
 import Vue from 'vue';
 
 /**
- * Site search.
+ * Abstract event bus.
+ *
+ * @abstract
  */
-class SiteSearch {
+class AbstractEventBus {
   /**
    * Constructor.
    */
@@ -39,40 +41,44 @@ class SiteSearch {
     this.dataModel = new Vue({
       data() {
         return {
-          site: null,
+          value: null,
         };
       },
     });
   }
 
   /**
-   * Whether site search is active.
+   * Whether value is set.
    *
    * @returns {boolean}
+   *
+   * @public
    */
   get isActive() {
-    return this.dataModel.site !== null;
+    return this.value !== null;
   }
 
   /**
-   * Sets site.
+   * Sets value.
    *
-   * @param {Site} site
+   * @param {*} value
    *
-   * @return {void}
+   * @public
    */
-  set site(site) {
-    this.dataModel.site = site;
-    this.dataModel.$emit('change', site);
+  set value(value) {
+    this.dataModel.value = value;
+    this.dataModel.$emit('change', value);
   }
 
   /**
-   * Gets site.
+   * Gets value.
    *
-   * @return {Site}
+   * @return {*}
+   *
+   * @public
    */
-  get site() {
-    return this.dataModel.site;
+  get value() {
+    return this.dataModel.value;
   }
 
   /**
@@ -81,10 +87,12 @@ class SiteSearch {
    * @param {function} fn
    *
    * @return {void}
+   *
+   * @public
    */
   onChange(fn) {
     this.dataModel.$on('change', fn);
   }
 }
 
-export default new SiteSearch();
+export default AbstractEventBus;

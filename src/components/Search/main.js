@@ -26,7 +26,7 @@
  * SOFTWARE.
  */
 
-import SiteSearch from '../../model/SiteSearch';
+import SiteSearch from '../../model/Site/SiteSearch';
 import Shortcut from '../../lib/Shortcut';
 import config from '../../config';
 import SearchSuggestion from '../SearchSuggestion';
@@ -59,8 +59,8 @@ export default {
     },
 
     placeholder() {
-      const name = SiteSearch.site
-        ? SiteSearch.site.name
+      const name = SiteSearch.value
+        ? SiteSearch.value.name
         : this.provider.name;
 
       return this.placeholderTemplate.replace('%s', name);
@@ -73,7 +73,7 @@ export default {
     },
 
     isSuggestionsOpen() {
-      return this.isActive && this.results.length >= 1 && !SiteSearch.site;
+      return this.isActive && this.results.length >= 1 && !SiteSearch.value;
     },
   },
 
@@ -83,10 +83,10 @@ export default {
         this.query,
       ];
 
-      if (SiteSearch.site) {
+      if (SiteSearch.value) {
         terms.push(
           this.provider.siteTerm
-            .replace('%s', SiteSearch.site.hostname),
+            .replace('%s', SiteSearch.value.hostname),
         );
       }
 
