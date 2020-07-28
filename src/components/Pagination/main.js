@@ -26,7 +26,6 @@
  * SOFTWARE.
  */
 
-import Navigate from '../../lib/Navigate';
 import Shortcut from '../../lib/Shortcut';
 
 export default {
@@ -38,6 +37,10 @@ export default {
     total: {
       type: Number,
       default: 0,
+    },
+    route: {
+      type: String,
+      default: 'page',
     },
     param: {
       type: String,
@@ -62,9 +65,18 @@ export default {
     setPage(number) {
       this.page = Math.max(1, number);
 
-      this.$parent.$emit('change-page', this.page);
-
-      Navigate.setParam(this.param, this.page === 1 ? null : this.page);
+      this.$router.push({
+        name: this.route,
+        params: {
+          page: this.page,
+        },
+      })
+        .then(() => {
+          this.$parent.$emit('change-page', this.page);
+        })
+        .catch(() => {
+          this.$parent.$emit('change-page', this.page);
+        });
     },
 
     /**
@@ -120,8 +132,8 @@ export default {
   },
 
   mounted() {
-    this.$nextTick(function initPage() {
-      this.setPage(parseInt(Navigate.getParam(this.param), 10) || 1);
+    this.$nextTick(() => {
+      this.setPage(parseInt(this.$route.params[this.param], 10) || 1);
     });
 
     Shortcut
