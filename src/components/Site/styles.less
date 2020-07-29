@@ -26,6 +26,7 @@
  * SOFTWARE.
  */
 
+@import "../App/styles/components/dropdown";
 @import "../App/styles/mixins/helpers";
 
 .site {
@@ -165,6 +166,17 @@
     color: #55d0e0;
     text-shadow: 0 0 1px #000, 0 0.1em 0.25em #55d0e0;
     outline: none;
+  }
+
+  &__menu {
+    .dropdown > .menu();
+
+    right: 0;
+    width: auto;
+  }
+
+  &__menu-item {
+    .dropdown > .item();
   }
 }
 

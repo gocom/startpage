@@ -42,6 +42,7 @@
     border: 1px solid @config[@dropdown][@border-color];
     box-shadow: 0 0.25em 0.42em 0 rgba(0, 0, 0, 0.15);
     display: none;
+    list-style: none;
     margin: .rem(3px)[] 0 0 0;
     max-height: calc(100vh - 6em);
     overflow: hidden;
@@ -62,6 +63,7 @@
   .item() {
     &__link {
       border-bottom: 1px solid @config[@dropdown-item][@border-color];
+      cursor: pointer;
       display: block;
       padding: 0.5em 2em;
 

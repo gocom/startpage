@@ -71,11 +71,20 @@
       </button>
     </div>
 
-    <div class="site__menu" v-if="isMenuOpen">
-      <ul>
-        <li><button v-on:click.prevent="remove" v-if="isEditable">Delete</button></li>
-      </ul>
-    </div>
+    <ul
+      class="site__menu site__menu--open"
+      v-if="isMenuOpen"
+      v-on:click="closeMenu"
+      v-on:focusout="closeMenu"
+      v-on:mouseleave="closeMenu">
+      <li class="site__menu-item">
+        <a
+          href="#"
+          class="site__menu-item__link"
+          v-on:click.prevent="remove"
+          v-if="isEditable">Delete</a>
+      </li>
+    </ul>
   </article>
 </template>
 

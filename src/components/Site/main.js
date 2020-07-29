@@ -97,6 +97,15 @@ export default {
     },
 
     /**
+     * Closes menu.
+     *
+     * @return {void}
+     */
+    closeMenu() {
+      this.isMenuOpen = false;
+    },
+
+    /**
      * Deletes a site.
      *
      * @return {void}
