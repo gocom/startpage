@@ -62,6 +62,19 @@
         v-bind:class="{ 'site__action--active': isSiteSearch }">
         <i class="fas fa-search"></i>
       </button>
+      <button
+        v-if="isEditable"
+        class="site__action site__action--options"
+        v-on:click.prevent="toggleMenu"
+        v-bind:class="{ 'site__action--active': isMenuOpen }">
+        <i class="fas fa-ellipsis-h"></i>
+      </button>
+    </div>
+
+    <div class="site__menu" v-if="isMenuOpen">
+      <ul>
+        <li><button v-on:click.prevent="remove" v-if="isEditable">Delete</button></li>
+      </ul>
     </div>
   </article>
 </template>

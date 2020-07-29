@@ -27,6 +27,9 @@
  */
 
 import SiteSearch from '../../model/Site/SiteSearch';
+import SiteCollection from '../../model/Site/SiteCollection';
+import ErrorMessage from '../../model/Message/ErrorMessage';
+import SuccessMessage from '../../model/Message/SuccessMessage';
 
 export default {
   props: {
@@ -44,6 +47,12 @@ export default {
     },
   },
 
+  data() {
+    return {
+      isMenuOpen: false,
+    };
+  },
+
   computed: {
     /**
      * Whether site search is active for the given site.
@@ -52,6 +61,15 @@ export default {
      */
     isSiteSearch() {
       return this.site === SiteSearch.value;
+    },
+
+    /**
+     * Whether the site is editable.
+     *
+     * @return {boolean}
+     */
+    isEditable() {
+      return this.site && this.site.id && !this.site.isProtected;
     },
   },
 
@@ -67,6 +85,38 @@ export default {
       SiteSearch.value = SiteSearch.value === this.site
         ? null
         : this.site;
+    },
+
+    /**
+     * Toggle options visible.
+     *
+     * @return {void}
+     */
+    toggleMenu() {
+      this.isMenuOpen = !this.isMenuOpen;
+    },
+
+    /**
+     * Deletes a site.
+     *
+     * @return {void}
+     */
+    remove() {
+      SiteCollection.delete(this.site)
+        .then(() => {
+          SuccessMessage.value = 'Site removed successfully.';
+          this.reload();
+        })
+        .catch(() => {
+          ErrorMessage.value = 'Failed to remove the site.';
+        });
+    },
+
+    /**
+     * Reloads.
+     */
+    reload() {
+      this.$parent.$emit('reload');
     },
   },
 };

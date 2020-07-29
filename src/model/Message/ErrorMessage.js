@@ -26,84 +26,12 @@
  * SOFTWARE.
  */
 
-import defaultsDeep from 'lodash/defaultsDeep';
+import AbstractEventBus from '../AbstractEventBus';
 
 /**
- * Abstract data model.
- *
- * @abstract
+ * Error message.
  */
-class AbstractModel {
-  /**
-   * Identifier prefix.
-   *
-   * @type {String}
-   *
-   * @static
-   */
-  static idPrefix = '_id_';
-
-  /**
-   * Prefix added to imported item's identifiers.
-   *
-   * @type {String}
-   *
-   * @static
-   */
-  static importIdPrefix = '_im_';
-
-  /**
-   * Identifier.
-   *
-   * @return {String}
-   *
-   * @public
-   */
-  id = '';
-
-  /**
-   * Is deleted.
-   *
-   * @return {Boolean}
-   *
-   * @public
-   */
-  isDeleted = false;
-
-  /**
-   * Is protected.
-   *
-   * @return {Boolean}
-   *
-   * @public
-   */
-  isProtected = false;
-
-  /**
-   * Constructor.
-   *
-   * @param {Object} data
-   */
-  constructor(data = {}) {
-    defaultsDeep(this, data, this.defaults);
-
-    this.id = data.id || '';
-
-    this.isProtected = data.isProtected || false;
-  }
-
-  /**
-   * Defaults.
-   *
-   * @return {Object}
-   *
-   * @abstract
-   *
-   * @protected
-   */
-  get defaults() {
-    return {};
-  }
+class ErrorMessage extends AbstractEventBus {
 }
 
-export default AbstractModel;
+export default new ErrorMessage();

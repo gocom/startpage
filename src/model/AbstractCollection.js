@@ -168,6 +168,8 @@ class AbstractCollection {
         entity.position = startPosition + index;
       }
 
+      entity.isProtected = true;
+
       return entity;
     });
 
@@ -188,11 +190,19 @@ class AbstractCollection {
    * @return {Promise<void>}
    */
   async delete(model) {
-    if (!model.id) {
+    const entity = model;
+
+    if (!entity.id) {
       return Promise.reject(new Error('Model does not have identifier.'));
     }
 
-    return this.deleteById(model.id);
+    if (entity.isProtected) {
+      return Promise.reject(new Error('Model is protected and can not be removed.'));
+    }
+
+    entity.isDeleted = true;
+
+    return this.deleteById(entity.id);
   }
 
   /**
