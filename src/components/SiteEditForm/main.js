@@ -27,11 +27,13 @@
  */
 
 import SiteCollection from '../../model/Site/SiteCollection';
-import Site from '../../model/Site/Site';
+import SiteModel from '../../model/Site/Site';
 import UniqueId from '../../mixins/UniqueId';
 import ColorPicker from '../Form/ColorPicker';
 import IconPicker from '../Form/IconPicker';
 import FilePicker from '../Form/FilePicker';
+import Site from '../Site';
+import Color from '../../lib/Color';
 
 export default {
   data() {
@@ -39,8 +41,8 @@ export default {
       name: null,
       url: null,
       fa: null,
-      backgroundColor: null,
-      textColor: null,
+      backgroundColor: Color.random,
+      textColor: '#FFFFFF',
       thumbnail: null,
       icon: null,
       position: null,
@@ -52,19 +54,16 @@ export default {
     ColorPicker,
     IconPicker,
     FilePicker,
+    Site,
   },
 
   mixins: [
     UniqueId,
   ],
 
-  methods: {
-    toggle() {
-      this.isOpen = !this.isOpen;
-    },
-
-    save() {
-      const model = new Site({
+  computed: {
+    site() {
+      return new SiteModel({
         url: this.url,
         name: this.name,
         fa: this.fa,
@@ -74,11 +73,47 @@ export default {
         icon: this.icon,
         position: this.position,
       });
+    },
+  },
 
-      SiteCollection.save(model)
+  methods: {
+    toggle() {
+      this.randomize();
+
+      this.isOpen = !this.isOpen;
+    },
+
+    save() {
+      SiteCollection.save(this.site)
         .then(() => {
           this.$parent.$emit('reload');
         });
     },
+
+    randomize() {
+      this.backgroundColor = Color.random;
+    },
+  },
+
+  mounted() {
+    this.$on('picked-color-background-color', (color) => {
+      this.backgroundColor = color;
+    });
+
+    this.$on('picked-color-text-color', (color) => {
+      this.textColor = color;
+    });
+
+    this.$on('selected-icon-fa', (icon) => {
+      this.fa = icon;
+    });
+
+    this.$on('uploaded-file-thumbnail', (file) => {
+      this.thumbnail = file;
+    });
+
+    this.$on('uploaded-file-icon', (file) => {
+      this.icon = file;
+    });
   },
 };

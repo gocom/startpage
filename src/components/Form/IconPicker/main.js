@@ -26,10 +26,15 @@
  * SOFTWARE.
  */
 
-import fa from './fa';
+import fa from './db/fa';
+import socicon from './db/socicon';
 
 export default {
   props: {
+    name: {
+      type: String,
+      default: 'default',
+    },
     icon: {
       type: String,
       default: '',
@@ -43,18 +48,30 @@ export default {
   },
 
   beforeCreate() {
-    this.fa = fa;
+    this.icons = []
+      .concat(fa)
+      .concat(socicon);
   },
 
   methods: {
     select(icon) {
-      this.selected = icon;
+      this.selected = icon
+        ? icon.icon
+        : null;
 
-      this.$parent.$emit('selected-icon', icon);
+      this.$parent.$emit(`selected-icon-${this.name}`, this.selected);
     },
 
     isSelected(icon) {
-      return this.selected && this.selected.icon === icon.icon;
+      return this.selected === icon.icon;
     },
+
+    remove() {
+      this.select(null);
+    },
+  },
+
+  mounted() {
+    this.selected = this.icon;
   },
 };

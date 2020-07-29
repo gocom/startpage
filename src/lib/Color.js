@@ -26,55 +26,24 @@
  * SOFTWARE.
  */
 
-@import "../../App/styles/mixins/helpers";
-@import "../../App/styles/config";
+/**
+ * Color.
+ */
+class Color {
+  /**
+   * Gets random color.
+   *
+   * @return {string}
+   */
+  static get random() {
+    const chars = '0123456789ABCDEF';
 
-.form-icon-picker {
-  &__list {
-    border-bottom: 1px solid #eee;
-    border-top: 1px solid #eee;
-    display: grid;
-    grid-template-columns: repeat(5, 3.5rem);
-    grid-gap: 1px;
-    margin: 0 -2rem;
-    max-height: calc(3.5rem * 5 + 5px);
-    padding: 1rem;
-    overflow: auto;
-  }
+    const code = [...Array(6).keys()]
+      .map(() => chars[Math.floor(Math.random() * 16)])
+      .join('');
 
-  &__icon {
-    align-items: center;
-    border-radius: .rem(3px)[];
-    display: inline-flex;
-    font-size: 2rem;
-    justify-content: center;
-    min-height: 3.5rem;
-    min-width: 3.5rem;
-    padding: .rem(3px)[];
-
-    &--preview {
-      border: .rem(5px)[] dashed @config[@input][@border-color];
-      min-height: 4.5rem;
-      min-width: 4.5rem;
-    }
-  }
-
-  &__list &__icon {
-    cursor: pointer;
-
-    &--active,
-    &:hover {
-      background: @config[@body][@color];
-      color: #fff;
-    }
-  }
-
-  &__selected {
-    align-items: center;
-    background: @config[@body][@color];
-    color: @config[@body][@background];
-    display: flex;
-    margin: 1rem -2rem 0 -2rem;
-    padding: 1rem 2rem;
+    return `#${code}`;
   }
 }
+
+export default Color;

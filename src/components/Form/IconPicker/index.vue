@@ -28,14 +28,25 @@
 
 <template>
   <div class="form-icon-picker">
-    <span
-      class="form-icon-picker__icon"
-      v-for="(icon, index) in fa"
-      v-bind:key="index"
-      @click="select(icon)"
-      v-bind:class="{ 'form-icon-picker__icon--active': isSelected(icon) }">
-      <i v-bind:class="'fas fa-' + icon.icon"></i>
-    </span>
+    <div class="form-icon-picker__selected" v-if="selected">
+      <span class="form-icon-picker__icon form-icon-picker__icon--preview">
+        <i v-bind:class="selected"></i>
+      </span>
+      <button v-on:click.prevent="remove">
+        <i class="fas fa-trash-alt"></i>
+      </button>
+    </div>
+    <div class="form-icon-picker__list">
+      <button
+        class="form-icon-picker__icon"
+        v-for="(icon, index) in icons"
+        v-bind:key="index"
+        v-on:click.prevent="select(icon)"
+        v-bind:title="icon.name"
+        v-bind:class="{ 'form-icon-picker__icon--active': isSelected(icon) }">
+        <i v-bind:class="icon.icon"></i>
+      </button>
+    </div>
   </div>
 </template>
 

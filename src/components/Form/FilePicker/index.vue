@@ -30,6 +30,9 @@
   <div class="form-file-picker">
     <div class="form-file-picker__preview" v-if="hasPreview">
       <img class="form-file-picker__image" v-bind:src="preview"/>
+      <button v-on:click.prevent="remove">
+        <i class="fas fa-trash-alt"></i>
+      </button>
     </div>
     <div class="form-file-picker__input">
       <input
@@ -37,7 +40,7 @@
         v-bind:id="id"
         type="file"
         v-bind:name="name"
-        @change="upload"
+        v-on:change="upload"
         ref="upload"
       />
     </div>

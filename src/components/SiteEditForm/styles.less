@@ -26,6 +26,7 @@
  * SOFTWARE.
  */
 
+@import "../App/styles/config";
 @import "../App/styles/mixins/helpers";
 
 .site-edit-form {
@@ -51,7 +52,6 @@
     background: #fff;
     border-left: 1px solid rgba(0, 0, 0, 0.25);
     bottom: 0;
-    padding: 1.5rem 0;
     overflow: auto;
     position: fixed;
     right: 0;
@@ -60,6 +60,18 @@
 
   &__control {
     padding: 0.5rem 2rem;
+  }
+
+  &__preview {
+    background: @config[@body][@background];
+    border-bottom: @config[@input][@border-color];
+    margin: 0 0 2rem 0;
+    padding: 2rem;
+
+    .site {
+      margin: auto;
+      max-width: .rem(192px)[];
+    }
   }
 }
 

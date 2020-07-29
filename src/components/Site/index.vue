@@ -58,7 +58,7 @@
     <div class="site__actions">
       <button
         class="site__action site__action--search"
-        @click="toggleSearch()"
+        v-on:click.prevent="toggleSearch"
         v-bind:class="{ 'site__action--active': isSiteSearch }">
         <i class="fas fa-search"></i>
       </button>

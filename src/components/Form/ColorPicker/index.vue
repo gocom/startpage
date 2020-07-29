@@ -37,6 +37,7 @@
         v-model="value"
         v-bind:placeholder="color"
         @change="change"
+        @input="change"
       />
       <label v-bind:for="id">
         <span class="form-color-picker__color">

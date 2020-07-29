@@ -65,11 +65,23 @@ export default {
         fr.readAsDataURL(file);
 
         fr.onload = () => {
-          this.file = fr.result;
-
-          this.$parent.$emit(`uploaded-file-${this.name}`, this.file);
+          this.select(fr.result);
         };
       }
+    },
+
+    select(file) {
+      this.file = file;
+
+      if (!this.file) {
+        this.$refs.upload.value = null;
+      }
+
+      this.$parent.$emit(`uploaded-file-${this.name}`, this.file);
+    },
+
+    remove() {
+      this.select(null);
     },
   },
 };

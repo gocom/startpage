@@ -62,7 +62,7 @@ export default {
 
   methods: {
     change() {
-      this.$parent.$emit(`picked-color-${this.name}`, this.value);
+      this.$parent.$emit(`picked-color-${this.name}`, this.cssColor);
     },
   },
 

@@ -33,7 +33,7 @@
         <button
           class="pagination__link"
           v-bind:class="{ 'pagination__link--active': page.isActive }"
-          @click="setPage(page.number)">
+          v-on:click.prevent="setPage(page.number)">
           <span class="pagination__page-number">{{ page.number }}</span>
         </button>
       </li>
