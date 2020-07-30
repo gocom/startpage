@@ -1,0 +1,17 @@
+{
+  "manifest_version": 2,
+  "name": "Start Page",
+  "version": "0.0.0",
+  "author": "Jukka Svahn",
+  "description": "Overrides new tab page",
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
+  "icons": {
+    "16": "assets/icons/icon-16.png",
+    "32": "assets/icons/icon-32.png",
+    "48": "assets/icons/icon-48.png",
+    "64": "assets/icons/icon-64.png",
+    "128": "assets/icons/icon-128.png"
+  }
+}
