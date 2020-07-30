@@ -31,6 +31,7 @@
     <ul class="pagination__pages">
       <li v-for="page in pages" v-bind:key="page.number" class="pagination__page">
         <button
+          type="button"
           class="pagination__link"
           v-bind:class="{ 'pagination__link--active': page.isActive }"
           v-on:click.prevent="setPage(page.number)">

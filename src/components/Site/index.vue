@@ -43,11 +43,15 @@
         <img
           class="site__thumbnail"
           v-if="site.thumbnail"
-          v-bind:src="site.thumbnail"/>
+          v-bind:src="site.thumbnail"
+          alt=""
+          />
         <img
           class="site__icon"
           v-if="site.icon"
-          v-bind:src="site.icon"/>
+          v-bind:src="site.icon"
+          alt=""
+          />
       </div>
 
       <h1 class="site__info site__info--title">{{ site.name }}</h1>
@@ -57,12 +61,14 @@
 
     <div class="site__actions">
       <button
+        type="button"
         class="site__action site__action--search"
         v-on:click.prevent="toggleSearch"
         v-bind:class="{ 'site__action--active': isSiteSearch }">
         <i class="fas fa-search"></i>
       </button>
       <button
+        type="button"
         v-if="isEditable"
         class="site__action site__action--options"
         v-on:click.prevent="toggleMenu"

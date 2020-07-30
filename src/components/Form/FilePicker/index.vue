@@ -29,8 +29,8 @@
 <template>
   <div class="form-file-picker">
     <div class="form-file-picker__preview" v-if="hasPreview">
-      <img class="form-file-picker__image" v-bind:src="preview"/>
-      <button v-on:click.prevent="remove">
+      <img class="form-file-picker__image" v-bind:src="preview" alt=""/>
+      <button type="button" v-on:click.prevent="remove">
         <i class="fas fa-trash-alt"></i>
       </button>
     </div>

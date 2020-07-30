@@ -32,12 +32,13 @@
       <span class="form-icon-picker__icon form-icon-picker__icon--preview">
         <i v-bind:class="selected"></i>
       </span>
-      <button v-on:click.prevent="remove">
+      <button type="button" v-on:click.prevent="remove">
         <i class="fas fa-trash-alt"></i>
       </button>
     </div>
     <div class="form-icon-picker__list">
       <button
+        type="button"
         class="form-icon-picker__icon"
         v-for="(icon, index) in icons"
         v-bind:key="index"

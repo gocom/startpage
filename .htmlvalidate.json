@@ -1,0 +1,31 @@
+{
+  "plugins": [
+    "html-validate-vue"
+  ],
+  "extends": [
+    "html-validate:recommended",
+    "html-validate-vue:recommended"
+  ],
+  "elements": [
+    "html5"
+  ],
+  "transform": {
+    "^.*\\.vue$": "html-validate-vue"
+  },
+  "rules": {
+    "element-name": ["error", {
+      "pattern": "^[A-Z][A-Za-z0-9\\-._]*[a-z0-9]|[a-z][a-z0-9\\-._]*-[a-z0-9\\-._]*$"
+    }],
+    "element-case": ["error", {
+      "style": [
+        "lowercase",
+        "pascalcase"
+      ]
+    }],
+    "no-inline-style": ["error", {
+      "exclude": [
+        "v-bind:style"
+      ]
+    }]
+  }
+}

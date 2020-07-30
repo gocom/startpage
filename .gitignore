@@ -5,6 +5,7 @@
 !.eslintrc.js
 !.github
 !.gitignore
+!.htmlvalidate.json
 !.stylelintignore
 !.stylelintrc.json
 /coverage

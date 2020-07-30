@@ -29,12 +29,13 @@
 <template>
   <div class="site-edit-form">
     <button
-        @click="toggle"
-        title="Add new site"
-        v-bind:class="{
-          'site-edit-form__open-button': true,
-          'site-edit-form__open-button--active': isOpen,
-        }">
+      type="button"
+      @click="toggle"
+      title="Add new site"
+      v-bind:class="{
+        'site-edit-form__open-button': true,
+        'site-edit-form__open-button--active': isOpen,
+      }">
       <i class="fas fa-plus-circle"></i>
     </button>
 
