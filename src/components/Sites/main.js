@@ -38,6 +38,7 @@ import ConfigStorage from '../../model/Config/Storage';
 export default {
   data() {
     return {
+      edit: null,
       isDraggable: true,
       sites: [],
       limit: 12,
@@ -119,6 +120,17 @@ export default {
     },
 
     /**
+     * Opens site in editor.
+     *
+     * @param {Site} site
+     *
+     * @return {void}
+     */
+    setEdit(site) {
+      this.edit = site;
+    },
+
+    /**
      * Show position numbers.
      *
      * @return {void}
@@ -149,6 +161,24 @@ export default {
       }).then(() => {
         this.sites = sites;
       });
+    },
+
+    /**
+     * Saved editor.
+     *
+     * @return {void}
+     */
+    saved() {
+      this.reload();
+    },
+
+    /**
+     * Cancel editing.
+     *
+     * @return {void}
+     */
+    cancel() {
+      this.edit = null;
     },
 
     /**

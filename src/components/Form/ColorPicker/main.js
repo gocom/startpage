@@ -34,10 +34,6 @@ export default {
   },
 
   props: {
-    name: {
-      type: String,
-      default: 'color',
-    },
     id: {
       type: String,
       default: 'color',
@@ -62,7 +58,7 @@ export default {
 
   methods: {
     change() {
-      this.$parent.$emit(`picked-color-${this.name}`, this.cssColor);
+      this.$emit('pick', this.cssColor);
     },
   },
 

@@ -39,16 +39,16 @@ import Shortcut from '../../lib/Shortcut';
 export default {
   data() {
     return {
-      name: null,
-      url: null,
-      fa: null,
-      backgroundColor: Color.random,
-      textColor: '#FFFFFF',
-      thumbnail: null,
-      icon: null,
-      position: null,
+      site: this.edit || new SiteModel(),
       isOpen: false,
     };
+  },
+
+  props: {
+    edit: {
+      type: Object,
+      default: null,
+    },
   },
 
   components: {
@@ -62,32 +62,19 @@ export default {
     UniqueId,
   ],
 
-  computed: {
-    site() {
-      return new SiteModel({
-        url: this.url,
-        name: this.name,
-        fa: this.fa,
-        backgroundColor: this.backgroundColor,
-        textColor: this.textColor,
-        thumbnail: this.thumbnail,
-        icon: this.icon,
-        position: this.position,
-      });
-    },
-  },
-
   methods: {
     reset() {
       Object.assign(this.$data, this.$options.data());
     },
 
     close() {
-      this.reset();
+      this.site = new SiteModel();
 
       this.removeShortcuts();
 
       this.isOpen = false;
+
+      this.$emit('cancel');
     },
 
     open() {
@@ -109,12 +96,16 @@ export default {
     save() {
       SiteCollection.save(this.site)
         .then(() => {
-          this.$parent.$emit('reload');
+          this.$emit('saved');
+          this.close();
         });
     },
 
     randomize() {
-      this.backgroundColor = Color.random;
+      if (!this.site.id) {
+        this.site.backgroundColor = Color.random;
+        this.site.textColor = '#ffffff';
+      }
     },
 
     addShortcuts() {
@@ -124,28 +115,35 @@ export default {
     removeShortcuts() {
       Shortcut.remove('<CloseSiteEditForm>');
     },
+
+    setTextColor(color) {
+      this.site.textColor = color;
+    },
+
+    setBackgroundColor(color) {
+      this.site.backgroundColor = color;
+    },
+
+    setFa(icon) {
+      this.site.fa = icon;
+    },
+
+    setThumbnail(file) {
+      this.site.thumbnail = file;
+    },
+
+    setIcon(file) {
+      this.site.icon = file;
+    },
   },
 
-  mounted() {
-    this.$on('picked-color-background-color', (color) => {
-      this.backgroundColor = color;
-    });
-
-    this.$on('picked-color-text-color', (color) => {
-      this.textColor = color;
-    });
-
-    this.$on('selected-icon-fa', (icon) => {
-      this.fa = icon;
-    });
-
-    this.$on('uploaded-file-thumbnail', (file) => {
-      this.thumbnail = file;
-    });
-
-    this.$on('uploaded-file-icon', (file) => {
-      this.icon = file;
-    });
+  watch: {
+    edit(site) {
+      if (site) {
+        this.site = site;
+        this.isOpen = true;
+      }
+    },
   },
 
   beforeDestroy() {

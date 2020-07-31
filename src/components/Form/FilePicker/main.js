@@ -32,10 +32,6 @@ export default {
       type: String,
       default: 'file',
     },
-    name: {
-      type: String,
-      default: 'file',
-    },
   },
 
   data() {
@@ -77,11 +73,15 @@ export default {
         this.$refs.upload.value = null;
       }
 
-      this.$parent.$emit(`uploaded-file-${this.name}`, this.file);
+      this.$emit('pick', this.file);
     },
 
     remove() {
       this.select(null);
     },
+  },
+
+  mounted() {
+    this.value = this.color;
   },
 };

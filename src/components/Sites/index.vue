@@ -39,12 +39,18 @@
         v-bind:site="site"
         v-bind:isPositionVisible="isPositionVisible"
         v-bind:position="getPosition(index)"
+        v-on:deleted="reload"
+        v-on:edit="setEdit"
       />
     </Draggable>
 
     <Pagination v-bind:total="totalCount" v-bind:limit="limit"/>
 
-    <SiteEditForm/>
+    <SiteEditForm
+      v-bind:edit="edit"
+      v-on:saved="saved"
+      v-on:cancel="cancel"
+    />
   </section>
 </template>
 

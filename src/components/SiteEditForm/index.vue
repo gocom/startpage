@@ -39,7 +39,10 @@
       <i class="fas fa-plus-circle"></i>
     </button>
 
-    <form class="site-edit-form__modal" @submit="save" v-if="isOpen">
+    <form
+      class="site-edit-form__modal"
+      v-on:submit.prevent="save"
+      v-if="isOpen">
       <div class="site-edit-form__preview">
         <Site v-bind:site="site"/>
       </div>
@@ -53,7 +56,7 @@
             v-bind:id="getUid('url')"
             type="url"
             name="url"
-            v-model="url"/>
+            v-model="site.url"/>
         </div>
       </div>
 
@@ -66,7 +69,7 @@
             v-bind:id="getUid('name')"
             type="text"
             name="name"
-            v-model="name"/>
+            v-model="site.name"/>
         </div>
       </div>
 
@@ -75,9 +78,9 @@
           <label v-bind:for="getUid('backgroundColor')">Background Color</label>
           <div class="site-edit-form__input">
             <ColorPicker
-              name="background-color"
               v-bind:id="getUid('backgroundColor')"
-              v-bind:color="backgroundColor"
+              v-bind:color="site.backgroundColor"
+              v-on:pick="setBackgroundColor"
             />
           </div>
         </div>
@@ -88,9 +91,9 @@
           <label v-bind:for="getUid('textColor')">Icon Color</label>
           <div class="site-edit-form__input">
             <ColorPicker
-              name="text-color"
               v-bind:id="getUid('textColor')"
-              v-bind:color="textColor"
+              v-bind:color="site.textColor"
+              v-on:pick="setTextColor"
             />
           </div>
         </div>
@@ -101,7 +104,10 @@
           <label v-bind:for="getUid('thumbnail')">Thumbnail</label>
         </div>
         <div class="site-edit-form__input">
-          <FilePicker name="thumbnail" v-bind:id="getUid('thumbnail')"/>
+          <FilePicker
+            v-bind:id="getUid('thumbnail')"
+            v-on:pick="setThumbnail"
+          />
         </div>
       </div>
 
@@ -110,20 +116,26 @@
           <label v-bind:for="getUid('icon')">Icon Image</label>
         </div>
         <div class="site-edit-form__input">
-          <FilePicker name="icon" v-bind:id="getUid('icon')"/>
+          <FilePicker
+            v-bind:id="getUid('icon')"
+            v-on:pick="setIcon"
+          />
         </div>
       </div>
 
       <div class="site-edit-form__control">
         <div class="site-edit-form__label">Icon</div>
         <div class="site-edit-form__input">
-          <IconPicker name="fa"/>
+          <IconPicker
+            v-bind:icon="site.fa"
+            v-on:pick="setFa"
+          />
         </div>
       </div>
 
       <div class="site-edit-form__control">
         <button type="submit">Save</button>
-        <button type="reset" @click="toggle">Close</button>
+        <button type="reset" v-on:click.prevent="toggle">Close</button>
       </div>
     </form>
   </div>

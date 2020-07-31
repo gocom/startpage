@@ -87,6 +87,13 @@
         <a
           href="#"
           class="site__menu-item__link"
+          v-on:click.prevent="edit"
+          v-if="isEditable">Edit</a>
+      </li>
+      <li class="site__menu-item">
+        <a
+          href="#"
+          class="site__menu-item__link"
           v-on:click.prevent="confirmDelete"
           v-if="isEditable">Delete</a>
       </li>

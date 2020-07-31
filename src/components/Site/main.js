@@ -138,7 +138,7 @@ export default {
       SiteCollection.delete(this.site)
         .then(() => {
           SuccessMessage.value = 'Site removed successfully.';
-          this.reload();
+          this.$emit('deleted');
         })
         .catch(() => {
           ErrorMessage.value = 'Failed to remove the site.';
@@ -146,10 +146,12 @@ export default {
     },
 
     /**
-     * Reloads.
+     * Triggers edit event for the site.
+     *
+     * @return {void}
      */
-    reload() {
-      this.$parent.$emit('reload');
+    edit() {
+      this.$emit('edit', this.site);
     },
   },
 };

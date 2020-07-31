@@ -39,7 +39,7 @@
         class="form-file-picker__upload-input"
         v-bind:id="id"
         type="file"
-        v-bind:name="name"
+        v-bind:name="id"
         v-on:change="upload"
         ref="upload"
       />

@@ -32,7 +32,7 @@
       <input
         class="form-color-picker__color-input"
         v-bind:id="id"
-        v-bind:name="name"
+        v-bind:name="id"
         type="color"
         v-model="value"
         v-bind:placeholder="color"

@@ -31,10 +31,6 @@ import socicon from './db/socicon';
 
 export default {
   props: {
-    name: {
-      type: String,
-      default: 'default',
-    },
     icon: {
       type: String,
       default: '',
@@ -59,7 +55,7 @@ export default {
         ? icon.icon
         : null;
 
-      this.$parent.$emit(`selected-icon-${this.name}`, this.selected);
+      this.$emit('pick', this.selected);
     },
 
     isSelected(icon) {
