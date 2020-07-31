@@ -87,10 +87,18 @@
         <a
           href="#"
           class="site__menu-item__link"
-          v-on:click.prevent="remove"
+          v-on:click.prevent="confirmDelete"
           v-if="isEditable">Delete</a>
       </li>
     </ul>
+
+    <Confirm
+      v-if="isConfirmingDelete"
+      v-bind:title="'Delete ' + site.name + '?'"
+      message="Are you sure you want to permanently delete the site?"
+      v-on:decline="declineDelete"
+      v-on:confirm="remove"
+      />
   </article>
 </template>
 

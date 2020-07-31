@@ -30,6 +30,7 @@ import SiteSearch from '../../model/Site/SiteSearch';
 import SiteCollection from '../../model/Site/SiteCollection';
 import ErrorMessage from '../../model/Message/ErrorMessage';
 import SuccessMessage from '../../model/Message/SuccessMessage';
+import Confirm from '../Dialog/Confirm';
 
 export default {
   props: {
@@ -50,7 +51,12 @@ export default {
   data() {
     return {
       isMenuOpen: false,
+      isConfirmingDelete: false,
     };
+  },
+
+  components: {
+    Confirm,
   },
 
   computed: {
@@ -103,6 +109,24 @@ export default {
      */
     closeMenu() {
       this.isMenuOpen = false;
+    },
+
+    /**
+     * Confirm delete.
+     *
+     * @return {void}
+     */
+    confirmDelete() {
+      this.isConfirmingDelete = true;
+    },
+
+    /**
+     * Decline delete.
+     *
+     * @return {void}
+     */
+    declineDelete() {
+      this.isConfirmingDelete = false;
     },
 
     /**
