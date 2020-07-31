@@ -63,18 +63,24 @@ export default {
      * @return {void}
      */
     setPage(number) {
-      this.page = Math.max(1, number);
+      const page = Math.max(1, number);
+
+      if (this.requestedPage === page) {
+        this.page = page;
+        this.$parent.$emit('change-page', this.page);
+        return;
+      }
+
+      const params = {};
+
+      params[this.param] = page;
 
       this.$router.push({
         name: this.route,
-        params: {
-          page: this.page,
-        },
+        params,
       })
         .then(() => {
-          this.$parent.$emit('change-page', this.page);
-        })
-        .catch(() => {
+          this.page = page;
           this.$parent.$emit('change-page', this.page);
         });
     },
@@ -85,7 +91,7 @@ export default {
      * @return {void}
      */
     nextPage() {
-      this.setPage(this.page + 1);
+      this.setPage(Math.min(this.pageCount, this.page + 1));
     },
 
     /**
@@ -99,6 +105,15 @@ export default {
   },
 
   computed: {
+    /**
+     * Gets requested page number.
+     *
+     * @return {number}
+     */
+    requestedPage() {
+      return parseInt(this.$route.params[this.param], 10) || 1;
+    },
+
     /**
      * Gets number of pages.
      *

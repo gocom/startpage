@@ -56,7 +56,7 @@
 
       <h1 class="site__info site__info--title">{{ site.name }}</h1>
       <h2 class="site__info site__info--domain">{{ site.hostname }}</h2>
-      <div class="site__position" v-if="isPositionVisible">{{ position }}</div>
+      <div class="site__position" v-if="isPositionVisible && position">{{ position }}</div>
     </a>
 
     <div class="site__actions">

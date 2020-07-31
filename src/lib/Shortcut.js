@@ -37,6 +37,7 @@ class Shortcut {
     this.shortcuts = {
       on: [],
       once: [],
+      up: [],
     };
 
     this.listeners = {
@@ -65,6 +66,8 @@ class Shortcut {
       'textarea',
     ];
 
+    this.keyCodePrefixRegex = /^Key|Digit/i;
+
     this.shortcutRegex = /(!?)(?:<([^>]+)>)?\s?(.*)/i;
 
     this.listen();
@@ -87,7 +90,23 @@ class Shortcut {
   }
 
   /**
-   * Triggers once key is pressed and once its
+   * Adds a shortcut that triggers when key is released.
+   *
+   * @param {String} shortcut
+   * @param {Function} fn
+   *
+   * @return {this}
+   *
+   * @public
+   */
+  up(shortcut, fn) {
+    this.add('up', shortcut, fn);
+
+    return this;
+  }
+
+  /**
+   * Triggers once key is pressed and once its released.
    *
    * @param {String}   shortcut
    * @param {Function} fn
@@ -162,7 +181,7 @@ class Shortcut {
   remove(shortcut) {
     const match = this.getShortcutComponents(shortcut);
 
-    ['on', 'once'].forEach((type) => {
+    Object.keys(this.shortcuts).forEach((type) => {
       this.shortcuts[type] = this.shortcuts[type]
         .filter((item) => ((!match.shortcut || item.shortcut !== match.shortcut)
           && (!match.name || item.name !== match.name)
@@ -234,7 +253,9 @@ class Shortcut {
       shortcut.push('shift');
     }
 
-    if (event.key) {
+    if (this.keyCodePrefixRegex.test(event.code)) {
+      shortcut.push(event.code.toLowerCase().replace(this.keyCodePrefixRegex, ''));
+    } else if (event.key) {
       shortcut.push(event.key.toLowerCase());
     }
 
@@ -282,7 +303,7 @@ class Shortcut {
     };
 
     this.listeners.keyUp = function keyUp(event) {
-      self.trigger.call(self, this, ['once'], event);
+      self.trigger.call(self, this, ['up', 'once'], event);
     };
 
     document.addEventListener('keydown', this.listeners.keyDown.bind(this));

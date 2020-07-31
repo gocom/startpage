@@ -53,6 +53,9 @@ export default {
         '7',
         '8',
         '9',
+        'Z',
+        'X',
+        'C',
       ],
     };
   },
@@ -116,12 +119,21 @@ export default {
     },
 
     /**
-     * Toggle position numbers.
+     * Show position numbers.
      *
      * @return {void}
      */
-    togglePositionVisible() {
-      this.isPositionVisible = !this.isPositionVisible;
+    showPositionVisible() {
+      this.isPositionVisible = true;
+    },
+
+    /**
+     * Hide position numbers.
+     *
+     * @return {void}
+     */
+    hidePositionVisible() {
+      this.isPositionVisible = false;
     },
 
     /**
@@ -231,10 +243,13 @@ export default {
         }
       });
 
-    Shortcut.once('Alt', () => this.togglePositionVisible());
+    Shortcut
+      .on('Alt', () => this.showPositionVisible())
+      .up('Alt', () => this.hidePositionVisible());
 
     this.positions.forEach((position) => {
-      Shortcut.once(position, () => this.openByPosition(position));
+      Shortcut.on(position, () => this.openByPosition(position));
+      Shortcut.on(`Alt+${position}`, () => this.openByPosition(position));
     });
 
     this.$on('change-page', (page) => {
@@ -249,6 +264,10 @@ export default {
   beforeDestroy() {
     Shortcut.remove('Alt');
 
-    this.positions.forEach((position) => Shortcut.remove(position));
+    this.positions.forEach((position) => {
+      Shortcut
+        .remove(position)
+        .remove(`Alt+${position}`);
+    });
   },
 };
