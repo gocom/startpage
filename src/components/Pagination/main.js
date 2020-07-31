@@ -58,12 +58,18 @@ export default {
     /**
      * Sets page.
      *
+     * Given page number is ignored if its invalid, or same as the current page.
+     *
      * @param {number} number
      *
      * @return {void}
      */
     setPage(number) {
-      const page = Math.max(1, number);
+      const page = Math.min(this.pageCount, Math.max(1, number));
+
+      if (this.page === page) {
+        return;
+      }
 
       if (this.requestedPage === page) {
         this.page = page;
@@ -91,7 +97,7 @@ export default {
      * @return {void}
      */
     nextPage() {
-      this.setPage(Math.min(this.pageCount, this.page + 1));
+      this.setPage(this.page + 1);
     },
 
     /**
@@ -146,11 +152,16 @@ export default {
     },
   },
 
-  mounted() {
-    this.$nextTick(() => {
-      this.setPage(parseInt(this.$route.params[this.param], 10) || 1);
-    });
+  watch: {
+    /**
+     * Navigates to the requested page once we know the total number of pages.
+     */
+    total() {
+      this.setPage(this.requestedPage);
+    },
+  },
 
+  mounted() {
     Shortcut
       .on('ArrowLeft', () => this.previousPage())
       .on('a', () => this.previousPage())
