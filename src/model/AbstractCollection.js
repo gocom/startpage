@@ -168,8 +168,6 @@ class AbstractCollection {
         entity.position = startPosition + index;
       }
 
-      entity.isProtected = true;
-
       return entity;
     });
 

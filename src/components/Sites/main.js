@@ -32,6 +32,7 @@ import Pagination from '../Pagination';
 import SiteEditForm from '../SiteEditForm';
 import Site from '../Site';
 import SiteCollection from '../../model/Site/SiteCollection';
+import ConfigStorage from '../../model/Config/Storage';
 
 export default {
   data() {
@@ -164,9 +165,17 @@ export default {
   mounted() {
     this.reload();
 
-    SiteCollection.import(config.sites)
-      .then(() => {
-        this.reload();
+    ConfigStorage.get('sites.imported')
+      .then((value) => {
+        if (!value) {
+          SiteCollection.import(config.sites)
+            .then(() => {
+              ConfigStorage.set('sites.imported', true)
+                .then(() => {
+                  this.reload();
+                });
+            });
+        }
       });
 
     Shortcut.once('Alt', () => this.togglePositionVisible());
