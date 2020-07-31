@@ -30,10 +30,6 @@ import Shortcut from '../../../lib/Shortcut';
 
 export default {
   props: {
-    id: {
-      type: String,
-      default: 'default',
-    },
     title: {
       type: String,
       default: '',
