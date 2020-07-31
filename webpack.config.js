@@ -14,6 +14,7 @@ function transformHtml(content) {
 }
 
 const config = {
+  devtool: false,
   mode: process.env.NODE_ENV,
   context: path.join(__dirname, 'src'),
   entry: {
@@ -78,6 +79,7 @@ const config = {
     new webpack.DefinePlugin({
       global: 'window',
     }),
+    new webpack.SourceMapDevToolPlugin({}),
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
       filename: '[name].css',
@@ -114,6 +116,8 @@ const config = {
 };
 
 if (config.mode === 'production') {
+  config.devtool = false;
+
   config.plugins = (config.plugins || []).concat([
     new webpack.DefinePlugin({
       'process.env': {

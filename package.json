@@ -23,7 +23,8 @@
     "lodash": "^4.17.19",
     "moment": "^2.27.0",
     "vue": "^2.6.11",
-    "vue-router": "^3.3.4"
+    "vue-router": "^3.3.4",
+    "vuedraggable": "^2.24.0"
   },
   "devDependencies": {
     "@babel/core": "^7.10.5",

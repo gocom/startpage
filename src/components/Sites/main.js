@@ -26,6 +26,7 @@
  * SOFTWARE.
  */
 
+import Draggable from 'vuedraggable';
 import Shortcut from '../../lib/Shortcut';
 import config from '../../config';
 import Pagination from '../Pagination';
@@ -37,6 +38,7 @@ import ConfigStorage from '../../model/Config/Storage';
 export default {
   data() {
     return {
+      isDraggable: true,
       sites: [],
       limit: 12,
       page: 1,
@@ -59,6 +61,7 @@ export default {
     Pagination,
     Site,
     SiteEditForm,
+    Draggable,
   },
 
   methods: {
@@ -135,6 +138,15 @@ export default {
         this.sites = sites;
       });
     },
+
+    /**
+     * Whether drag and drop sorting is currently allowed.
+     *
+     * @return {Boolean}
+     */
+    isDraggingAllowed() {
+      return this.isDraggable;
+    },
   },
 
   computed: {
@@ -147,18 +159,59 @@ export default {
       return this.sites.length;
     },
 
-    /**
-     * Gets items.
-     *
-     * @returns {Site[]}
-     */
-    items() {
-      const start = Math.max(0, (this.page * this.limit) - this.limit);
-      const end = start + this.limit;
+    items: {
+      /**
+       * Gets items.
+       *
+       * @returns {Site[]}
+       */
+      get() {
+        const start = Math.max(0, (this.page * this.limit) - this.limit);
+        const end = start + this.limit;
 
-      return this.sites
-        .sort((a, b) => a.position - b.position)
-        .slice(start, end);
+        return this.sites
+          .sort((a, b) => a.position - b.position)
+          .slice(start, end);
+      },
+
+      /**
+       * Updates item order.
+       *
+       * This uses site instances so any other mutations in the instances will
+       * be saved too.
+       *
+       * @param {Site[]} items
+       */
+      set(items) {
+        this.isDraggable = false;
+
+        const startPosition = items
+          .map((site) => site.position)
+          .sort()
+          .reverse()[0] || 0;
+
+        const positions = {};
+
+        items.forEach((site, index) => {
+          positions[site.id] = startPosition + index;
+        });
+
+        const update = [];
+
+        this.sites.forEach((site) => {
+          const entity = site;
+
+          if (positions[entity.id]) {
+            entity.position = positions[entity.id];
+            update.push(entity);
+          }
+        });
+
+        SiteCollection.saveMultiple(update)
+          .then(() => {
+            this.isDraggable = true;
+          });
+      },
     },
   },
 

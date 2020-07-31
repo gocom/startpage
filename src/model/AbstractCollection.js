@@ -131,7 +131,7 @@ class AbstractCollection {
    *
    * @param {AbstractModel[]} models
    *
-   * @return {Promise<AbstractModel>}
+   * @return {Promise<AbstractModel[]>}
    */
   async saveMultiple(models) {
     const promises = await models.map((model) => this.save(model));

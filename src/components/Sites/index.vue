@@ -28,7 +28,11 @@
 
 <template>
   <section class="sites">
-    <div class="site-grid">
+    <Draggable
+      class="site-grid"
+      v-model="items"
+      group="sites"
+      v-bind:move="isDraggingAllowed">
       <Site
         v-for="(site, index) in items"
         v-bind:key="site.id"
@@ -36,7 +40,7 @@
         v-bind:isPositionVisible="isPositionVisible"
         v-bind:position="getPosition(index)"
       />
-    </div>
+    </Draggable>
 
     <Pagination v-bind:total="totalCount" v-bind:limit="limit"/>
 
