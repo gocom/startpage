@@ -34,6 +34,7 @@ import IconPicker from '../Form/IconPicker';
 import FilePicker from '../Form/FilePicker';
 import Site from '../Site';
 import Color from '../../lib/Color';
+import Shortcut from '../../lib/Shortcut';
 
 export default {
   data() {
@@ -77,10 +78,32 @@ export default {
   },
 
   methods: {
-    toggle() {
+    reset() {
+      Object.assign(this.$data, this.$options.data());
+    },
+
+    close() {
+      this.reset();
+
+      this.removeShortcuts();
+
+      this.isOpen = false;
+    },
+
+    open() {
       this.randomize();
 
-      this.isOpen = !this.isOpen;
+      this.addShortcuts();
+
+      this.isOpen = true;
+    },
+
+    toggle() {
+      if (this.isOpen) {
+        this.close();
+      } else {
+        this.open();
+      }
     },
 
     save() {
@@ -92,6 +115,14 @@ export default {
 
     randomize() {
       this.backgroundColor = Color.random;
+    },
+
+    addShortcuts() {
+      Shortcut.on('<CloseSiteEditForm>Escape', () => this.close());
+    },
+
+    removeShortcuts() {
+      Shortcut.remove('<CloseSiteEditForm>');
     },
   },
 
@@ -115,5 +146,9 @@ export default {
     this.$on('uploaded-file-icon', (file) => {
       this.icon = file;
     });
+  },
+
+  beforeDestroy() {
+    this.removeShortcuts();
   },
 };
