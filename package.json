@@ -73,7 +73,8 @@
     "stylelint": "^13.6.1",
     "stylelint-config-standard": "^20.0.0",
     "vue-jest": "^3.0.6",
-    "webpack-cli": "^3.3.12"
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
     "prepare": "npm run init && npm run build",
@@ -91,7 +92,8 @@
     "create": "node bin/create",
     "package": "node bin/package",
     "watch": "npm run build:dev -- --watch",
-    "coveralls": "coveralls < coverage/lcov.info"
+    "coveralls": "coveralls < coverage/lcov.info",
+    "start": "webpack-dev-server"
   },
   "private": true
 }

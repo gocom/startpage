@@ -135,6 +135,9 @@ const config = {
     modules: false,
     performance: false,
   },
+  devServer: {
+    port: 12598,
+  },
 };
 
 if (config.mode === 'production') {
