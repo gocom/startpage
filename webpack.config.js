@@ -13,9 +13,12 @@ function transformHtml(content) {
   });
 }
 
+/**
+ * @type {object}
+ */
 const config = {
   devtool: false,
-  mode: process.env.NODE_ENV,
+  mode: process.env.NODE_ENV || 'production',
   context: path.join(__dirname, 'src'),
   entry: {
     './main': './main.js',
@@ -75,7 +78,7 @@ const config = {
     ],
   },
   plugins: [
-    new GoogleFontsPlugin('./src/fonts.json'),
+    new GoogleFontsPlugin(path.join(__dirname, 'src/fonts.json')),
     new webpack.DefinePlugin({
       global: 'window',
     }),

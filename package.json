@@ -12,7 +12,9 @@
   "files": [
     "/build"
   ],
-  "main": "build/main.js",
+  "bin": {
+    "startpage": "bin/create"
+  },
   "license": "MIT",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.14.0",
