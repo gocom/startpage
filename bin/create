@@ -5,7 +5,6 @@ const webpack = require('webpack');
 const config = require('../webpack.config');
 
 config.output.path = path.join(process.cwd(), 'build');
-config.module.rules[1].exclude = null;
 
 process.chdir(path.dirname(__dirname));
 
