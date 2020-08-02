@@ -92,6 +92,11 @@ const config = {
         {
           from: 'assets',
           to: 'assets',
+          globOptions: {
+            ignore: [
+              '**/.*',
+            ],
+          },
         },
         {
           from: 'index.html',
@@ -116,6 +121,18 @@ const config = {
       ],
     }),
   ],
+  performance: {
+    hints: false,
+  },
+  stats: {
+    children: false,
+    chunks: false,
+    colors: true,
+    hash: false,
+    entrypoints: true,
+    modules: false,
+    performance: false,
+  },
 };
 
 if (config.mode === 'production') {

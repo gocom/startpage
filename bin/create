@@ -18,10 +18,12 @@ compiler.run((err, stats) => {
     process.exit(1);
   }
 
+  const output = stats.toString(config.stats);
+
   if (stats.hasErrors()) {
-    console.error(stats.toString());
+    console.error(output);
     process.exit(1);
   }
 
-  console.error(stats.toString());
+  console.error(output);
 });
