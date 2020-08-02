@@ -19,6 +19,17 @@ and load it in your web browser.
 There are currently no releases in any extension marketplaces; Chrome Web Store
 and the like.
 
+### As a web app
+
+Create a built app using [npx](https://www.npmjs.com/package/npx):
+
+```shell
+$ npx gocom/startpage
+```
+
+Built web app will be found from the `build` directory in the current working
+directory.
+
 ### Locally from source
 
 Clone the repository, install and build:
