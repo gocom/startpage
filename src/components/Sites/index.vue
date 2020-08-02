@@ -39,7 +39,7 @@
         v-bind:site="site"
         v-bind:isPositionVisible="isPositionVisible"
         v-bind:position="getPosition(index)"
-        v-on:deleted="reload"
+        v-on:delete="reload"
         v-on:edit="setEdit"
       />
     </Draggable>
@@ -48,7 +48,7 @@
 
     <SiteEditForm
       v-bind:edit="edit"
-      v-on:saved="saved"
+      v-on:save="save"
       v-on:cancel="cancel"
     />
   </section>

@@ -198,8 +198,6 @@ class AbstractCollection {
       return Promise.reject(new Error('Model is protected and can not be removed.'));
     }
 
-    entity.isDeleted = true;
-
     return this.deleteById(entity.id);
   }
 

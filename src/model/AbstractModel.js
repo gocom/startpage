@@ -62,15 +62,6 @@ class AbstractModel {
   id = '';
 
   /**
-   * Is deleted.
-   *
-   * @return {Boolean}
-   *
-   * @public
-   */
-  isDeleted = false;
-
-  /**
    * Is protected.
    *
    * @return {Boolean}

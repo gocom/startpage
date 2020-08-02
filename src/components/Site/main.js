@@ -138,7 +138,7 @@ export default {
       SiteCollection.delete(this.site)
         .then(() => {
           SuccessMessage.value = 'Site removed successfully.';
-          this.$emit('deleted');
+          this.$emit('delete');
         })
         .catch(() => {
           ErrorMessage.value = 'Failed to remove the site.';

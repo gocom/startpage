@@ -96,7 +96,7 @@ export default {
     save() {
       SiteCollection.save(this.site)
         .then(() => {
-          this.$emit('saved');
+          this.$emit('save');
           this.close();
         });
     },

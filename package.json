@@ -72,7 +72,7 @@
   "scripts": {
     "prepare": "npm run init && npm run build",
     "lint": "npm run lint:html && npm run lint:js && npm run lint:json && npm run lint:css",
-    "lint:html": "html-validate 'src/**/*.vue'",
+    "lint:html": "html-validate 'src/**/*.{html,vue}'",
     "lint:js": "eslint --ext .js,.vue ./",
     "lint:css": "stylelint 'src/**/*.{css,less,vue}'",
     "lint:json": "lintspaces -e .editorconfig 'src/**/*.json' '.*.json' '*.json'",
