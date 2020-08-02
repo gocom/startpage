@@ -1,10 +1,10 @@
-name: CI
+name: Production install
 
 on: [push, pull_request]
 
 jobs:
   build:
-    name: Production install
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
