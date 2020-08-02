@@ -1,0 +1,35 @@
+name: Screenshot
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    continue-on-error: true
+    name: Build
+    runs-on: macos-latest
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v1.0.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - name: Install
+        run: npm install
+
+      - name: Start
+        run: |
+          npm start &
+          sleep 10
+
+      - name: Capture screenshot
+        uses: swinton/screenshot-website@v1.x
+        with:
+          source: http://localhost:12598/
+          destination: screenshot.png
+          full-page: true
+          width: 1200
