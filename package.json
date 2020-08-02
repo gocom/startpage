@@ -11,6 +11,7 @@
   },
   "files": [
     "/.babelrc",
+    "/bin",
     "/build",
     "/src",
     "/webpack.config.js"
