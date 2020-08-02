@@ -10,9 +10,10 @@
     "url": "https://github.com/gocom"
   },
   "files": [
-    ".babelrc",
+    "/.babelrc",
     "/build",
-    "webpack.config.js"
+    "/src",
+    "/webpack.config.js"
   ],
   "bin": {
     "startpage": "bin/create"
