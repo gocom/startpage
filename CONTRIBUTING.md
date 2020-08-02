@@ -34,6 +34,7 @@ $ npm run test:unit
 $ npm run lint
 $ npm run lint:fix
 $ npm run package
+$ npm run start
 $ npm run watch
 ```
 
