@@ -42,7 +42,9 @@ const config = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules/,
+        include: [
+          path.join(__dirname, 'src'),
+        ],
       },
       {
         test: /\.css$/,
