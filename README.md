@@ -7,6 +7,8 @@ Start Page
 
 Personal new tab speed dial. Work in progress.
 
+![Screenshot](https://raw.githubusercontent.com/gocom/startpage/screenshots/newtab.png)
+
 Install
 -----
 
