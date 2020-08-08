@@ -168,7 +168,9 @@ export default {
      *
      * @return {void}
      */
-    saved() {
+    save() {
+      this.edit = null;
+
       this.reload();
     },
 
