@@ -23,17 +23,22 @@ jobs:
 
       - name: Start
         run: |
-          mkdir -p screenshots
           npm start &
           sleep 10
 
       - name: Capture screenshot
+        id: newtab
         uses: swinton/screenshot-website@v1.x
         with:
           source: http://localhost:12598/
-          destination: screenshots/newtab.png
+          destination: newtab.png
           full-page: true
           width: 1200
+
+      - name: Prepare
+        run: |
+          mkdir screenshots
+          cp ${{steps.newtab.outputs.path}} screenshots/
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@3.5.9
