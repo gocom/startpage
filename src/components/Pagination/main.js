@@ -126,7 +126,7 @@ export default {
      * @return {Number}
      */
     pageCount() {
-      return Math.ceil(this.total / this.limit);
+      return Math.ceil(this.total / this.limit) || 1;
     },
 
     /**

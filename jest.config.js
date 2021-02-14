@@ -18,4 +18,7 @@ module.exports = {
     '.*\\.(jpg|png|svg)$': '<rootDir>/tests/mocks/file.js',
     '.*\\.(css|less)$': '<rootDir>/tests/mocks/style.js',
   },
+  setupFiles: [
+    '<rootDir>/tests/mocks/localStorage.js',
+  ],
 };
