@@ -41,8 +41,7 @@ jobs:
           cp ${{steps.newtab.outputs.path}} screenshots/
 
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@3.5.9
+        uses: JamesIves/github-pages-deploy-action@4.0.0
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: screenshots
-          FOLDER: screenshots
+          branch: screenshots
+          folder: screenshots
