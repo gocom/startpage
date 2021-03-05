@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright (C) 2020 Jukka Svahn
+ * Copyright (C) 2021 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -57,11 +57,10 @@
       0 1px 0 0 rgba(255, 255, 255, 0.15),
       0 0.25em 0.42em 0 rgba(0, 0, 0, 0.15);
     display: block;
-    filter: grayscale(30%);
     grid-area: thumbnail;
     min-height: .rem(96px)[];
     min-width: .rem(96px)[];
-    opacity: 0.85;
+    overflow: hidden;
     pointer-events: none;
     padding-top: 56.25%;
     position: relative;
@@ -71,8 +70,6 @@
     .site__link:hover &,
     .js-focus-visible .site__link.focus-visible & {
       box-shadow: 0 0 0 3px #fff, 0 0.25em 0.25em 0 rgba(0, 0, 0, 0.25);
-      filter: grayscale(0%);
-      opacity: 1;
     }
   }
 

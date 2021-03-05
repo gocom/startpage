@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright (C) 2020 Jukka Svahn
+ * Copyright (C) 2021 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -31,6 +31,10 @@ export default {
     id: {
       type: String,
       default: 'file',
+    },
+    current: {
+      type: String,
+      default: '',
     },
   },
 
@@ -82,6 +86,6 @@ export default {
   },
 
   mounted() {
-    this.value = this.color;
+    this.file = this.current;
   },
 };

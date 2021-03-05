@@ -5,7 +5,7 @@
 -->
 
 <!--
- * Copyright (C) 2020 Jukka Svahn
+ * Copyright (C) 2021 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -44,14 +44,15 @@
           class="site__thumbnail"
           v-if="site.thumbnail"
           v-bind:src="site.thumbnail"
-          alt=""
+          v-bind:alt="site.name"
           />
         <img
           class="site__icon"
           v-if="site.icon"
           v-bind:src="site.icon"
-          alt=""
+          v-bind:alt="site.name"
           />
+        <i v-if="site.fa" v-bind:class="site.fa"></i>
       </div>
 
       <h1 class="site__info site__info--title">{{ site.name }}</h1>

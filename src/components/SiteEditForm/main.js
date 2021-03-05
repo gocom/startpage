@@ -109,7 +109,7 @@ export default {
     },
 
     addShortcuts() {
-      Shortcut.on('<CloseSiteEditForm>Escape', () => this.close());
+      Shortcut.on('!<CloseSiteEditForm>Escape', () => this.close());
     },
 
     removeShortcuts() {
@@ -141,6 +141,9 @@ export default {
     edit(site) {
       if (site) {
         this.site = site;
+
+        this.addShortcuts();
+
         this.isOpen = true;
       }
     },

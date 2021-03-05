@@ -5,7 +5,7 @@
 -->
 
 <!--
- * Copyright (C) 2020 Jukka Svahn
+ * Copyright (C) 2021 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -106,6 +106,7 @@
         <div class="site-edit-form__input">
           <FilePicker
             v-bind:id="getUid('thumbnail')"
+            v-bind:current="site.thumbnail"
             v-on:pick="setThumbnail"
           />
         </div>
