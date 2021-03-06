@@ -53,8 +53,7 @@
   &__preview {
     border-radius: 0.25em;
     box-shadow:
-      inset 0 0 0 1px rgba(0, 0, 0, 0.1),
-      0 1px 0 0 rgba(255, 255, 255, 0.15),
+      0 0 0 1px rgba(0, 0, 0, 0.2),
       0 0.25em 0.42em 0 rgba(0, 0, 0, 0.15);
     display: block;
     grid-area: thumbnail;
@@ -69,7 +68,7 @@
 
     .site__link:hover &,
     .js-focus-visible .site__link.focus-visible & {
-      box-shadow: 0 0 0 3px #fff, 0 0.25em 0.25em 0 rgba(0, 0, 0, 0.25);
+      box-shadow: 0 0 0 2px @config[@link][@hover][@color];
     }
   }
 
@@ -135,7 +134,6 @@
     margin: -2rem -0.5rem 0 0;
     position: absolute;
     right: 0;
-    text-shadow: 0 0 1px rgba(255, 255, 255, 0.15);
   }
 
   &__action {
@@ -147,11 +145,11 @@
     transition: 0.25s all;
 
     &--active {
-      color: #55d0e0;
+      color: @config[@link][@hover][@color];
     }
 
     &:hover {
-      color: #facf5a;
+      color: @config[@link][@hover][@color];
     }
   }
 
@@ -160,8 +158,7 @@
   }
 
   .js-focus-visible &__action.focus-visible {
-    color: #55d0e0;
-    text-shadow: 0 0 1px #000, 0 0.1em 0.25em #55d0e0;
+    color: @config[@link][@hover][@color];
     outline: none;
   }
 

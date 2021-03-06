@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright (C) 2020 Jukka Svahn
+ * Copyright (C) 2021 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -36,21 +36,21 @@
   &__open-button {
     align-items: center;
     border-radius: 50%;
-    color: rgba(0, 0, 0, 0.5);
+    color: @config[@control][@background];
     display: inline-block;
     font-size: 1.25rem;
     margin: .rem(-52px)[] -1rem 0 0;
     padding: 1rem;
 
     &:hover {
-      color: rgba(0, 0, 0, 0.95);
+      color: @config[@control][@hover][@background];
     }
   }
 
   &__modal {
     animation: site-edit-form__modal-opening ease-in-out 0.5s;
-    background: #fff;
-    border-left: 1px solid rgba(0, 0, 0, 0.25);
+    background: @config[@modal][@background];
+    border-left: 1px solid @config[@modal][@border-color];
     bottom: 0;
     overflow: auto;
     position: fixed;

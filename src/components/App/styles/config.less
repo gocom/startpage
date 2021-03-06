@@ -36,20 +36,20 @@
   }
 
   @body: {
-    @background: #eceaf2;
-    @color: #525763;
+    @background: #545b66;
+    @color: #bcbdc1;
     @font: 1em/1.5 Raleway, sans-serif;
     @font-family: Raleway, sans-serif;
     @line-height: 1.5;
   }
 
   @input: {
-    @background: rgba(255, 255, 255, 0.25);
-    @border-color: rgba(0, 0, 0, 0.15);
+    @background: darken(@config[@body][@background], 5%);
+    @border-color: darken(@config[@body][@background], 7%);
 
     @hover: {
-      @background: rgba(255, 255, 255, 0.75);
-      @border-color: #4f9da6;
+      @background: darken(@config[@body][@background], 1%);
+      @border-color: @config[@link][@hover][@color];
     }
   }
 
@@ -59,16 +59,16 @@
   }
 
   @dropdown: {
-    @background: #fff;
-    @border-color: rgba(0, 0, 0, 0.35);
+    @background: darken(@config[@body][@background], 20%);
+    @border-color: darken(@config[@body][@background], 30%);
   }
 
   @dropdown-item: {
-    @border-color: rgba(0, 0, 0, 0.1);
+    @border-color: darken(@config[@dropdown][@background], 5%);
 
     @hover: {
-      @background: #4f9da6;
-      @color: #fff;
+      @background: @config[@link][@hover][@color];
+      @color: @config[@dropdown][@background];
     }
   }
 
@@ -83,6 +83,20 @@
   }
 
   @placeholder: {
-    @color: rgba(0, 0, 0, 0.3);
+    @color: lighten(@config[@input][@background], 15%);
+  }
+
+  @modal: {
+    @background: lighten(@config[@body][@background], 5%);
+    @border-color: darken(@config[@body][@background], 5%);
+    @inner-border-color: darken(@config[@body][@background], 1%);
+  }
+
+  @control: {
+    @background: darken(@config[@body][@background], 15%);
+
+    @hover: {
+      @background: darken(@config[@body][@background], 30%);
+    }
   }
 }
