@@ -58,8 +58,29 @@
     top: 0;
   }
 
+  &__group {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+  }
+
+  &__group &__control {
+    padding: 0.5rem;
+    width: 50%;
+  }
+
   &__control {
     padding: 0.5rem 2rem;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.5rem 2rem;
+
+    button {
+      margin: 0 0 0 1rem;
+    }
   }
 
   &__preview {

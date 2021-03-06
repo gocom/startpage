@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright (C) 2020 Jukka Svahn
+ * Copyright (C) 2021 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -40,6 +40,7 @@ export default {
   data() {
     return {
       selected: null,
+      isOpen: false,
     };
   },
 
@@ -60,6 +61,14 @@ export default {
 
     isSelected(icon) {
       return this.selected === icon.icon;
+    },
+
+    open() {
+      this.isOpen = true;
+    },
+
+    close() {
+      this.isOpen = false;
     },
 
     remove() {

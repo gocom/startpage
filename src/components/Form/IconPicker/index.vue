@@ -5,7 +5,7 @@
 -->
 
 <!--
- * Copyright (C) 2020 Jukka Svahn
+ * Copyright (C) 2021 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -28,15 +28,21 @@
 
 <template>
   <div class="form-icon-picker">
-    <div class="form-icon-picker__selected" v-if="selected">
-      <span class="form-icon-picker__icon form-icon-picker__icon--preview">
+    <div class="form-icon-picker__selected">
+      <div class="form-icon-picker__icon form-icon-picker__icon--preview" v-if="selected">
         <i v-bind:class="selected"></i>
-      </span>
-      <button type="button" v-on:click.prevent="remove">
+      </div>
+      <button type="button" v-on:click.prevent="remove" v-if="selected">
         <i class="fas fa-trash-alt"></i>
       </button>
+      <button type="button" v-on:click.prevent="close" v-if="isOpen">
+        <i class="fas fa-chevron-up"></i>
+      </button>
+      <button type="button" v-on:click.prevent="open" v-else>
+        <i class="fas fa-edit"></i>
+      </button>
     </div>
-    <div class="form-icon-picker__list">
+    <div class="form-icon-picker__list" v-bind:class="{ 'form-icon-picker__list--open': isOpen }">
       <button
         type="button"
         class="form-icon-picker__icon"

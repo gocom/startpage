@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright (C) 2020 Jukka Svahn
+ * Copyright (C) 2021 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -39,21 +39,32 @@
     cursor: pointer;
   }
 
+  &__code {
+    font-size: 0.75em;
+    letter-spacing: 1px;
+    text-transform: lowercase;
+  }
+
   &__preview {
     border: .rem(3px)[] solid #fff;
     border-radius: 50%;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15), inset 0 0 0 1px rgba(0, 0, 0, 0.15);
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.15),
+      inset 0 0 0 1px rgba(0, 0, 0, 0.15);
     cursor: pointer;
     display: block;
     height: 2em;
-    margin: 1px 1em 1px 1px;
+    margin: 1px 0.25em 1px 1px;
+    min-width: 2em;
     transition: all 0.25s;
     width: 2em;
   }
 
   label:hover {
     .form-color-picker__preview {
-      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(0, 0, 0, 0.25);
+      box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.35),
+        inset 0 0 0 1px rgba(0, 0, 0, 0.25);
     }
   }
 

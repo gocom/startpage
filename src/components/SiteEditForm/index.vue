@@ -73,28 +73,30 @@
         </div>
       </div>
 
-      <div class="site-edit-form__control">
-        <div class="site-edit-form__label">
-          <label v-bind:for="getUid('backgroundColor')">Background Color</label>
-          <div class="site-edit-form__input">
-            <ColorPicker
-              v-bind:id="getUid('backgroundColor')"
-              v-bind:color="site.backgroundColor"
-              v-on:pick="setBackgroundColor"
-            />
+      <div class="site-edit-form__group">
+        <div class="site-edit-form__control">
+          <div class="site-edit-form__label">
+            <label v-bind:for="getUid('backgroundColor')">Background</label>
+            <div class="site-edit-form__input">
+              <ColorPicker
+                v-bind:id="getUid('backgroundColor')"
+                v-bind:color="site.backgroundColor"
+                v-on:pick="setBackgroundColor"
+              />
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="site-edit-form__control">
-        <div class="site-edit-form__label">
-          <label v-bind:for="getUid('textColor')">Icon Color</label>
-          <div class="site-edit-form__input">
-            <ColorPicker
-              v-bind:id="getUid('textColor')"
-              v-bind:color="site.textColor"
-              v-on:pick="setTextColor"
-            />
+        <div class="site-edit-form__control">
+          <div class="site-edit-form__label">
+            <label v-bind:for="getUid('textColor')">Icon Color</label>
+            <div class="site-edit-form__input">
+              <ColorPicker
+                v-bind:id="getUid('textColor')"
+                v-bind:color="site.textColor"
+                v-on:pick="setTextColor"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -134,7 +136,7 @@
         </div>
       </div>
 
-      <div class="site-edit-form__control">
+      <div class="site-edit-form__actions">
         <button type="submit">Save</button>
         <button type="reset" v-on:click.prevent="toggle">Close</button>
       </div>
