@@ -26,15 +26,52 @@
  * SOFTWARE.
  */
 
+@import "../../App/styles/mixins/helpers";
+
 .form-file-picker {
+  background: @config[@input][@background];
+  border-radius: 0.25rem;
+  display: flex;
+  user-select: none;
+
   &__preview {
-    width: 5rem;
+    align-items: center;
+    background: @config[@input][@hover][@background];
+    border-radius: 0.25rem 0 0 0.25rem;
+    display: flex;
+    padding: 1rem;
+    position: relative;
+
+    button {
+      margin-left: 1rem;
+    }
   }
 
   &__image {
+    box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.15);
     display: block;
     height: auto;
-    max-width: 100%;
+    max-width: 7rem;
     width: auto;
+  }
+
+  &__input {
+    display: flex;
+    align-items: center;
+    flex: 1 1 auto;
+    justify-content: center;
+    padding: 1rem;
+    position: relative;
+  }
+
+  input[type="file"] {
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
   }
 }

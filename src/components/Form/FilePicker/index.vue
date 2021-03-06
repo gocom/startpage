@@ -35,6 +35,7 @@
       </button>
     </div>
     <div class="form-file-picker__input">
+      <i class="fas fa-cloud-upload-alt"></i>
       <input
         class="form-file-picker__upload-input"
         v-bind:id="id"
