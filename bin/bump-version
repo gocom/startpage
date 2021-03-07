@@ -1,0 +1,52 @@
+#!/usr/bin/env node
+
+/*
+ * Bumps package version number.
+ *
+ * 1. Extracts latest version number from CHANGELOG.md
+ * 2. uses it as package.json version number
+ * 3. adds date to the first changelog header
+ */
+
+const { readFile, writeFile } = require('fs');
+const { join, dirname } = require('path');
+const moment = require('moment');
+
+const root = dirname(__dirname);
+const date = moment().format('MMMM Do YYYY');
+const changelog = join(root, 'CHANGELOG.md');
+const packageJson = join(root, 'package.json');
+
+readFile(changelog, (err, data) => {
+  if (err) {
+    throw err;
+  }
+
+  let content = data.toString();
+  const [match, version] = content.match(/## ([A-Za-z0-9.-]+)/) || [];
+
+  content = content.replace(
+    /## (.*)/,
+    () => `## ${version} - ${date}`
+  );
+
+  writeFile(changelog, content, () => {
+    if (err) {
+      throw err;
+    }
+  });
+
+  readFile(packageJson, (err, data) => {
+    let parsed = JSON.parse(data.toString());
+
+    parsed.version = version;
+
+    writeFile(packageJson, JSON.stringify(parsed, null, 2), () => {
+      if (err) {
+        throw err;
+      }
+    });
+  });
+
+  console.log(`Current version: ${version}`);
+});

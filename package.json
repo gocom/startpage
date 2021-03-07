@@ -93,7 +93,8 @@
     "package": "node bin/package",
     "watch": "npm run build:dev -- --watch",
     "coveralls": "coveralls < coverage/lcov.info",
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server",
+    "bump-version": "node bin/bump-version"
   },
   "private": true
 }
