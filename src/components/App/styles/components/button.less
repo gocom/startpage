@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright (C) 2020 Jukka Svahn
+ * Copyright (C) 2021 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -26,53 +26,38 @@
  * SOFTWARE.
  */
 
-@import "../../App/styles/mixins/helpers";
+@import "../config";
+@import "../mixins/helpers";
 
-.form-file-picker {
-  background: @config[@input][@background];
-  border-radius: 0.25rem;
-  display: flex;
-  user-select: none;
-
-  &__preview {
-    align-items: center;
-    background: @config[@input][@hover][@background];
-    border-radius: 0.25rem 0 0 0.25rem;
-    display: flex;
-    padding: 1rem;
-    position: relative;
-
-    button {
-      margin-left: 1rem;
-    }
+/**
+ * Buttons.
+ */
+.button {
+  .primary() {
+    background: @config[@button][@primary][@background];
+    border: 1px solid @config[@button][@primary][@border-color];
+    border-radius: @config[@button][@border-radius];
+    color: @config[@button][@primary][@color];
+    display: inline-block;
+    font: inherit;
+    outline: 0;
+    padding: 0.5em 1em;
+    user-select: none;
+    transition: all 0.5s;
+    vertical-align: middle;
   }
 
-  &__image {
-    box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.15);
-    display: block;
-    height: auto;
-    max-width: 7rem;
-    width: auto;
-  }
-
-  &__input {
-    display: flex;
-    align-items: center;
-    flex: 1 1 auto;
-    font-size: 2rem;
-    justify-content: center;
-    padding: 1rem;
-    position: relative;
-  }
-
-  input[type="file"] {
-    height: 100%;
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
+  .secondary () {
+    background: @config[@button][@secondary][@background];
+    border: 1px solid @config[@button][@secondary][@border-color];
+    border-radius: @config[@button][@border-radius];
+    color: @config[@button][@secondary][@color];
+    display: inline-block;
+    font: inherit;
+    outline: 0;
+    padding: 0.5em 1em;
+    user-select: none;
+    transition: all 0.5s;
+    vertical-align: middle;
   }
 }

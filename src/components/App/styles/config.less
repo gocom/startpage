@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright (C) 2020 Jukka Svahn
+ * Copyright (C) 2021 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -98,6 +98,22 @@
 
     @hover: {
       @background: darken(@config[@body][@background], 30%);
+    }
+  }
+
+  @button: {
+    @border-radius: 0.25rem;
+
+    @primary: {
+      @background: #facf5a;
+      @border-color: darken(#facf5a, 5%);
+      @color: darken(#facf5a, 35%);
+    }
+
+    @secondary: {
+      @background: lighten(@config[@body][@background], 5%);
+      @border-color: darken(@config[@body][@background], 5%);
+      @color: darken(@config[@body][@background], 15%);
     }
   }
 }

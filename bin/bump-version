@@ -41,7 +41,9 @@ readFile(changelog, (err, data) => {
 
     parsed.version = version;
 
-    writeFile(packageJson, JSON.stringify(parsed, null, 2), () => {
+    const serialized = JSON.stringify(parsed, null, 2) + "\n";
+
+    writeFile(packageJson, serialized, () => {
       if (err) {
         throw err;
       }

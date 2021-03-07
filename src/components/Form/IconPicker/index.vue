@@ -29,14 +29,14 @@
 <template>
   <div class="form-icon-picker">
     <div class="form-icon-picker__selected">
-      <div class="form-icon-picker__icon form-icon-picker__icon--preview" v-if="selected">
-        <i v-bind:class="selected"></i>
+      <div class="form-icon-picker__icon form-icon-picker__icon--preview">
+        <i v-bind:class="selected" v-if="selected"></i>
       </div>
       <button type="button" v-on:click.prevent="remove" v-if="selected">
         <i class="fas fa-trash-alt"></i>
       </button>
       <button type="button" v-on:click.prevent="close" v-if="isOpen">
-        <i class="fas fa-chevron-up"></i>
+        <i class="fas fa-chevron-right"></i>
       </button>
       <button type="button" v-on:click.prevent="open" v-else>
         <i class="fas fa-edit"></i>

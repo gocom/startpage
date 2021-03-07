@@ -27,6 +27,8 @@
  */
 
 @import "../App/styles/config";
+@import "../App/styles/components/button";
+@import "../App/styles/components/form";
 @import "../App/styles/mixins/helpers";
 
 .site-edit-form {
@@ -52,10 +54,13 @@
     background: @config[@modal][@background];
     border-left: 1px solid @config[@modal][@border-color];
     bottom: 0;
+    display: flex;
+    flex-direction: column;
     overflow: auto;
     position: fixed;
     right: 0;
     top: 0;
+    width: 20rem;
   }
 
   &__control {
@@ -74,12 +79,24 @@
   }
 
   &__actions {
+    background: @config[@input][@hover][@background];
     display: flex;
     justify-content: flex-end;
-    padding: 0.5rem 2rem;
+    margin: auto 0 0 0;
+    padding: 2rem;
 
     button {
       margin: 0 0 0 1rem;
+
+      &[type=reset] {
+        .button.secondary();
+      }
+
+      &[type=submit] {
+        .button.primary();
+
+        order: 2;
+      }
     }
   }
 
@@ -97,6 +114,8 @@
 
   input[type="text"],
   input[type="url"] {
+    .form.text-input();
+
     width: 100%;
   }
 }

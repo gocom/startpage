@@ -127,7 +127,7 @@
       </div>
 
       <div class="site-edit-form__control">
-        <div class="site-edit-form__label">Icon</div>
+        <div class="site-edit-form__label">Icon Glyph</div>
         <div class="site-edit-form__input">
           <IconPicker
             v-bind:icon="site.fa"
