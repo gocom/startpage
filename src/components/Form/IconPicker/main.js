@@ -31,6 +31,10 @@ import socicon from './db/socicon';
 
 export default {
   props: {
+    id: {
+      type: String,
+      default: 'glyph',
+    },
     icon: {
       type: String,
       default: '',
@@ -71,6 +75,10 @@ export default {
       this.isOpen = false;
     },
 
+    toggle() {
+      this.isOpen = !this.isOpen;
+    },
+
     remove() {
       this.select(null);
     },
@@ -78,5 +86,11 @@ export default {
 
   mounted() {
     this.selected = this.icon;
+  },
+
+  watch: {
+    icon(newValue) {
+      this.selected = newValue;
+    },
   },
 };

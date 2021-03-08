@@ -46,14 +46,27 @@ class Site extends AbstractModel {
   }
 
   /**
+   * Gets absolute URL.
+   *
+   * @return {string}
+   */
+  get absoluteUrl() {
+    if (this.url && !String(this.url).match(/^[^:/]+:\/\//)) {
+      return `https://${this.url}`;
+    }
+
+    return this.url;
+  }
+
+  /**
    * Hostname.
    *
    * @return {string}
    */
   get hostname() {
-    if (this.url) {
+    if (this.absoluteUrl) {
       try {
-        const { hostname } = new URL(this.url);
+        const { hostname } = new URL(this.absoluteUrl);
 
         return hostname;
       } catch (e) {

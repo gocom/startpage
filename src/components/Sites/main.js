@@ -256,31 +256,31 @@ export default {
             this.isDraggable = true;
           });
       },
+    },
 
-      nextPage: {
-        /**
-         * @returns {Site[]}
-         */
-        get() {
-          return [];
-        },
-
-        set() {
-          // @todo
-        },
+    nextPage: {
+      /**
+       * @returns {Site[]}
+       */
+      get() {
+        return [];
       },
 
-      prevPage: {
-        /**
-         * @returns {Site[]}
-         */
-        get() {
-          return [];
-        },
+      set() {
+        // @todo
+      },
+    },
 
-        set() {
-          // @todo
-        },
+    prevPage: {
+      /**
+       * @returns {Site[]}
+       */
+      get() {
+        return [];
+      },
+
+      set() {
+        // @todo
       },
     },
   },

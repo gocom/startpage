@@ -65,4 +65,10 @@ export default {
   mounted() {
     this.value = this.color;
   },
+
+  watch: {
+    color(newValue) {
+      this.value = newValue;
+    },
+  },
 };

@@ -46,25 +46,22 @@
   }
 
   &__preview {
-    border: .rem(3px)[] solid #fff;
+    border: .rem(3px)[] solid @config[@input][@background];
     border-radius: 50%;
-    box-shadow:
-      0 0 0 1px rgba(0, 0, 0, 0.15),
-      inset 0 0 0 1px rgba(0, 0, 0, 0.15);
     cursor: pointer;
     display: block;
     height: 2em;
-    margin: 1px 0.25em 1px 1px;
+    margin: 0 0.25em 0 0;
     min-width: 2em;
     transition: all 0.25s;
     width: 2em;
   }
 
+  label:focus,
   label:hover {
     .form-color-picker__preview {
-      box-shadow:
-        0 0 0 1px rgba(0, 0, 0, 0.35),
-        inset 0 0 0 1px rgba(0, 0, 0, 0.25);
+      border-color: @config[@input][@hover][@background];
+      box-shadow: 0 0 0 1px @config[@input][@hover][@border-color];
     }
   }
 

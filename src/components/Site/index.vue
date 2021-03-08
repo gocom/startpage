@@ -31,7 +31,7 @@
     <a
       class="site__link"
       rel="external noreferrer noopener"
-      v-bind:href="site.url"
+      v-bind:href="site.absoluteUrl"
       v-bind:itemid="site.id">
       <div
         class="site__preview"

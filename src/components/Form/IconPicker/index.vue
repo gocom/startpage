@@ -29,17 +29,17 @@
 <template>
   <div class="form-icon-picker">
     <div class="form-icon-picker__selected">
-      <div class="form-icon-picker__icon form-icon-picker__icon--preview">
+      <div
+        class="form-icon-picker__icon form-icon-picker__icon--preview"
+        v-on:click.prevent="toggle">
         <i v-bind:class="selected" v-if="selected"></i>
       </div>
-      <button type="button" v-on:click.prevent="remove" v-if="selected">
+      <button type="button" title="Remove" v-on:click.prevent="remove" v-if="selected">
         <i class="fas fa-trash-alt"></i>
       </button>
-      <button type="button" v-on:click.prevent="close" v-if="isOpen">
-        <i class="fas fa-chevron-right"></i>
-      </button>
-      <button type="button" v-on:click.prevent="open" v-else>
-        <i class="fas fa-edit"></i>
+      <button type="button" title="Close" v-on:click.prevent="toggle" v-bind:id="id">
+        <i class="fas fa-chevron-right" v-if="isOpen"></i>
+        <i class="fas fa-edit" v-else></i>
       </button>
     </div>
     <div class="form-icon-picker__list" v-bind:class="{ 'form-icon-picker__list--open': isOpen }">

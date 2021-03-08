@@ -60,4 +60,14 @@
     transition: all 0.5s;
     vertical-align: middle;
   }
+
+  .plain () {
+    color: inherit;
+
+    &:hover,
+    &:focus {
+      color: @config[@link][@hover][@color];
+      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+    }
+  }
 }

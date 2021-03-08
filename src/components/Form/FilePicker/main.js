@@ -88,4 +88,10 @@ export default {
   mounted() {
     this.file = this.current;
   },
+
+  watch: {
+    current(newValue) {
+      this.file = newValue;
+    },
+  },
 };

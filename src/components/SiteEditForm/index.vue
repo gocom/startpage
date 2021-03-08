@@ -121,15 +121,19 @@
         <div class="site-edit-form__input">
           <FilePicker
             v-bind:id="getUid('icon')"
+            v-bind:current="site.icon"
             v-on:pick="setIcon"
           />
         </div>
       </div>
 
       <div class="site-edit-form__control">
-        <div class="site-edit-form__label">Icon Glyph</div>
+        <div class="site-edit-form__label">
+          <label v-bind:for="getUid('glyph')">Icon Glyph</label>
+        </div>
         <div class="site-edit-form__input">
           <IconPicker
+            v-bind:id="getUid('glyph')"
             v-bind:icon="site.fa"
             v-on:pick="setFa"
           />
@@ -138,7 +142,7 @@
 
       <div class="site-edit-form__actions">
         <button type="submit">Save</button>
-        <button type="reset" v-on:click.prevent="toggle">Close</button>
+        <button type="reset" v-on:click.prevent="toggle">Cancel</button>
       </div>
     </form>
   </div>
