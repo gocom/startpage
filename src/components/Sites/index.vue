@@ -5,7 +5,7 @@
 -->
 
 <!--
- * Copyright (C) 2020 Jukka Svahn
+ * Copyright (C) 2021 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -28,21 +28,37 @@
 
 <template>
   <section class="sites">
-    <Draggable
-      class="site-grid"
-      v-model="items"
-      group="sites"
-      v-bind:move="isDraggingAllowed">
-      <Site
-        v-for="(site, index) in items"
-        v-bind:key="site.id"
-        v-bind:site="site"
-        v-bind:isPositionVisible="isPositionVisible"
-        v-bind:position="getPosition(index)"
-        v-on:delete="reload"
-        v-on:edit="setEdit"
-      />
-    </Draggable>
+    <div class="sites__content">
+      <Draggable
+        class="site-grid"
+        v-model="items"
+        group="sites"
+        v-bind:move="isDraggingAllowed">
+        <Site
+          v-for="(site, index) in items"
+          v-bind:key="site.id"
+          v-bind:site="site"
+          v-bind:isPositionVisible="isPositionVisible"
+          v-bind:position="getPosition(index)"
+          v-on:delete="reload"
+          v-on:edit="setEdit"
+        />
+      </Draggable>
+
+      <Draggable
+        class="site-grid site-grid--sidecar site-grid--prev"
+        v-model="prevPage"
+        group="sites"
+        v-bind:move="isDraggingAllowed">
+      </Draggable>
+
+      <Draggable
+        class="site-grid site-grid--sidecar site-grid--next"
+        v-model="nextPage"
+        group="sites"
+        v-bind:move="isDraggingAllowed">
+      </Draggable>
+    </div>
 
     <Pagination v-bind:total="totalCount" v-bind:limit="limit"/>
 

@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright (C) 2020 Jukka Svahn
+ * Copyright (C) 2021 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -255,6 +255,32 @@ export default {
           .then(() => {
             this.isDraggable = true;
           });
+      },
+
+      nextPage: {
+        /**
+         * @returns {Site[]}
+         */
+        get() {
+          return [];
+        },
+
+        set() {
+          // @todo
+        },
+      },
+
+      prevPage: {
+        /**
+         * @returns {Site[]}
+         */
+        get() {
+          return [];
+        },
+
+        set() {
+          // @todo
+        },
       },
     },
   },
