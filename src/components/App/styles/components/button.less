@@ -43,8 +43,15 @@
     outline: 0;
     padding: 0.5em 1em;
     user-select: none;
-    transition: all 0.5s;
+    transition: all 0.25s;
     vertical-align: middle;
+
+    &:hover,
+    &:focus {
+      background: @config[@button][@primary][@hover][@background];
+      border-color: @config[@button][@primary][@hover][@border-color];
+      color: @config[@button][@primary][@hover][@color];
+    }
   }
 
   .secondary () {
@@ -57,17 +64,24 @@
     outline: 0;
     padding: 0.5em 1em;
     user-select: none;
-    transition: all 0.5s;
+    transition: all 0.25s;
     vertical-align: middle;
+
+    &:hover,
+    &:focus {
+      background: @config[@button][@secondary][@hover][@background];
+      border-color: @config[@button][@secondary][@hover][@border-color];
+      color: @config[@button][@secondary][@hover][@color];
+    }
   }
 
   .plain () {
     color: inherit;
+    transition: color 0.25s;
 
     &:hover,
     &:focus {
       color: @config[@link][@hover][@color];
-      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
     }
   }
 }

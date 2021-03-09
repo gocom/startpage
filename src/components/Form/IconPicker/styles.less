@@ -72,10 +72,15 @@
   &__list &__icon {
     cursor: pointer;
 
-    &--active,
+    &:focus,
     &:hover {
       background: @config[@input][@hover][@background];
       color: @config[@body][@color-light];
+    }
+
+    &--active {
+      box-shadow: 0 0 0 1px @config[@input][@hover][@border-color];
+      color: @config[@input][@hover][@border-color];
     }
   }
 

@@ -108,12 +108,24 @@
       @background: #facf5a;
       @border-color: darken(#facf5a, 5%);
       @color: darken(#facf5a, 35%);
+
+      @hover: {
+        @background: lighten(@config[@body][@background], 5%);
+        @border-color: #facf5a;
+        @color: #facf5a;
+      }
     }
 
     @secondary: {
       @background: lighten(@config[@body][@background], 5%);
       @border-color: darken(@config[@body][@background], 5%);
       @color: darken(@config[@body][@background], 15%);
+
+      @hover: {
+        @background: lighten(@config[@body][@background], 5%);
+        @border-color: #facf5a;
+        @color: #facf5a;
+      }
     }
   }
 }
