@@ -32,7 +32,7 @@
 
     <KeyboardShortcut shortcut="Alt" v-on:on="show" v-on:up="hide"/>
     <KeyboardShortcut v-bind:shortcut="position" v-on:on="open"/>
-    <KeyboardShortcut v-bind:shortcut="'Alt' + position" v-on:on="open"/>
+    <KeyboardShortcut v-bind:shortcut="'Alt+' + position" v-on:on="open"/>
   </div>
 </template>
 
