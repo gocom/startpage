@@ -144,6 +144,8 @@
         <button type="submit">Save</button>
         <button type="reset" v-on:click.prevent="toggle">Cancel</button>
       </div>
+
+      <KeyboardShortcut shortcut="!<CloseSiteEditForm>Escape" v-on:on="close"/>
     </form>
   </div>
 </template>

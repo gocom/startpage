@@ -26,21 +26,43 @@
  * SOFTWARE.
  */
 
-.position-indicator {
-  &__value {
-    background: rgba(0, 0, 0, 0.95);
-    border-radius: 50%;
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15);
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.75rem;
-    width: 1.25rem;
-    height: 1.25rem;
-    text-align: center;
-    position: absolute;
-    top: -0.25rem;
-    right: -0.25rem;
-  }
-}
+import Shortcut from '../../lib/Shortcut';
+
+export default {
+  props: {
+    shortcut: {
+      type: String,
+      default: '',
+    },
+  },
+
+  methods: {
+    /**
+     * On.
+     *
+     * @return {void}
+     */
+    on() {
+      this.$emit('on');
+    },
+
+    /**
+     * Up.
+     *
+     * @return {void}
+     */
+    up() {
+      this.$emit('up');
+    },
+  },
+
+  mounted() {
+    Shortcut
+      .on(this.shortcut, () => this.on())
+      .up(this.shortcut, () => this.up());
+  },
+
+  beforeDestroy() {
+    Shortcut.remove(this.shortcut);
+  },
+};

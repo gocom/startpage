@@ -5,7 +5,7 @@
 -->
 
 <!--
- * Copyright (C) 2020 Jukka Svahn
+ * Copyright (C) 2021 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -39,6 +39,11 @@
         </button>
       </li>
     </ul>
+
+    <KeyboardShortcut shortcut="ArrowLeft" v-on:on="previousPage"/>
+    <KeyboardShortcut shortcut="a" v-on:on="previousPage"/>
+    <KeyboardShortcut shortcut="ArrowRight" v-on:on="nextPage"/>
+    <KeyboardShortcut shortcut="d" v-on:on="nextPage"/>
   </nav>
 </template>
 

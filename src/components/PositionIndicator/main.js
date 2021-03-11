@@ -26,7 +26,7 @@
  * SOFTWARE.
  */
 
-import Shortcut from '../../lib/Shortcut';
+import KeyboardShortcut from '../KeyboardShortcut';
 
 export default {
   data() {
@@ -40,6 +40,10 @@ export default {
       type: String,
       default: '',
     },
+  },
+
+  components: {
+    KeyboardShortcut,
   },
 
   methods: {
@@ -69,20 +73,5 @@ export default {
     hide() {
       this.isVisible = false;
     },
-  },
-
-  mounted() {
-    Shortcut
-      .on('Alt', () => this.show())
-      .up('Alt', () => this.hide())
-      .on(this.position, () => this.open())
-      .on(`Alt+${this.position}`, () => this.open());
-  },
-
-  beforeDestroy() {
-    Shortcut
-      .remove('Alt')
-      .remove(this.position)
-      .remove(`Alt+${this.position}`);
   },
 };

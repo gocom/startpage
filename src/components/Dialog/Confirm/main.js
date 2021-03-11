@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright (C) 2020 Jukka Svahn
+ * Copyright (C) 2021 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -26,7 +26,7 @@
  * SOFTWARE.
  */
 
-import Shortcut from '../../../lib/Shortcut';
+import KeyboardShortcut from '../../KeyboardShortcut';
 
 export default {
   props: {
@@ -40,6 +40,10 @@ export default {
     },
   },
 
+  components: {
+    KeyboardShortcut,
+  },
+
   methods: {
     confirm() {
       this.$emit('confirm');
@@ -48,15 +52,5 @@ export default {
     decline() {
       this.$emit('decline');
     },
-  },
-
-  mounted() {
-    Shortcut.on('<DialogConfirmDecline>Escape', () => this.decline());
-
-    this.$refs.confirm.focus();
-  },
-
-  beforeDestroy() {
-    Shortcut.remove('<DialogConfirmDecline>');
   },
 };

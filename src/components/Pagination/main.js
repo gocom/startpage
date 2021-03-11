@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright (C) 2020 Jukka Svahn
+ * Copyright (C) 2021 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -26,7 +26,7 @@
  * SOFTWARE.
  */
 
-import Shortcut from '../../lib/Shortcut';
+import KeyboardShortcut from '../KeyboardShortcut';
 
 export default {
   props: {
@@ -52,6 +52,10 @@ export default {
     return {
       page: 1,
     };
+  },
+
+  components: {
+    KeyboardShortcut,
   },
 
   methods: {
@@ -159,22 +163,5 @@ export default {
     total() {
       this.setPage(this.requestedPage);
     },
-  },
-
-  mounted() {
-    Shortcut
-      .on('ArrowLeft', () => this.previousPage())
-      .on('a', () => this.previousPage())
-      .on('ArrowRight', () => this.nextPage())
-      .on('d', () => this.nextPage());
-  },
-
-  beforeDestroy() {
-    Shortcut
-      .remove('ArrowLeft')
-      .remove('a')
-      .remove('ArrowRight')
-      .remove('d')
-      .remove('Alt');
   },
 };

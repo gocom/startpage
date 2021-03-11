@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright (C) 2020 Jukka Svahn
+ * Copyright (C) 2021 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -27,7 +27,7 @@
  */
 
 import SiteSearch from '../../model/Site/SiteSearch';
-import Shortcut from '../../lib/Shortcut';
+import KeyboardShortcut from '../KeyboardShortcut';
 import config from '../../config';
 import SearchSuggestion from '../SearchSuggestion';
 import UniqueId from '../../mixins/UniqueId';
@@ -47,6 +47,7 @@ export default {
 
   components: {
     SearchSuggestion,
+    KeyboardShortcut,
   },
 
   mixins: [
@@ -130,22 +131,6 @@ export default {
       return index === this.selected;
     },
 
-    addShortcuts() {
-      Shortcut
-        .on('!<SearchClose>Escape', () => this.closeField())
-        .on('!<SearchPrev>ArrowUp', () => this.prev())
-        .on('!<SearchNext>ArrowDown', () => this.next())
-        .on('!<SearchOpen>Enter', () => this.open());
-    },
-
-    removeShortcuts() {
-      Shortcut
-        .remove('<SearchClose>')
-        .remove('<SearchPrev>')
-        .remove('<SearchNext>')
-        .remove('<SearchOpen>');
-    },
-
     reset() {
       this.query = '';
       this.results = [];
@@ -154,7 +139,6 @@ export default {
     focus() {
       this.selected = -1;
       this.isActive = true;
-      this.addShortcuts();
     },
 
     blur() {
@@ -162,7 +146,6 @@ export default {
 
       if (this.query === '') {
         this.isActive = false;
-        this.removeShortcuts();
       }
     },
 
@@ -173,10 +156,6 @@ export default {
     closeField() {
       this.isActive = false;
       this.$refs.searchInput.blur();
-
-      if (this.query !== '') {
-        this.removeShortcuts();
-      }
     },
 
     search() {
@@ -193,11 +172,5 @@ export default {
         this.focusToField();
       }
     });
-
-    Shortcut.on('<SearchFocus>Cmd+F', () => this.focusToField());
-  },
-
-  beforeDestroy() {
-    Shortcut.remove('<SearchFocus>');
   },
 };

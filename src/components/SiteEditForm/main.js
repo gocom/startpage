@@ -34,7 +34,7 @@ import IconPicker from '../Form/IconPicker';
 import FilePicker from '../Form/FilePicker';
 import Site from '../Site';
 import Color from '../../lib/Color';
-import Shortcut from '../../lib/Shortcut';
+import KeyboardShortcut from '../KeyboardShortcut';
 
 export default {
   data() {
@@ -56,6 +56,7 @@ export default {
     IconPicker,
     FilePicker,
     Site,
+    KeyboardShortcut,
   },
 
   mixins: [
@@ -70,8 +71,6 @@ export default {
     close() {
       this.site = new SiteModel();
 
-      this.removeShortcuts();
-
       this.isOpen = false;
 
       this.$emit('cancel');
@@ -79,8 +78,6 @@ export default {
 
     open() {
       this.randomize();
-
-      this.addShortcuts();
 
       this.isOpen = true;
     },
@@ -108,14 +105,6 @@ export default {
       }
     },
 
-    addShortcuts() {
-      Shortcut.on('!<CloseSiteEditForm>Escape', () => this.close());
-    },
-
-    removeShortcuts() {
-      Shortcut.remove('<CloseSiteEditForm>');
-    },
-
     setTextColor(color) {
       this.site.textColor = color;
     },
@@ -141,15 +130,8 @@ export default {
     edit(site) {
       if (site) {
         this.site = site;
-
-        this.addShortcuts();
-
         this.isOpen = true;
       }
     },
-  },
-
-  beforeDestroy() {
-    this.removeShortcuts();
   },
 };
