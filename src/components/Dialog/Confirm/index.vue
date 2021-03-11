@@ -5,7 +5,7 @@
 -->
 
 <!--
- * Copyright (C) 2020 Jukka Svahn
+ * Copyright (C) 2021 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -30,9 +30,11 @@
   <section class="dialog dialog--confirm">
     <div class="dialog__overlay">
       <form class="dialog__window">
-        <h1 class="dialog__title" v-if="title">{{ title }}</h1>
-        <p class="dialog__message" v-if="message">{{ message }}</p>
-        <div class="dialog__buttons">
+        <div class="dialog__content">
+          <h1 class="dialog__title" v-if="title">{{ title }}</h1>
+          <p class="dialog__message" v-if="message">{{ message }}</p>
+        </div>
+        <div class="dialog__actions">
           <button type="submit" v-on:click.prevent="confirm" ref="confirm">Yes</button>
           <button type="reset" v-on:click.prevent="decline">No</button>
         </div>

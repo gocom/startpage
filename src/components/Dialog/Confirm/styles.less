@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright (C) 2020 Jukka Svahn
+ * Copyright (C) 2021 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -26,7 +26,7 @@
  * SOFTWARE.
  */
 
-@import "../../App/styles/components/dropdown";
+@import "../../App/styles/components/button";
 @import "../../App/styles/mixins/helpers";
 
 .dialog {
@@ -44,11 +44,41 @@
   }
 
   &__window {
-    background: #fff;
+    background: @config[@modal][@background];
     border-radius: .rem(3px)[];
     max-height: calc(100vh - 4rem);
     max-width: calc(100vw - 4rem);
     overflow: auto;
+  }
+
+  &__content {
     padding: 2rem;
+  }
+
+  &__title {
+    font-size: 1.25rem;
+    margin: 0 0 1rem 0;
+  }
+
+  &__actions {
+    background: @config[@input][@hover][@background];
+    justify-content: flex-end;
+    display: flex;
+    margin: 1rem 0 0 0;
+    padding: 2rem;
+
+    button {
+      margin-left: 0.5rem;
+    }
+
+    button[type=submit] {
+      .button.primary();
+
+      order: 2;
+    }
+
+    button[type=reset] {
+      .button.secondary();
+    }
   }
 }

@@ -27,46 +27,9 @@
 -->
 
 <template>
-  <section class="sites">
-    <div class="sites__content">
-      <Draggable
-        class="site-grid"
-        v-model="items"
-        group="sites"
-        v-bind:move="isDraggingAllowed">
-        <Site
-          v-for="(site, index) in items"
-          v-bind:key="site.id"
-          v-bind:site="site"
-          v-bind:position="getPosition(index)"
-          v-on:delete="reload"
-          v-on:edit="setEdit"
-        />
-      </Draggable>
-
-      <Draggable
-        class="site-grid site-grid--sidecar site-grid--prev"
-        v-model="prevPage"
-        group="sites"
-        v-bind:move="isDraggingAllowed">
-      </Draggable>
-
-      <Draggable
-        class="site-grid site-grid--sidecar site-grid--next"
-        v-model="nextPage"
-        group="sites"
-        v-bind:move="isDraggingAllowed">
-      </Draggable>
-    </div>
-
-    <Pagination v-bind:total="totalCount" v-bind:limit="limit"/>
-
-    <SiteEditForm
-      v-bind:edit="edit"
-      v-on:save="save"
-      v-on:cancel="cancel"
-    />
-  </section>
+  <div class="position-indicator" v-if="isVisible">
+    <span class="position-indicator__value">{{ position }}</span>
+  </div>
 </template>
 
 <style lang="less" src="./styles.less"></style>

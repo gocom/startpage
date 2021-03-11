@@ -27,47 +27,44 @@
 -->
 
 <template>
-  <section class="sites">
-    <div class="sites__content">
-      <Draggable
-        class="site-grid"
-        v-model="items"
-        group="sites"
-        v-bind:move="isDraggingAllowed">
-        <Site
-          v-for="(site, index) in items"
-          v-bind:key="site.id"
-          v-bind:site="site"
-          v-bind:position="getPosition(index)"
-          v-on:delete="reload"
-          v-on:edit="setEdit"
-        />
-      </Draggable>
+  <div class="dropdown">
+    <button
+      type="button"
+      v-on:click.prevent="close"
+      v-bind:aria-expanded="true"
+      aria-haspopup="menu"
+      v-bind:aria-labelledby="id"
+      v-if="isOpen">
+      <slot name="label-close">
+        <i class="fas fa-ellipsis-h"></i>
+      </slot>
+    </button>
 
-      <Draggable
-        class="site-grid site-grid--sidecar site-grid--prev"
-        v-model="prevPage"
-        group="sites"
-        v-bind:move="isDraggingAllowed">
-      </Draggable>
+    <button
+      type="button"
+      v-on:click.prevent="open"
+      aria-haspopup="menu"
+      v-bind:aria-labelledby="id"
+      v-else>
+      <slot name="label-open">
+        <i class="fas fa-ellipsis-h"></i>
+      </slot>
+    </button>
 
-      <Draggable
-        class="site-grid site-grid--sidecar site-grid--next"
-        v-model="nextPage"
-        group="sites"
-        v-bind:move="isDraggingAllowed">
-      </Draggable>
-    </div>
-
-    <Pagination v-bind:total="totalCount" v-bind:limit="limit"/>
-
-    <SiteEditForm
-      v-bind:edit="edit"
-      v-on:save="save"
-      v-on:cancel="cancel"
-    />
-  </section>
+    <ul
+      role="menu"
+      v-bind:aria-labelledby="id"
+      tabindex="-1"
+      class="dropdown__menu"
+      v-if="isOpen"
+      v-bind:class=" { 'dropdown__menu--open': isOpen } "
+      v-on:click="close"
+      v-on:focusout="close"
+      v-on:mouseleave="close">
+      <slot name="items"/>
+    </ul>
+  </div>
 </template>
 
-<style lang="less" src="./styles.less"></style>
 <script src="./main.js"></script>
+<style lang="less" src="./styles.less"></style>

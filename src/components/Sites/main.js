@@ -27,7 +27,6 @@
  */
 
 import Draggable from 'vuedraggable';
-import Shortcut from '../../lib/Shortcut';
 import config from '../../config';
 import Pagination from '../Pagination';
 import SiteEditForm from '../SiteEditForm';
@@ -43,7 +42,6 @@ export default {
       sites: [],
       limit: 12,
       page: 1,
-      isPositionVisible: false,
       positions: [
         '1',
         '2',
@@ -81,34 +79,6 @@ export default {
     },
 
     /**
-     * Opens site by the given position.
-     *
-     * @param {string} position
-     *
-     * @return {void}
-     */
-    openByPosition(position) {
-      const site = this.getByPosition(position);
-
-      if (site) {
-        this.open(site);
-      }
-    },
-
-    /**
-     * Gets site by position.
-     *
-     * @param {string} position
-     *
-     * @return {Site|null}
-     */
-    getByPosition(position) {
-      const index = this.positions.findIndex((value) => value === position);
-
-      return this.items[index] || null;
-    },
-
-    /**
      * Opens the given site.
      *
      * @param {Site} site
@@ -116,7 +86,7 @@ export default {
      * @return {void}
      */
     open(site) {
-      window.location.href = site.url.toString();
+      window.location.href = site.absoluteUrl.toString();
     },
 
     /**
@@ -128,24 +98,6 @@ export default {
      */
     setEdit(site) {
       this.edit = site;
-    },
-
-    /**
-     * Show position numbers.
-     *
-     * @return {void}
-     */
-    showPositionVisible() {
-      this.isPositionVisible = true;
-    },
-
-    /**
-     * Hide position numbers.
-     *
-     * @return {void}
-     */
-    hidePositionVisible() {
-      this.isPositionVisible = false;
     },
 
     /**
@@ -301,31 +253,12 @@ export default {
         }
       });
 
-    Shortcut
-      .on('Alt', () => this.showPositionVisible())
-      .up('Alt', () => this.hidePositionVisible());
-
-    this.positions.forEach((position) => {
-      Shortcut.on(position, () => this.openByPosition(position));
-      Shortcut.on(`Alt+${position}`, () => this.openByPosition(position));
-    });
-
     this.$on('change-page', (page) => {
       this.page = page;
     });
 
     this.$on('reload', () => {
       this.reload();
-    });
-  },
-
-  beforeDestroy() {
-    Shortcut.remove('Alt');
-
-    this.positions.forEach((position) => {
-      Shortcut
-        .remove(position)
-        .remove(`Alt+${position}`);
     });
   },
 };

@@ -54,51 +54,22 @@
           />
         <i v-if="site.fa" v-bind:class="site.fa"></i>
       </div>
-
-      <h1 class="site__info site__info--title">{{ site.name }}</h1>
-      <h2 class="site__info site__info--domain">{{ site.hostname }}</h2>
-      <div class="site__position" v-if="isPositionVisible && position">{{ position }}</div>
     </a>
 
-    <div class="site__actions">
-      <button
-        type="button"
-        class="site__action site__action--search"
-        v-on:click.prevent="toggleSearch"
-        v-bind:class="{ 'site__action--active': isSiteSearch }">
-        <i class="fas fa-search"></i>
-      </button>
-      <button
-        type="button"
-        v-if="isEditable"
-        class="site__action site__action--options"
-        v-on:click.prevent="toggleMenu"
-        v-bind:class="{ 'site__action--active': isMenuOpen }">
-        <i class="fas fa-ellipsis-h"></i>
-      </button>
-    </div>
+    <div class="site__details">
+      <h1 class="site__info site__info--title" v-bind:title="site.hostname">{{ site.name }}</h1>
+      <PositionIndicator v-bind:position="position" v-on:open="open"/>
 
-    <ul
-      class="site__menu site__menu--open"
-      v-if="isMenuOpen"
-      v-on:click="closeMenu"
-      v-on:focusout="closeMenu"
-      v-on:mouseleave="closeMenu">
-      <li class="site__menu-item">
-        <a
-          href="#"
-          class="site__menu-item__link"
-          v-on:click.prevent="edit"
-          v-if="isEditable">Edit</a>
-      </li>
-      <li class="site__menu-item">
-        <a
-          href="#"
-          class="site__menu-item__link"
-          v-on:click.prevent="confirmDelete"
-          v-if="isEditable">Delete</a>
-      </li>
-    </ul>
+      <div class="site__actions">
+        <SiteSearchToggle/>
+        <DropdownMenu v-if="isEditable">
+          <template slot="items">
+            <DropdownItem label="Edit" v-on:select="edit"/>
+            <DropdownItem label="Delete" v-on:select="confirmDelete"/>
+          </template>
+        </DropdownMenu>
+      </div>
+    </div>
 
     <Confirm
       v-if="isConfirmingDelete"

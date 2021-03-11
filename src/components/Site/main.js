@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright (C) 2020 Jukka Svahn
+ * Copyright (C) 2021 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -26,11 +26,14 @@
  * SOFTWARE.
  */
 
-import SiteSearch from '../../model/Site/SiteSearch';
 import SiteCollection from '../../model/Site/SiteCollection';
 import ErrorMessage from '../../model/Message/ErrorMessage';
 import SuccessMessage from '../../model/Message/SuccessMessage';
 import Confirm from '../Dialog/Confirm';
+import DropdownMenu from '../Dropdown/Menu';
+import DropdownItem from '../Dropdown/Item';
+import SiteSearchToggle from '../SiteSearchToggle';
+import PositionIndicator from '../PositionIndicator';
 
 export default {
   props: {
@@ -50,25 +53,19 @@ export default {
 
   data() {
     return {
-      isMenuOpen: false,
       isConfirmingDelete: false,
     };
   },
 
   components: {
     Confirm,
+    DropdownMenu,
+    DropdownItem,
+    SiteSearchToggle,
+    PositionIndicator,
   },
 
   computed: {
-    /**
-     * Whether site search is active for the given site.
-     *
-     * @return {boolean}
-     */
-    isSiteSearch() {
-      return this.site === SiteSearch.value;
-    },
-
     /**
      * Whether the site is editable.
      *
@@ -81,34 +78,12 @@ export default {
 
   methods: {
     /**
-     * Sets site search.
-     *
-     * Actives site search for the given site.
+     * Opens a site.
      *
      * @return {void}
      */
-    toggleSearch() {
-      SiteSearch.value = SiteSearch.value === this.site
-        ? null
-        : this.site;
-    },
-
-    /**
-     * Toggle options visible.
-     *
-     * @return {void}
-     */
-    toggleMenu() {
-      this.isMenuOpen = !this.isMenuOpen;
-    },
-
-    /**
-     * Closes menu.
-     *
-     * @return {void}
-     */
-    closeMenu() {
-      this.isMenuOpen = false;
+    open() {
+      window.location.href = this.site.absoluteUrl.toString();
     },
 
     /**
