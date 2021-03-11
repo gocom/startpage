@@ -49,7 +49,7 @@
           v-bind:key="item.id"
           v-bind:id="item.id"
           v-bind:name="item.name"
-          v-bind:url="item.url"
+          v-bind:url="item.absoluteUrl"
           v-bind:isActive="isActiveIndex(index)"/>
       </aside>
     </form>
