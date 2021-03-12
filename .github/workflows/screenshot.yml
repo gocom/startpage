@@ -1,6 +1,9 @@
 name: Screenshot
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   build:
