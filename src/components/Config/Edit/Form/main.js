@@ -1,10 +1,10 @@
-<!--
+/**
  * Start Page - New tab speed dial.
  *
  * {@link https://github.com/gocom/startpage GitHub}
--->
+ */
 
-<!--
+/*
  * Copyright (C) 2021 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -24,10 +24,66 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
--->
+ */
 
-<template>
-  <span></span>
-</template>
+import UniqueId from '../../../../mixins/UniqueId';
+import ColorPicker from '../../../Form/ColorPicker';
+import FilePicker from '../../../Form/FilePicker';
+import KeyboardShortcut from '../../../KeyboardShortcut';
 
-<script src="./main.js"></script>
+export default {
+  data() {
+    return {
+      isOpen: false,
+      textColor: null,
+      backgroundColor: null,
+      backgroundImage: null,
+    };
+  },
+
+  components: {
+    ColorPicker,
+    FilePicker,
+    KeyboardShortcut,
+  },
+
+  mixins: [
+    UniqueId,
+  ],
+
+  methods: {
+    reset() {
+      Object.assign(this.$data, this.$options.data());
+    },
+
+    close() {
+      this.isOpen = false;
+
+      this.$emit('cancel');
+    },
+
+    open() {
+      this.isOpen = true;
+    },
+
+    toggle() {
+      this.isOpen = !this.isOpen;
+    },
+
+    save() {
+      // @todo
+    },
+
+    setTextColor(color) {
+      this.textColor = color;
+    },
+
+    setBackgroundColor(color) {
+      this.backgroundColor = color;
+    },
+
+    setBackgroundImage(file) {
+      this.backgroundImage = file;
+    },
+  },
+};

@@ -61,7 +61,7 @@
       <PositionIndicator v-bind:position="position" v-on:open="open"/>
 
       <div class="site__actions">
-        <SiteSearchToggle/>
+        <SiteSearchToggle v-bind:site="site"/>
         <DropdownMenu v-if="isEditable">
           <template slot="items">
             <DropdownItem label="Edit" v-on:select="edit"/>

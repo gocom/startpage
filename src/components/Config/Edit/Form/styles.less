@@ -26,12 +26,12 @@
  * SOFTWARE.
  */
 
-@import "../App/styles/config";
-@import "../App/styles/components/button";
-@import "../App/styles/components/form";
-@import "../App/styles/mixins/helpers";
+@import "../../../App/styles/config";
+@import "../../../App/styles/components/button";
+@import "../../../App/styles/components/form";
+@import "../../../App/styles/mixins/helpers";
 
-.site-edit-form {
+.config-edit-form {
   &__open-button {
     align-items: center;
     border-radius: 50%;
@@ -47,7 +47,7 @@
   }
 
   &__modal {
-    animation: site-edit-form__modal-opening ease-in-out 0.5s;
+    animation: config-edit-form__modal-opening ease-in-out 0.5s;
     background: @config[@modal][@background];
     border-left: 1px solid @config[@modal][@border-color];
     bottom: 0;
@@ -97,18 +97,6 @@
     }
   }
 
-  &__preview {
-    background: @config[@body][@background];
-    border-bottom: @config[@input][@border-color];
-    margin: 0 0 2rem 0;
-    padding: 2rem;
-
-    .site {
-      margin: auto;
-      max-width: .rem(192px)[];
-    }
-  }
-
   input[type="text"],
   input[type="url"] {
     .form.text-input();
@@ -117,7 +105,7 @@
   }
 }
 
-@keyframes site-edit-form__modal-opening {
+@keyframes config-edit-form__modal-opening {
   0% {
     transform: translateX(100%);
     opacity: 0;

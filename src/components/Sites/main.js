@@ -30,6 +30,7 @@ import Draggable from 'vuedraggable';
 import config from '../../config';
 import Pagination from '../Pagination';
 import SiteEditForm from '../SiteEditForm';
+import ConfigEditForm from '../Config/Edit/Form';
 import Site from '../Site';
 import SiteCollection from '../../model/Site/SiteCollection';
 import ConfigStorage from '../../model/Config/Storage';
@@ -64,6 +65,7 @@ export default {
     Site,
     SiteEditForm,
     Draggable,
+    ConfigEditForm,
   },
 
   methods: {

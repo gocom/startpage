@@ -32,7 +32,9 @@ export default {
   props: {
     site: {
       type: Object,
-      default: {},
+      default() {
+        return {};
+      },
     },
   },
 

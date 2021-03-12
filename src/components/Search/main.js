@@ -41,7 +41,7 @@ export default {
       idx: null,
       results: [],
       isActive: false,
-      selected: 0,
+      selected: -1,
     };
   },
 
@@ -76,6 +76,14 @@ export default {
     isSuggestionsOpen() {
       return this.isActive && this.results.length >= 1 && !SiteSearch.value;
     },
+
+    selectedSuggestion() {
+      return this.items[this.selected] || null;
+    },
+
+    isSuggestionFocused() {
+      return this.selectedSuggestion !== null;
+    },
   },
 
   methods: {
@@ -100,23 +108,23 @@ export default {
     },
 
     prev() {
-      this.selected -= 1;
-
-      if (this.selected < -1) {
+      if (this.selected <= -1) {
         this.selected = this.items.length - 1;
+      } else {
+        this.selected -= 1;
       }
     },
 
     next() {
-      this.selected += 1;
-
-      if (this.selected > (this.items.length - 1)) {
+      if (this.selected >= (this.items.length - 1)) {
         this.selected = -1;
+      } else {
+        this.selected += 1;
       }
     },
 
     open() {
-      const item = this.items[this.selected];
+      const item = this.selectedSuggestion;
 
       if (item) {
         const url = item.url.toString();

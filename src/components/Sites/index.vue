@@ -61,11 +61,15 @@
 
     <Pagination v-bind:total="totalCount" v-bind:limit="limit"/>
 
-    <SiteEditForm
-      v-bind:edit="edit"
-      v-on:save="save"
-      v-on:cancel="cancel"
-    />
+    <div class="sites__actions">
+      <ConfigEditForm/>
+
+      <SiteEditForm
+        v-bind:edit="edit"
+        v-on:save="save"
+        v-on:cancel="cancel"
+      />
+    </div>
   </section>
 </template>
 
