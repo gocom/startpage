@@ -31,6 +31,8 @@
     <button
       type="button"
       class="site-search-toggle__button"
+      v-bind:aria-label="'Search on ' + site.name"
+      v-bind:title="'Search on ' + site.name"
       v-on:click.prevent="toggle"
       v-bind:class="{ 'site-search-toggle__button--active': isActive }">
       <i class="fas fa-search"></i>

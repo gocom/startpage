@@ -77,7 +77,7 @@ export default {
 
       if (this.requestedPage === page) {
         this.page = page;
-        this.$parent.$emit('change-page', this.page);
+        this.$emit('change-page', this.page);
         return;
       }
 
@@ -91,7 +91,7 @@ export default {
       })
         .then(() => {
           this.page = page;
-          this.$parent.$emit('change-page', this.page);
+          this.$emit('change-page', this.page);
         });
     },
 
@@ -112,13 +112,24 @@ export default {
     previousPage() {
       this.setPage(this.page - 1);
     },
+
+    /**
+     * Whether the given page number is active.
+     *
+     * @param {Number} page
+     *
+     * @return {Boolean}
+     */
+    isActive(page) {
+      return this.page === page;
+    },
   },
 
   computed: {
     /**
      * Gets requested page number.
      *
-     * @return {number}
+     * @return {Number}
      */
     requestedPage() {
       return parseInt(this.$route.params[this.param], 10) || 1;
@@ -136,7 +147,7 @@ export default {
     /**
      * Gets page numbers.
      *
-     * @return {Object[]}
+     * @return {Number[]}
      */
     pages() {
       const pages = this.pageCount;
@@ -145,14 +156,7 @@ export default {
         return [];
       }
 
-      return [...Array(pages).keys()].map((index) => {
-        const number = index + 1;
-
-        return {
-          number,
-          isActive: this.page === number,
-        };
-      });
+      return [...Array(pages).keys()].map((index) => index + 1);
     },
   },
 

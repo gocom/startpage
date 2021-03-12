@@ -29,34 +29,37 @@
 <template>
   <div class="dropdown">
     <button
+      v-if="isOpen"
       type="button"
-      v-on:click.prevent="close"
-      v-bind:aria-expanded="true"
-      aria-haspopup="menu"
-      v-bind:aria-labelledby="id"
-      v-if="isOpen">
+      aria-expanded="true"
+      aria-haspopup="true"
+      v-bind:aria-label="label"
+      v-bind:title="label"
+      v-on:click.prevent="close">
       <slot name="label-close">
         <i class="fas fa-ellipsis-h"></i>
       </slot>
     </button>
 
     <button
+      v-else
       type="button"
-      v-on:click.prevent="open"
-      aria-haspopup="menu"
-      v-bind:aria-labelledby="id"
-      v-else>
+      aria-expanded="false"
+      aria-haspopup="true"
+      v-bind:aria-label="label"
+      v-bind:title="label"
+      v-on:click.prevent="open">
       <slot name="label-open">
         <i class="fas fa-ellipsis-h"></i>
       </slot>
     </button>
 
     <ul
+      v-if="isOpen"
       role="menu"
-      v-bind:aria-labelledby="id"
       tabindex="-1"
       class="dropdown__menu"
-      v-if="isOpen"
+      v-bind:aria-label="label"
       v-bind:class=" { 'dropdown__menu--open': isOpen } "
       v-on:click="close"
       v-on:focusout="close"

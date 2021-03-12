@@ -29,13 +29,23 @@
 <template>
   <div class="site-edit-form">
     <button
+      v-if="isOpen"
       type="button"
-      @click="toggle"
+      v-on:click="close"
+      aria-label="Close add new site editor"
+      aria-current="true"
+      title="Close add new site editor"
+      class="site-edit-form__open-button site-edit-form__open-button--active">
+      <i class="fas fa-plus-circle"></i>
+    </button>
+
+    <button
+      v-else
+      type="button"
+      v-on:click="open"
+      aria-label="Add new site"
       title="Add new site"
-      v-bind:class="{
-        'site-edit-form__open-button': true,
-        'site-edit-form__open-button--active': isOpen,
-      }">
+      class="site-edit-form__open-button">
       <i class="fas fa-plus-circle"></i>
     </button>
 
@@ -142,7 +152,7 @@
 
       <div class="site-edit-form__actions">
         <button type="submit">Save</button>
-        <button type="reset" v-on:click.prevent="toggle">Cancel</button>
+        <button type="reset" v-on:click.prevent="close">Cancel</button>
       </div>
 
       <KeyboardShortcut shortcut="!<CloseSiteEditForm>Escape" v-on:on="close"/>

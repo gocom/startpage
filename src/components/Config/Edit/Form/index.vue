@@ -30,8 +30,9 @@
   <div class="config-edit-form">
     <button
       type="button"
+      title="New Tab Configuration"
+      aria-label="New Tab Configuration"
       v-on:click="toggle"
-      title="Configure"
       v-bind:class="{
         'config-edit-form__open-button': true,
         'config-edit-form__open-button--active': isOpen,

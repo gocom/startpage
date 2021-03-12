@@ -31,6 +31,7 @@
     <a
       class="site__link"
       rel="external noreferrer noopener"
+      v-bind:aria-label="site.name"
       v-bind:href="site.absoluteUrl"
       v-bind:itemid="site.id">
       <div
@@ -58,11 +59,11 @@
 
     <div class="site__details">
       <h1 class="site__info site__info--title" v-bind:title="site.hostname">{{ site.name }}</h1>
-      <PositionIndicator v-bind:position="position" v-on:open="open"/>
+      <PositionIndicator v-bind:position="position" v-bind:label="site.name" v-on:open="open"/>
 
       <div class="site__actions">
         <SiteSearchToggle v-bind:site="site"/>
-        <DropdownMenu v-if="isEditable">
+        <DropdownMenu v-if="isEditable" v-bind:label="'Options for ' + site.name">
           <template slot="items">
             <DropdownItem label="Edit" v-on:select="edit"/>
             <DropdownItem label="Delete" v-on:select="confirmDelete"/>

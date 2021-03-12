@@ -28,7 +28,7 @@
 
 <template>
   <section class="search" v-bind:class="{ 'search--active': isActive }">
-    <form class="search__form" v-on:submit.prevent="submit">
+    <form class="search__form" v-on:submit.prevent="submit" role="search">
       <label v-bind:for="uid">Search</label>
       <input name="q"
              type="search"
@@ -36,9 +36,9 @@
              v-model="query"
              v-bind:placeholder="placeholder"
              v-bind:class="{ search__input: true, 'search__input--active': isActive }"
-             @input="search"
-             @focus="focus"
-             @blur="blur"
+             v-on:input="search"
+             v-on:focus="focus"
+             v-on:blur="blur"
              ref="searchInput"/>
       <button type="reset">Reset</button>
       <button type="submit">Search</button>

@@ -27,7 +27,7 @@
 -->
 
 <template>
-  <span></span>
+  <span v-if="false"></span>
 </template>
 
 <script src="./main.js"></script>

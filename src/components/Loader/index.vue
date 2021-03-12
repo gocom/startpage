@@ -5,7 +5,7 @@
 -->
 
 <!--
- * Copyright (C) 2020 Jukka Svahn
+ * Copyright (C) 2021 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -27,10 +27,13 @@
 -->
 
 <template>
-    <div class="loader">
-        <div class="loader__bubble"></div>
-        <div class="loader__bubble"></div>
-        <div class="loader__bubble"></div>
+    <div class="loader" v-if="isLoading">
+      <div
+        v-if="progress"
+        class="loader__progress"
+        v-bind:style="{ width: progress + '%' }"></div>
+
+      <div v-else class="loader__progress loader__progress--animated"></div>
     </div>
 </template>
 

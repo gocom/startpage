@@ -27,8 +27,10 @@
 -->
 
 <template>
-  <li class="dropdown-item" role="option" v-on:click="select">
-    <span class="dropdown-item__link" v-text="label"></span>
+  <li class="dropdown-item" role="none">
+    <button type="button" role="menuitem" class="dropdown-item__link" v-on:click="select">
+      {{ label }}
+    </button>
   </li>
 </template>
 

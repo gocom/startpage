@@ -82,14 +82,6 @@ export default {
       this.isOpen = true;
     },
 
-    toggle() {
-      if (this.isOpen) {
-        this.close();
-      } else {
-        this.open();
-      }
-    },
-
     save() {
       SiteCollection.save(this.site)
         .then(() => {

@@ -36,6 +36,10 @@ export default {
   },
 
   props: {
+    label: {
+      type: String,
+      default: '',
+    },
     position: {
       type: String,
       default: '',

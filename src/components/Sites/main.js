@@ -145,6 +145,17 @@ export default {
     isDraggingAllowed() {
       return this.isDraggable;
     },
+
+    /**
+     * Sets current page.
+     *
+     * @param {Number} page
+     *
+     * @return {void}
+     */
+    setPage(page) {
+      this.page = page;
+    },
   },
 
   computed: {
@@ -211,32 +222,6 @@ export default {
           });
       },
     },
-
-    nextPage: {
-      /**
-       * @returns {Site[]}
-       */
-      get() {
-        return [];
-      },
-
-      set() {
-        // @todo
-      },
-    },
-
-    prevPage: {
-      /**
-       * @returns {Site[]}
-       */
-      get() {
-        return [];
-      },
-
-      set() {
-        // @todo
-      },
-    },
   },
 
   mounted() {
@@ -254,13 +239,5 @@ export default {
             });
         }
       });
-
-    this.$on('change-page', (page) => {
-      this.page = page;
-    });
-
-    this.$on('reload', () => {
-      this.reload();
-    });
   },
 };

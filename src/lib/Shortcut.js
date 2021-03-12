@@ -172,6 +172,11 @@ class Shortcut {
   /**
    * Removes a matching shortcut.
    *
+   * This will need to be re-factored to work reliably with async
+   * updates. It currently stores and overwrites the whole array;
+   * instead try to use the callback listeners directly and remove
+   * by function.
+   *
    * @param {String} shortcut
    *
    * @return {this}

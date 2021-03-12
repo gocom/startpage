@@ -27,8 +27,16 @@
 -->
 
 <template>
-  <div class="position-indicator">
-    <div class="position-indicator__value" v-if="isVisible">{{ position }}</div>
+  <div class="position-indicator" v-if="position">
+    <div
+      v-if="isVisible"
+      class="position-indicator__value"
+      v-bind:aria-label="'Open ' + label + ' with shortcut Alt+' + position"
+      v-bind:title="'Open ' + label + ' with shortcut Alt+' + position">
+      <span aria-hidden="true">
+        {{ position }}
+      </span>
+    </div>
 
     <KeyboardShortcut shortcut="Alt" v-on:on="show" v-on:up="hide"/>
     <KeyboardShortcut v-bind:shortcut="position" v-on:on="open"/>

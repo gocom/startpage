@@ -115,7 +115,7 @@
   &__actions {
     display: flex;
 
-    button {
+    > div > button {
       .button.plain();
 
       background: transparent;
@@ -161,7 +161,7 @@
       opacity: 0;
 
       &--active,
-      &[aria-expanded] {
+      &[aria-expanded="true"] {
         opacity: 1;
       }
 

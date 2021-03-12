@@ -5,7 +5,7 @@
 -->
 
 <!--
- * Copyright (C) 2020 Jukka Svahn
+ * Copyright (C) 2021 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -28,7 +28,7 @@
 
 <template>
     <section class="clock">
-        <div class="clock__date">
+        <div class="clock__date" aria-label="Date">
             <span class="clock__date-component clock__date-component--weekday">
               {{ format('dddd') }}
             </span>
@@ -36,7 +36,7 @@
               {{ format('MMMM Do, YYYY') }}
             </span>
         </div>
-        <div class="clock__time">
+        <div class="clock__time" aria-label="Time">
             <span class="clock__time-component clock__time-component--hours">{{hours}}</span>
             <span class="clock__time-component clock__time-component--separator">:</span>
             <span class="clock__time-component clock__time-component--minutes">{{minutes}}</span>

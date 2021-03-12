@@ -43,23 +43,13 @@
           v-on:edit="setEdit"
         />
       </Draggable>
-
-      <Draggable
-        class="site-grid site-grid--sidecar site-grid--prev"
-        v-model="prevPage"
-        group="sites"
-        v-bind:move="isDraggingAllowed">
-      </Draggable>
-
-      <Draggable
-        class="site-grid site-grid--sidecar site-grid--next"
-        v-model="nextPage"
-        group="sites"
-        v-bind:move="isDraggingAllowed">
-      </Draggable>
     </div>
 
-    <Pagination v-bind:total="totalCount" v-bind:limit="limit"/>
+    <Pagination
+      v-bind:total="totalCount"
+      v-bind:limit="limit"
+      v-on:change-page="setPage"
+    />
 
     <div class="sites__actions">
       <ConfigEditForm/>

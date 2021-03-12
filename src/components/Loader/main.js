@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright (C) 2020 Jukka Svahn
+ * Copyright (C) 2021 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -27,7 +27,38 @@
  */
 
 export default {
-  mounted() {
-    document.body.classList.add('ready');
+  data() {
+    return {
+      isLoading: false,
+    };
+  },
+
+  props: {
+    timeout: {
+      type: Number,
+      default: 0,
+    },
+    progress: {
+      type: Number,
+      default: 0,
+    },
+  },
+
+  methods: {
+    cancel() {
+      if (this.timer) {
+        clearTimeout(this.timer);
+      }
+    },
+  },
+
+  watch: {
+    timeout(timeout) {
+      if (timeout) {
+        this.timer = setTimeout(() => {
+          this.isLoading = false;
+        }, timeout);
+      }
+    },
   },
 };

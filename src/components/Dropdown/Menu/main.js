@@ -34,9 +34,9 @@ export default {
   },
 
   props: {
-    id: {
+    label: {
       type: String,
-      default: 'dropdown',
+      default: '',
     },
   },
 

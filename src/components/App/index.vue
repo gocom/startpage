@@ -5,7 +5,7 @@
 -->
 
 <!--
- * Copyright (C) 2020 Jukka Svahn
+ * Copyright (C) 2021 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -27,12 +27,11 @@
 -->
 
 <template>
-    <main>
-        <Loader/>
-        <Search/>
-        <Sites/>
-        <Clock/>
-    </main>
+  <main>
+    <Search/>
+    <Sites/>
+    <Clock/>
+  </main>
 </template>
 
 <script src="./main.js"></script>

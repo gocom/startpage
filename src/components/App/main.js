@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright (C) 2020 Jukka Svahn
+ * Copyright (C) 2021 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -36,10 +36,15 @@ import Sites from '../Sites/index';
 
 export default {
   name: 'app',
+
   components: {
     Loader,
     Clock,
     Search,
     Sites,
+  },
+
+  mounted() {
+    document.body.classList.add('ready');
   },
 };

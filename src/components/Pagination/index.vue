@@ -27,15 +27,27 @@
 -->
 
 <template>
-  <nav class="pagination">
+  <nav aria-label="Pagination" class="pagination">
     <ul class="pagination__pages">
-      <li v-for="page in pages" v-bind:key="page.number" class="pagination__page">
+      <li v-for="page in pages" v-bind:key="page" class="pagination__page">
         <button
+          v-if="isActive(page)"
+          type="button"
+          class="pagination__link pagination__link--active"
+          v-bind:title="'Current page, page ' + page"
+          v-bind:aria-label="'Current page, page ' + page"
+          v-bind:aria-current="true">
+          <span class="pagination__page-number">{{ page }}</span>
+        </button>
+
+        <button
+          v-else
           type="button"
           class="pagination__link"
-          v-bind:class="{ 'pagination__link--active': page.isActive }"
-          v-on:click.prevent="setPage(page.number)">
-          <span class="pagination__page-number">{{ page.number }}</span>
+          v-bind:title="'Go to page ' + page"
+          v-bind:aria-label="'Go to page ' + page"
+          v-on:click.prevent="setPage(page)">
+          <span class="pagination__page-number">{{ page }}</span>
         </button>
       </li>
     </ul>

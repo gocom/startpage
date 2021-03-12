@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright (C) 2020 Jukka Svahn
+ * Copyright (C) 2021 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -26,44 +26,33 @@
  * SOFTWARE.
  */
 
+@import "../App/styles/config";
+
 .loader {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr;
-  grid-column-gap: 1em;
-  max-width: 960px;
-  margin: auto;
-  user-select: none;
+  &__progress {
+    background: @config[@link][@color];
+    border-bottom: 1px solid lighten(@config[@link][@color], 7%);
+    height: 0.5rem;
+    left: 0;
+    position: absolute;
+    top: 0;
 
-  &__bubble {
-    animation: loader__animation--bubble 1000ms ease infinite 0ms;
-    border: 0.125em solid rgba(0, 0, 0, 0.3);
-    border-radius: 50%;
-    height: 1em;
-    transform: scale(0);
-    width: 1em;
-
-    &:nth-child(2) {
-      animation: loader__animation--bubble 1000ms ease infinite 300ms;
+    &--animated {
+      animation: 2s loader__animation;
     }
-
-    &:nth-child(3) {
-      animation: loader__animation--bubble 1000ms ease infinite 600ms;
-    }
-  }
-
-  .ready & {
-    display: none;
   }
 }
 
-@keyframes loader__animation--bubble {
+@keyframes loader__animation {
+  0% {
+    width: 0;
+  }
+
   50% {
-    transform: scale(1);
-    opacity: 1;
+    width: 40%;
   }
 
   100% {
-    opacity: 0;
+    width: 100%;
   }
 }
