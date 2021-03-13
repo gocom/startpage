@@ -1,11 +1,11 @@
-/**
+<!--
  * Start Page - New tab speed dial.
  *
  * {@link https://github.com/gocom/startpage GitHub}
- */
+-->
 
-/*
- * Copyright (C) 2020 Jukka Svahn
+<!--
+ * Copyright (C) 2021 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -24,51 +24,27 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- */
+-->
 
-import ConfigValue from './ConfigValue';
-import ConfigValueCollection from './ConfigValueCollection';
+<template>
+  <div v-if="isVisible" class="background">
+    <div
+      v-if="backgroundColor"
+      class="background__color"
+      v-bind:style="{
+        'backgroundColor': backgroundColor
+      }"
+    ></div>
 
-/**
- * Config storage.
- */
-class Storage {
-  /**
-   * Gets value.
-   *
-   * @param {String} id
-   *
-   * @return {Promise<*>}
-   */
-  static async get(id) {
-    try {
-      const model = await ConfigValueCollection.getItem(id);
+    <div
+      v-if="backgroundImage"
+      class="background__image"
+      v-bind:style="{
+        'backgroundImage': `url('${backgroundImage}')`
+      }"
+    ></div>
+  </div>
+</template>
 
-      return model.value;
-    } catch (e) {
-      // Config value does not exist.
-      return null;
-    }
-  }
-
-  /**
-   * Sets value.
-   *
-   * @param {String} id
-   * @param {*} value
-   *
-   * @return {Promise<*>}
-   */
-  static async set(id, value) {
-    const model = new ConfigValue({
-      id,
-      value,
-    });
-
-    await ConfigValueCollection.save(model);
-
-    return model.value;
-  }
-}
-
-export default Storage;
+<style lang="less" src="./styles.less"></style>
+<script src="./main.js"></script>

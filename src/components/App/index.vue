@@ -28,6 +28,7 @@
 
 <template>
   <main>
+    <Background/>
     <Search/>
     <Sites/>
     <Clock/>

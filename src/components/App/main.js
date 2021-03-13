@@ -29,15 +29,17 @@
 import 'focus-visible';
 import '@fortawesome/fontawesome-free/css/all.css';
 import './external.css';
-import Loader from '../Loader/index';
-import Clock from '../Clock/index';
-import Search from '../Search/index';
-import Sites from '../Sites/index';
+import Background from '../Background';
+import Loader from '../Loader';
+import Clock from '../Clock';
+import Search from '../Search';
+import Sites from '../Sites';
 
 export default {
   name: 'app',
 
   components: {
+    Background,
     Loader,
     Clock,
     Search,

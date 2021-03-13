@@ -30,6 +30,7 @@ import UniqueId from '../../../../mixins/UniqueId';
 import ColorPicker from '../../../Form/ColorPicker';
 import FilePicker from '../../../Form/FilePicker';
 import KeyboardShortcut from '../../../KeyboardShortcut';
+import ConfigStorage from '../../../../model/Config/Storage';
 
 export default {
   data() {
@@ -71,11 +72,19 @@ export default {
     },
 
     save() {
-      // @todo
-    },
+      ConfigStorage.set('background.color', this.backgroundColor)
+        .then((value) => {
+          this.backgroundColor = value;
+        });
 
-    setTextColor(color) {
-      this.textColor = color;
+      ConfigStorage.set('background.image', this.backgroundImage)
+        .then((value) => {
+          this.backgroundImage = value;
+        });
+
+      this.isOpen = false;
+
+      window.location.reload();
     },
 
     setBackgroundColor(color) {
@@ -85,5 +94,17 @@ export default {
     setBackgroundImage(file) {
       this.backgroundImage = file;
     },
+  },
+
+  mounted() {
+    ConfigStorage.get('background.color')
+      .then((value) => {
+        this.backgroundColor = value;
+      });
+
+    ConfigStorage.get('background.image')
+      .then((value) => {
+        this.backgroundImage = value;
+      });
   },
 };

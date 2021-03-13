@@ -32,6 +32,8 @@
       type="button"
       title="New Tab Configuration"
       aria-label="New Tab Configuration"
+      aria-haspopup="true"
+      v-bind:aria-current="isOpen"
       v-on:click="toggle"
       v-bind:class="{
         'config-edit-form__open-button': true,
@@ -45,28 +47,15 @@
       v-on:submit.prevent="save"
       v-if="isOpen">
 
-      <div class="config-edit-form__group">
-        <div class="config-edit-form__control">
-          <div class="config-edit-form__label">
-            <label v-bind:for="getUid('backgroundColor')">Background</label>
-            <div class="config-edit-form__input">
-              <ColorPicker
-                v-bind:id="getUid('backgroundColor')"
-                v-on:pick="setBackgroundColor"
-              />
-            </div>
-          </div>
-        </div>
-
-        <div class="config-edit-form__control">
-          <div class="config-edit-form__label">
-            <label v-bind:for="getUid('textColor')">Text</label>
-            <div class="config-edit-form__input">
-              <ColorPicker
-                v-bind:id="getUid('textColor')"
-                v-on:pick="setTextColor"
-              />
-            </div>
+      <div class="config-edit-form__control">
+        <div class="config-edit-form__label">
+          <label v-bind:for="getUid('backgroundColor')">Background</label>
+          <div class="config-edit-form__input">
+            <ColorPicker
+              v-bind:id="getUid('backgroundColor')"
+              v-bind:color="backgroundColor"
+              v-on:pick="setBackgroundColor"
+            />
           </div>
         </div>
       </div>
@@ -77,7 +66,8 @@
         </div>
         <div class="config-edit-form__input">
           <FilePicker
-            v-bind:id="getUid('background-image')"
+            v-bind:id="getUid('backgroundImage')"
+            v-bind:current="backgroundImage"
             v-on:pick="setBackgroundImage"
           />
         </div>
@@ -85,7 +75,7 @@
 
       <div class="config-edit-form__actions">
         <button type="submit">Save</button>
-        <button type="reset" v-on:click.prevent="toggle">Cancel</button>
+        <button type="reset" v-on:click.prevent="close">Cancel</button>
       </div>
 
       <KeyboardShortcut shortcut="!<CloseConfigEditForm>Escape" v-on:on="close"/>

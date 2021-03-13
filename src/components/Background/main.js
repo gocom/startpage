@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright (C) 2020 Jukka Svahn
+ * Copyright (C) 2021 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -26,49 +26,36 @@
  * SOFTWARE.
  */
 
-import ConfigValue from './ConfigValue';
-import ConfigValueCollection from './ConfigValueCollection';
+import ConfigStorage from '../../model/Config/Storage';
 
-/**
- * Config storage.
- */
-class Storage {
-  /**
-   * Gets value.
-   *
-   * @param {String} id
-   *
-   * @return {Promise<*>}
-   */
-  static async get(id) {
-    try {
-      const model = await ConfigValueCollection.getItem(id);
+export default {
+  data() {
+    return {
+      backgroundImage: '',
+      backgroundColor: '',
+    };
+  },
 
-      return model.value;
-    } catch (e) {
-      // Config value does not exist.
-      return null;
-    }
-  }
+  computed: {
+    /**
+     * Whether the component is visible.
+     *
+     * @return {Boolean}
+     */
+    isVisible() {
+      return this.backgroundImage || this.backgroundColor;
+    },
+  },
 
-  /**
-   * Sets value.
-   *
-   * @param {String} id
-   * @param {*} value
-   *
-   * @return {Promise<*>}
-   */
-  static async set(id, value) {
-    const model = new ConfigValue({
-      id,
-      value,
-    });
+  mounted() {
+    ConfigStorage.get('background.image')
+      .then((value) => {
+        this.backgroundImage = value;
+      });
 
-    await ConfigValueCollection.save(model);
-
-    return model.value;
-  }
-}
-
-export default Storage;
+    ConfigStorage.get('background.color')
+      .then((value) => {
+        this.backgroundColor = value;
+      });
+  },
+};
