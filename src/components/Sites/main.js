@@ -41,8 +41,9 @@ export default {
       edit: null,
       isDraggable: true,
       sites: [],
-      limit: 12,
       page: 1,
+      columns: 4,
+      rows: 3,
       positions: [
         '1',
         '2',
@@ -160,6 +161,15 @@ export default {
 
   computed: {
     /**
+     * Gets limit.
+     *
+     * @return {number}
+     */
+    limit() {
+      return this.columns * this.rows;
+    },
+
+    /**
      * Gets total number of items.
      *
      * @return {number}
@@ -237,6 +247,20 @@ export default {
                   this.reload();
                 });
             });
+        }
+      });
+
+    ConfigStorage.get('tiles.columns')
+      .then((value) => {
+        if (value) {
+          this.columns = value;
+        }
+      });
+
+    ConfigStorage.get('tiles.rows')
+      .then((value) => {
+        if (value) {
+          this.rows = value;
         }
       });
   },
