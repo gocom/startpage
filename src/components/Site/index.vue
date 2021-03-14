@@ -58,8 +58,19 @@
     </a>
 
     <div class="site__details">
-      <h1 class="site__info site__info--title" v-bind:title="site.hostname">{{ site.name }}</h1>
-      <PositionIndicator v-bind:position="position" v-bind:label="site.name" v-on:open="open"/>
+      <aside aria-hidden="true">
+        <h1 class="site__info site__info--title">
+          <a rel="external noreferrer noopener" tabindex="-1" v-bind:href="site.absoluteUrl">
+            {{ site.name }}
+          </a>
+        </h1>
+
+        <h2 class="site__info site__info--domain">
+          <a rel="external noreferrer noopener" tabindex="-1" v-bind:href="site.absoluteUrl">
+            {{ site.hostname }}
+          </a>
+        </h2>
+      </aside>
 
       <div class="site__actions">
         <SiteSearchToggle v-bind:site="site"/>
@@ -71,6 +82,8 @@
         </DropdownMenu>
       </div>
     </div>
+
+    <PositionIndicator v-bind:position="position" v-bind:label="site.name" v-on:open="open"/>
 
     <Confirm
       v-if="isConfirmingDelete"
