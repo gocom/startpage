@@ -32,9 +32,9 @@
       v-if="isOpen"
       type="button"
       v-on:click="close"
-      aria-label="Close add new site editor"
+      aria-label="Close site editor"
       aria-current="true"
-      title="Close add new site editor"
+      title="Close site editor"
       class="site-edit-form__open-button site-edit-form__open-button--active">
       <i class="fas fa-plus-circle"></i>
     </button>
