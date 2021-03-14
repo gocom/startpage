@@ -32,20 +32,6 @@
 @import "../App/styles/mixins/helpers";
 
 .site-edit-form {
-  &__open-button {
-    align-items: center;
-    border-radius: 50%;
-    color: @config[@control][@background];
-    display: inline-block;
-    font-size: 1.25rem;
-    margin: .rem(-52px)[] -1rem 0 0;
-    padding: 1rem;
-
-    &:hover {
-      color: @config[@control][@hover][@background];
-    }
-  }
-
   &__modal {
     animation: site-edit-form__modal-opening ease-in-out 0.5s;
     background: @config[@modal][@background];
