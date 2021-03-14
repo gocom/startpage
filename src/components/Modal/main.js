@@ -26,65 +26,11 @@
  * SOFTWARE.
  */
 
-@import "../App/styles/config";
-@import "../App/styles/components/button";
-@import "../App/styles/components/form";
-@import "../App/styles/mixins/helpers";
-
-.site-edit-form {
-  &__control {
-    padding: 0.5rem 2rem;
-  }
-
-  &__group {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 1.5rem;
-  }
-
-  &__group &__control {
-    padding: 0.5rem;
-    width: 50%;
-  }
-
-  &__actions {
-    background: @config[@input][@hover][@background];
-    display: flex;
-    justify-content: flex-end;
-    margin: auto 0 0 0;
-    padding: 2rem;
-
-    button {
-      margin: 0 0 0 1rem;
-
-      &[type=reset] {
-        .button.secondary();
-      }
-
-      &[type=submit] {
-        .button.primary();
-
-        order: 2;
-      }
-    }
-  }
-
-  &__preview {
-    background: @config[@body][@background];
-    border-bottom: @config[@input][@border-color];
-    margin: 0 0 2rem 0;
-    padding: 2rem;
-
-    .site {
-      margin: auto;
-      max-width: .rem(192px)[];
-    }
-  }
-
-  input[type="text"],
-  input[type="url"] {
-    .form.text-input();
-
-    width: 100%;
-  }
-}
+export default {
+  props: {
+    position: {
+      type: String,
+      default: 'middle',
+    },
+  },
+};

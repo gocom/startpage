@@ -27,64 +27,40 @@
  */
 
 @import "../App/styles/config";
-@import "../App/styles/components/button";
-@import "../App/styles/components/form";
-@import "../App/styles/mixins/helpers";
 
-.site-edit-form {
-  &__control {
-    padding: 0.5rem 2rem;
-  }
-
-  &__group {
+.modal {
+  &__window {
+    background: @config[@modal][@background];
     display: flex;
-    justify-content: space-between;
-    padding: 0 1.5rem;
-  }
+    flex-direction: column;
+    position: fixed;
 
-  &__group &__control {
-    padding: 0.5rem;
-    width: 50%;
-  }
+    &--right {
+      animation: modal__animation--open-right ease-in-out 0.5s;
+      border-left: 1px solid @config[@modal][@border-color];
+      bottom: 0;
+      right: 0;
+      top: 0;
+      width: 20rem;
+    }
 
-  &__actions {
-    background: @config[@input][@hover][@background];
-    display: flex;
-    justify-content: flex-end;
-    margin: auto 0 0 0;
-    padding: 2rem;
-
-    button {
-      margin: 0 0 0 1rem;
-
-      &[type=reset] {
-        .button.secondary();
-      }
-
-      &[type=submit] {
-        .button.primary();
-
-        order: 2;
-      }
+    > * {
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+      overflow: auto;
     }
   }
+}
 
-  &__preview {
-    background: @config[@body][@background];
-    border-bottom: @config[@input][@border-color];
-    margin: 0 0 2rem 0;
-    padding: 2rem;
-
-    .site {
-      margin: auto;
-      max-width: .rem(192px)[];
-    }
+@keyframes modal__animation--open-right {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
   }
 
-  input[type="text"],
-  input[type="url"] {
-    .form.text-input();
-
-    width: 100%;
+  100% {
+    transform: translateX(0);
+    opacity: 1;
   }
 }

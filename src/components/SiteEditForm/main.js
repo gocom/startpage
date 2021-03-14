@@ -32,6 +32,7 @@ import UniqueId from '../../mixins/UniqueId';
 import ColorPicker from '../Form/ColorPicker';
 import IconPicker from '../Form/IconPicker';
 import FilePicker from '../Form/FilePicker';
+import Modal from '../Modal';
 import Site from '../Site';
 import Color from '../../lib/Color';
 import KeyboardShortcut from '../KeyboardShortcut';
@@ -57,6 +58,7 @@ export default {
     FilePicker,
     Site,
     KeyboardShortcut,
+    Modal,
   },
 
   mixins: [

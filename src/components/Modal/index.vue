@@ -1,10 +1,10 @@
-/**
+<!--
  * Start Page - New tab speed dial.
  *
  * {@link https://github.com/gocom/startpage GitHub}
- */
+-->
 
-/*
+<!--
  * Copyright (C) 2021 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -24,67 +24,19 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- */
+-->
 
-@import "../App/styles/config";
-@import "../App/styles/components/button";
-@import "../App/styles/components/form";
-@import "../App/styles/mixins/helpers";
+<template>
+  <div class="modal">
+    <div
+      class="modal__window"
+      v-bind:class="{
+        'modal__window--right': position === 'right',
+      }">
+      <slot/>
+    </div>
+  </div>
+</template>
 
-.site-edit-form {
-  &__control {
-    padding: 0.5rem 2rem;
-  }
-
-  &__group {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 1.5rem;
-  }
-
-  &__group &__control {
-    padding: 0.5rem;
-    width: 50%;
-  }
-
-  &__actions {
-    background: @config[@input][@hover][@background];
-    display: flex;
-    justify-content: flex-end;
-    margin: auto 0 0 0;
-    padding: 2rem;
-
-    button {
-      margin: 0 0 0 1rem;
-
-      &[type=reset] {
-        .button.secondary();
-      }
-
-      &[type=submit] {
-        .button.primary();
-
-        order: 2;
-      }
-    }
-  }
-
-  &__preview {
-    background: @config[@body][@background];
-    border-bottom: @config[@input][@border-color];
-    margin: 0 0 2rem 0;
-    padding: 2rem;
-
-    .site {
-      margin: auto;
-      max-width: .rem(192px)[];
-    }
-  }
-
-  input[type="text"],
-  input[type="url"] {
-    .form.text-input();
-
-    width: 100%;
-  }
-}
+<style lang="less" src="./styles.less"></style>
+<script src="./main.js"></script>
