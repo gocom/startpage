@@ -180,7 +180,7 @@ export default {
       }
 
       return [...new Set(shortcut)].sort().join('+');
-    }
+    },
   },
 
   mounted() {
