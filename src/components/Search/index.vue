@@ -54,11 +54,11 @@
       </aside>
     </form>
 
-    <KeyboardShortcut shortcut="!<SearchClose>Escape" v-on:on="closeField" v-if="isActive"/>
-    <KeyboardShortcut shortcut="!<SearchPrev>ArrowUp" v-on:on="prev" v-if="isSuggestionsOpen"/>
-    <KeyboardShortcut shortcut="!<SearchNext>ArrowDown" v-on:on="next" v-if="isSuggestionsOpen"/>
-    <KeyboardShortcut shortcut="!<SearchOpen>Enter" v-on:on="open" v-if="isSuggestionFocused"/>
-    <KeyboardShortcut shortcut="<SearchFocus>Cmd+F" v-on:on="focusToField"/>
+    <KeyboardShortcut shortcut="Escape" v-on:down="closeField" v-if="isActive" v-bind:force="true"/>
+    <KeyboardShortcut shortcut="ArrowUp" v-on:down="prev" v-if="isSuggestionsOpen" v-bind:force="true"/>
+    <KeyboardShortcut shortcut="ArrowDown" v-on:down="next" v-if="isSuggestionsOpen" v-bind:force="true"/>
+    <KeyboardShortcut shortcut="Enter" v-on:down="open" v-if="isSuggestionFocused" v-bind:force="true"/>
+    <KeyboardShortcut shortcut="Cmd+F" v-on:down="focusToField"/>
   </section>
 </template>
 

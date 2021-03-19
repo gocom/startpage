@@ -41,7 +41,7 @@
       </form>
     </div>
 
-    <KeyboardShortcut shortcut="<DialogConfirmDecline>Escape" v-on:on="decline"/>
+    <KeyboardShortcut shortcut="Escape" v-on:down="decline"/>
   </section>
 </template>
 

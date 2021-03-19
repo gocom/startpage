@@ -52,10 +52,10 @@
       </li>
     </ul>
 
-    <KeyboardShortcut shortcut="ArrowLeft" v-on:on="previousPage"/>
-    <KeyboardShortcut shortcut="a" v-on:on="previousPage"/>
-    <KeyboardShortcut shortcut="ArrowRight" v-on:on="nextPage"/>
-    <KeyboardShortcut shortcut="d" v-on:on="nextPage"/>
+    <KeyboardShortcut shortcut="ArrowLeft" v-on:down="previousPage"/>
+    <KeyboardShortcut shortcut="a" v-on:down="previousPage"/>
+    <KeyboardShortcut shortcut="ArrowRight" v-on:down="nextPage"/>
+    <KeyboardShortcut shortcut="d" v-on:down="nextPage"/>
   </nav>
 </template>
 

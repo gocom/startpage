@@ -78,7 +78,7 @@
         <button type="reset" v-on:click.prevent="close">Cancel</button>
       </div>
 
-      <KeyboardShortcut shortcut="!<CloseConfigEditForm>Escape" v-on:on="close"/>
+      <KeyboardShortcut shortcut="Escape" v-on:down="close"/>
     </form>
   </div>
 </template>

@@ -155,7 +155,7 @@
           <button type="reset" v-on:click.prevent="close">Cancel</button>
         </div>
 
-        <KeyboardShortcut shortcut="!<CloseSiteEditForm>Escape" v-on:on="close"/>
+        <KeyboardShortcut shortcut="Escape" v-on:down="close"/>
       </form>
     </Modal>
   </div>
