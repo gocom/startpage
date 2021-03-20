@@ -42,6 +42,14 @@ export default {
       type: String,
       default: '',
     },
+    url: {
+      type: String,
+      default: '',
+    },
+    description: {
+      type: String,
+      default: '',
+    },
   },
 
   methods: {

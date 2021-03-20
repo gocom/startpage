@@ -26,11 +26,29 @@
  * SOFTWARE.
  */
 
-@import "../../App/styles/components/dropdown";
+@import "../../App/styles/config";
 @import "../../App/styles/mixins/helpers";
 
+/**
+ * Dropdown.
+ *
+ * [1] Feeling lucky.
+ */
 .dropdown {
   &__menu {
-    .dropdown.menu();
+    .border-radius();
+
+    background: @config[@dropdown][@background];
+    border: 1px solid @config[@dropdown][@border-color];
+    box-shadow: 0 0.25em 0.42em 0 rgba(0, 0, 0, 0.15);
+    list-style: none;
+    margin: .rem(3px)[] 0 0 0;
+    max-height: calc(100vh - 6em);
+    overflow: hidden;
+    overflow-y: auto;
+    padding: 0.5em 0;
+    position: absolute;
+    width: 100%;
+    z-index: 7; // [1]
   }
 }

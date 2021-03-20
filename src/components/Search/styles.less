@@ -27,7 +27,6 @@
  */
 
 @import "../App/styles/mixins/helpers";
-@import "../App/styles/components/dropdown";
 @import "../App/styles/components/form";
 @import "../App/styles/config";
 
@@ -59,13 +58,13 @@
     }
   }
 
-  label,
-  button {
+  &__label,
+  &__button {
     display: none;
   }
 
   &__suggestions {
-    .dropdown > .menu();
+
   }
 }
 
@@ -91,10 +90,10 @@
       }
     }
 
-    &__input--active ~ &__suggestions,
-    &__input:focus ~ &__suggestions {
+    &__input--active ~ &__suggestions .dropdown .dropdown__menu,
+    &__input:focus ~ &__suggestions .dropdown .dropdown__menu {
       margin-left: -2em;
-      width: calc(100% + 4em);
+      width: calc(100% + 4em) !important;
     }
   }
 }

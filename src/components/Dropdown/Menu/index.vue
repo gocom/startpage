@@ -29,7 +29,7 @@
 <template>
   <div class="dropdown">
     <button
-      v-if="isOpen"
+      v-if="isOpen && label"
       type="button"
       aria-expanded="true"
       aria-haspopup="true"
@@ -42,7 +42,7 @@
     </button>
 
     <button
-      v-else
+      v-else-if="label"
       type="button"
       aria-expanded="false"
       aria-haspopup="true"
@@ -70,17 +70,20 @@
     <KeyboardShortcut
       shortcut="Escape"
       v-on:down="close"
-      v-if="isOpen"/>
+      v-if="isOpen"
+      v-bind:force="true"/>
 
     <KeyboardShortcut
       shortcut="ArrowUp"
       v-on:down="prevItem"
-      v-if="isOpen"/>
+      v-if="isOpen"
+      v-bind:force="true"/>
 
     <KeyboardShortcut
       shortcut="ArrowDown"
       v-on:down="nextItem"
-      v-if="isOpen"/>
+      v-if="isOpen"
+      v-bind:force="true"/>
   </div>
 </template>
 

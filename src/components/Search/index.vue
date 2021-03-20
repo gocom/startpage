@@ -29,7 +29,7 @@
 <template>
   <section class="search" v-bind:class="{ 'search--active': isActive }">
     <form class="search__form" v-on:submit.prevent="submit" role="search">
-      <label v-bind:for="uid">Search</label>
+      <label class="search__label" v-bind:for="uid">Search</label>
       <input name="q"
              type="search"
              v-bind:id="uid"
@@ -40,16 +40,20 @@
              v-on:focus="focus"
              v-on:blur="blur"
              ref="searchInput"/>
-      <button type="reset">Reset</button>
-      <button type="submit">Search</button>
-      <aside v-if="isSuggestionsOpen" class="search__suggestions search__suggestions--open">
-        <SearchSuggestion
-          v-for="(item, index) in items"
-          v-bind:key="item.id"
-          v-bind:id="item.id"
-          v-bind:name="item.name"
-          v-bind:url="item.absoluteUrl"
-          v-bind:isActive="isActiveIndex(index)"/>
+      <button class="search__button search__button--reset" type="reset">Reset</button>
+      <button class="search__button search__button--submit" type="submit">Search</button>
+      <aside v-if="isSuggestionsOpen" class="search__suggestions">
+        <DropdownMenu v-bind:exits="true" v-on:exit="focusToField">
+          <template slot="items">
+            <DropdownItem
+              v-for="(item, index) in items"
+              v-bind:key="index"
+              v-bind:url="item.url"
+              v-bind:label="item.name"
+              v-bind:description="item.url"
+            />
+          </template>
+        </DropdownMenu>
       </aside>
     </form>
 
@@ -57,24 +61,6 @@
       shortcut="Escape"
       v-on:down="closeField"
       v-if="isActive"
-      v-bind:force="true"/>
-
-    <KeyboardShortcut
-      shortcut="ArrowUp"
-      v-on:down="prev"
-      v-if="isSuggestionsOpen"
-      v-bind:force="true"/>
-
-    <KeyboardShortcut
-      shortcut="ArrowDown"
-      v-on:down="next"
-      v-if="isSuggestionsOpen"
-      v-bind:force="true"/>
-
-    <KeyboardShortcut
-      shortcut="Enter"
-      v-on:down="open"
-      v-if="isSuggestionFocused"
       v-bind:force="true"/>
 
     <KeyboardShortcut

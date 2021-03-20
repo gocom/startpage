@@ -28,8 +28,9 @@
 
 import SiteSearch from '../../model/Site/SiteSearch';
 import KeyboardShortcut from '../KeyboardShortcut';
+import DropdownMenu from '../Dropdown/Menu';
+import DropdownItem from '../Dropdown/Item';
 import config from '../../config';
-import SearchSuggestion from '../SearchSuggestion';
 import UniqueId from '../../mixins/UniqueId';
 import SiteIndex from '../../model/Site/SiteIndex';
 
@@ -46,8 +47,9 @@ export default {
   },
 
   components: {
-    SearchSuggestion,
     KeyboardShortcut,
+    DropdownMenu,
+    DropdownItem,
   },
 
   mixins: [
@@ -76,14 +78,6 @@ export default {
     isSuggestionsOpen() {
       return this.isActive && this.results.length >= 1 && !SiteSearch.value;
     },
-
-    selectedSuggestion() {
-      return this.items[this.selected] || null;
-    },
-
-    isSuggestionFocused() {
-      return this.selectedSuggestion !== null;
-    },
   },
 
   methods: {
@@ -105,38 +99,6 @@ export default {
       this.query = '';
 
       window.location.href = url;
-    },
-
-    prev() {
-      if (this.selected <= -1) {
-        this.selected = this.items.length - 1;
-      } else {
-        this.selected -= 1;
-      }
-    },
-
-    next() {
-      if (this.selected >= (this.items.length - 1)) {
-        this.selected = -1;
-      } else {
-        this.selected += 1;
-      }
-    },
-
-    open() {
-      const item = this.selectedSuggestion;
-
-      if (item) {
-        const url = item.url.toString();
-
-        this.reset();
-
-        window.location.href = url;
-      }
-    },
-
-    isActiveIndex(index) {
-      return index === this.selected;
     },
 
     reset() {

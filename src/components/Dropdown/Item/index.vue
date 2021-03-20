@@ -28,8 +28,31 @@
 
 <template>
   <li class="dropdown-item" role="none">
-    <button type="button" role="menuitem" class="dropdown-item__link" v-on:click="select">
-      {{ label }}
+    <a
+      v-if="url"
+      v-bind:href="url"
+      role="menuitem"
+      class="dropdown-item__link">
+      <span class="dropdown-item__label">
+        {{ label }}
+      </span>
+      <span v-if="description" class="dropdown-item__description">
+        {{ description }}
+      </span>
+    </a>
+
+    <button
+      v-else
+      v-on:click="select"
+      type="button"
+      role="menuitem"
+      class="dropdown-item__link">
+      <span class="dropdown-item__label">
+        {{ label }}
+      </span>
+      <span v-if="description" class="dropdown-item__description">
+        {{ description }}
+      </span>
     </button>
   </li>
 </template>

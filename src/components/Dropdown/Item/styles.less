@@ -26,9 +26,42 @@
  * SOFTWARE.
  */
 
-@import "../../App/styles/components/dropdown";
-@import "../../App/styles/mixins/helpers";
+@import "../../App/styles/config";
 
 .dropdown-item {
-  .dropdown.item();
+  &__link {
+    border-bottom: 1px solid @config[@dropdown-item][@border-color];
+    color: @config[@dropdown-item][@color];
+    cursor: pointer;
+    display: block;
+    padding: 0.5em 2em;
+    text-align: inherit;
+    text-decoration: inherit;
+    width: 100%;
+
+    &:hover,
+    &:focus {
+      background: @config[@dropdown-item][@hover][@background];
+      border-bottom-color: transparent;
+      color: @config[@dropdown-item][@hover][@color];
+      text-decoration: inherit;
+    }
+  }
+
+  &__description {
+    color: @config[@dropdown-item][@color-secondary];
+    display: block;
+    margin-top: 0.25em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__link:hover &__description,
+  &__link:focus &__description {
+    color: @config[@dropdown-item][@hover][@color-secondary];
+  }
+
+  &:last-child &__link {
+    border-bottom: 0;
+  }
 }

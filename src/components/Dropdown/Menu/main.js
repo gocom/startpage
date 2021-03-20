@@ -40,6 +40,10 @@ export default {
       type: String,
       default: '',
     },
+    exits: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   components: {
@@ -82,13 +86,8 @@ export default {
     prevItem() {
       const menuItems = this.getMenuItems();
       const activeIndex = this.getActiveItemIndex(menuItems);
-      const maxIndex = this.getMaxItemIndex(menuItems);
 
-      if (activeIndex <= 0) {
-        this.activateItem(menuItems, maxIndex);
-      } else {
-        this.activateItem(menuItems, activeIndex - 1);
-      }
+      this.activateItem(menuItems, activeIndex - 1);
     },
 
     /**
@@ -99,13 +98,8 @@ export default {
     nextItem() {
       const menuItems = this.getMenuItems();
       const activeIndex = this.getActiveItemIndex(menuItems);
-      const maxIndex = this.getMaxItemIndex(menuItems);
 
-      if (maxIndex <= activeIndex) {
-        this.activateItem(menuItems, 0);
-      } else {
-        this.activateItem(menuItems, activeIndex + 1);
-      }
+      this.activateItem(menuItems, activeIndex + 1);
     },
 
     /**
@@ -127,19 +121,41 @@ export default {
      * Actives the given item index in the menu item node list.
      *
      * @param {NodeList} menuItems
-     * @param {Number} itemIndex
+     * @param {Number} activeIndex
      *
      * @return {void}
      */
-    activateItem(menuItems, itemIndex) {
+    activateItem(menuItems, activeIndex) {
+      let index = activeIndex;
       const activeItem = this.getActiveItem(menuItems);
+      const maxIndex = this.getMaxItemIndex(menuItems);
 
       if (activeItem) {
         activeItem.ariaCurrent = null;
         activeItem.blur();
       }
 
-      for (const [index, item] of menuItems.entries()) {
+      if (index > maxIndex) {
+        if (this.exits && activeItem) {
+          this.$emit('exit');
+
+          return;
+        }
+
+        index = 0;
+      }
+
+      if (index < 0) {
+        if (this.exits && activeItem) {
+          this.$emit('exit');
+
+          return;
+        }
+
+        index = maxIndex;
+      }
+
+      for (const [itemIndex, item] of menuItems.entries()) {
         if (itemIndex === index) {
           item.ariaCurrent = 'true';
 
@@ -198,5 +214,17 @@ export default {
     getMaxItemIndex(menuItems) {
       return Math.max(0, menuItems.length - 1);
     },
+  },
+
+  watch: {
+    label(value) {
+      if (!value) {
+        this.isOpen = true;
+      }
+    },
+  },
+
+  mounted() {
+    this.isOpen = this.isOpen || !this.label;
   },
 };

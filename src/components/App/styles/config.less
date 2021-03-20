@@ -67,10 +67,13 @@
 
   @dropdown-item: {
     @border-color: darken(@config[@dropdown][@background], 5%);
+    @color: @config[@body][@color];
+    @color-secondary: darken(@config[@body][@color], 15%);
 
     @hover: {
       @background: @config[@link][@hover][@color];
       @color: @config[@dropdown][@background];
+      @color-secondary: lighten(@config[@dropdown][@background], 15%);
     }
   }
 
