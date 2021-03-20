@@ -42,8 +42,7 @@
              ref="searchInput"/>
       <button type="reset">Reset</button>
       <button type="submit">Search</button>
-      <aside class="search__suggestions"
-             v-bind:class="{ 'search__suggestions--open': isSuggestionsOpen }">
+      <aside v-if="isSuggestionsOpen" class="search__suggestions search__suggestions--open">
         <SearchSuggestion
           v-for="(item, index) in items"
           v-bind:key="item.id"

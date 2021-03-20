@@ -55,6 +55,7 @@
     </button>
 
     <ul
+      ref="menu"
       v-if="isOpen"
       role="menu"
       tabindex="-1"
@@ -62,10 +63,24 @@
       v-bind:aria-label="label"
       v-bind:class=" { 'dropdown__menu--open': isOpen } "
       v-on:click="close"
-      v-on:focusout="close"
       v-on:mouseleave="close">
       <slot name="items"/>
     </ul>
+
+    <KeyboardShortcut
+      shortcut="Escape"
+      v-on:down="close"
+      v-if="isOpen"/>
+
+    <KeyboardShortcut
+      shortcut="ArrowUp"
+      v-on:down="prevItem"
+      v-if="isOpen"/>
+
+    <KeyboardShortcut
+      shortcut="ArrowDown"
+      v-on:down="nextItem"
+      v-if="isOpen"/>
   </div>
 </template>
 

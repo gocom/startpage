@@ -85,6 +85,8 @@ export default {
 
       if ((this.force || !isOnExcludedTarget)
         && tokenizedEvent === this.normalized) {
+        event.preventDefault();
+
         this.$emit(emit);
       }
     },
