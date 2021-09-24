@@ -59,7 +59,7 @@ export default {
         'select',
         'textarea',
       ],
-      keyCodePrefixRegex: /^Key|Digit/i,
+      keyCodePrefixRegex: /^(?:Key|Digit)/i,
     };
   },
 
