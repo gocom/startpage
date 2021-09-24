@@ -60,7 +60,6 @@ export default {
         'textarea',
       ],
       keyCodePrefixRegex: /^Key|Digit/i,
-      shortcutRegex: /(!?)(?:<([^>]+)>)?\s?(.*)/i,
     };
   },
 
