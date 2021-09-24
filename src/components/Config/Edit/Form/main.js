@@ -30,6 +30,7 @@ import UniqueId from '../../../../mixins/UniqueId';
 import ColorPicker from '../../../Form/ColorPicker';
 import FilePicker from '../../../Form/FilePicker';
 import KeyboardShortcut from '../../../KeyboardShortcut';
+import Modal from '../../../Modal';
 import ConfigStorage from '../../../../model/Config/Storage';
 
 export default {
@@ -46,6 +47,7 @@ export default {
     ColorPicker,
     FilePicker,
     KeyboardShortcut,
+    Modal,
   },
 
   mixins: [

@@ -42,44 +42,45 @@
       <i class="fas fa-cog"></i>
     </button>
 
-    <form
-      class="config-edit-form__modal"
-      v-on:submit.prevent="save"
-      v-if="isOpen">
+    <Modal v-if="isOpen" position="right">
+      <form
+        class="config-edit-form__modal"
+        v-on:submit.prevent="save">
 
-      <div class="config-edit-form__control">
-        <div class="config-edit-form__label">
-          <label v-bind:for="getUid('backgroundColor')">Background</label>
+        <div class="config-edit-form__control">
+          <div class="config-edit-form__label">
+            <label v-bind:for="getUid('backgroundColor')">Background</label>
+            <div class="config-edit-form__input">
+              <ColorPicker
+                v-bind:id="getUid('backgroundColor')"
+                v-bind:color="backgroundColor"
+                v-on:pick="setBackgroundColor"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="config-edit-form__control">
+          <div class="config-edit-form__label">
+            <label v-bind:for="getUid('backgroundImage')">Background Image</label>
+          </div>
           <div class="config-edit-form__input">
-            <ColorPicker
-              v-bind:id="getUid('backgroundColor')"
-              v-bind:color="backgroundColor"
-              v-on:pick="setBackgroundColor"
+            <FilePicker
+              v-bind:id="getUid('backgroundImage')"
+              v-bind:current="backgroundImage"
+              v-on:pick="setBackgroundImage"
             />
           </div>
         </div>
-      </div>
 
-      <div class="config-edit-form__control">
-        <div class="config-edit-form__label">
-          <label v-bind:for="getUid('backgroundImage')">Background Image</label>
+        <div class="config-edit-form__actions">
+          <button type="submit">Save</button>
+          <button type="reset" v-on:click.prevent="close">Cancel</button>
         </div>
-        <div class="config-edit-form__input">
-          <FilePicker
-            v-bind:id="getUid('backgroundImage')"
-            v-bind:current="backgroundImage"
-            v-on:pick="setBackgroundImage"
-          />
-        </div>
-      </div>
 
-      <div class="config-edit-form__actions">
-        <button type="submit">Save</button>
-        <button type="reset" v-on:click.prevent="close">Cancel</button>
-      </div>
-
-      <KeyboardShortcut shortcut="Escape" v-on:down="close"/>
-    </form>
+        <KeyboardShortcut shortcut="Escape" v-on:down="close"/>
+      </form>
+    </Modal>
   </div>
 </template>
 
