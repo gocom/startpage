@@ -32,6 +32,12 @@ jobs:
           name: startpage.zip
           path: dist/startpage.zip
 
+      - name: SonarCloud
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
       - name: Submit coverage to Coveralls
         continue-on-error: true
         uses: coverallsapp/github-action@v1.1.0
