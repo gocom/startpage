@@ -32,7 +32,7 @@
       class="site__link"
       rel="external noreferrer noopener"
       v-bind:aria-label="site.name"
-      v-bind:href="site.absoluteUrl"
+      v-bind:href="sanitizedUrl"
       v-bind:itemid="site.id">
       <div
         class="site__preview"
@@ -60,13 +60,13 @@
     <div class="site__details">
       <aside aria-hidden="true">
         <h1 class="site__info site__info--title">
-          <a rel="external noreferrer noopener" tabindex="-1" v-bind:href="site.absoluteUrl">
+          <a rel="external noreferrer noopener" tabindex="-1" v-bind:href="sanitizedUrl">
             {{ site.name }}
           </a>
         </h1>
 
         <h2 class="site__info site__info--domain">
-          <a rel="external noreferrer noopener" tabindex="-1" v-bind:href="site.absoluteUrl">
+          <a rel="external noreferrer noopener" tabindex="-1" v-bind:href="sanitizedUrl">
             {{ site.hostname }}
           </a>
         </h2>

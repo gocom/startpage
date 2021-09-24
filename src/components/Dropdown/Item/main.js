@@ -26,6 +26,8 @@
  * SOFTWARE.
  */
 
+import { sanitizeUrl } from '@braintree/sanitize-url';
+
 export default {
   data() {
     return {
@@ -56,5 +58,15 @@ export default {
     select() {
       this.$emit('select');
     },
+  },
+
+  computed: {
+    sanitizedUrl() {
+      if (this.url) {
+        return sanitizeUrl(this.url);
+      }
+
+      return '';
+    }
   },
 };

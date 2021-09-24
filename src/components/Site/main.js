@@ -26,6 +26,7 @@
  * SOFTWARE.
  */
 
+import { sanitizeUrl } from '@braintree/sanitize-url';
 import SiteCollection from '../../model/Site/SiteCollection';
 import ErrorMessage from '../../model/Message/ErrorMessage';
 import SuccessMessage from '../../model/Message/SuccessMessage';
@@ -73,6 +74,15 @@ export default {
      */
     isEditable() {
       return this.site && this.site.id && !this.site.isProtected;
+    },
+
+    /**
+     * Sanitized site URL.
+     *
+     * @return {string}
+     */
+    sanitizedUrl() {
+      return sanitizeUrl(this.site.url);
     },
   },
 

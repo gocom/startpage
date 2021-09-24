@@ -29,8 +29,8 @@
 <template>
   <li class="dropdown-item" role="none">
     <a
-      v-if="url"
-      v-bind:href="url"
+      v-if="sanitizedUrl"
+      v-bind:href="sanitizedUrl"
       role="menuitem"
       class="dropdown-item__link">
       <span class="dropdown-item__label">
