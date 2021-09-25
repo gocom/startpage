@@ -3,7 +3,7 @@ Start Page
 
 [Demo](https://gocom.github.io/startpage/) | [Download](https://github.com/gocom/startpage/releases)
 
-[![Coveralls github branch](https://img.shields.io/coveralls/github/gocom/startpage/master)](https://coveralls.io/github/gocom/startpage)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=gocom_startpage&metric=coverage)](https://sonarcloud.io/dashboard?id=gocom_startpage) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=gocom_startpage&metric=alert_status)](https://sonarcloud.io/dashboard?id=gocom_startpage)
 
 Personal new tab speed dial. Work in progress.
 
