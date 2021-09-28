@@ -33,6 +33,8 @@
         class="site-grid"
         v-model="items"
         group="sites"
+        v-bind:delay="250"
+        v-bind:delayOnTouchOnly="true"
         v-bind:data-columns="columns"
         v-bind:data-rows="rows"
         v-bind:move="isDraggingAllowed">
