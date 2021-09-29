@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright (C) 2020 Jukka Svahn
+ * Copyright (C) 2021 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -27,9 +27,11 @@
  */
 
 import Vue from 'vue';
+import Vue2TouchEvents from 'vue2-touch-events';
 import VueRouter from 'vue-router';
 import App from './components/App';
 
+Vue.use(Vue2TouchEvents);
 Vue.use(VueRouter);
 
 const routes = [

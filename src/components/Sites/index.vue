@@ -28,32 +28,38 @@
 
 <template>
   <section class="sites">
-    <div class="sites__content">
-      <Draggable
-        class="site-grid"
-        v-model="items"
-        group="sites"
-        v-bind:delay="250"
-        v-bind:delayOnTouchOnly="true"
-        v-bind:data-columns="columns"
-        v-bind:data-rows="rows"
-        v-bind:move="isDraggingAllowed">
-        <Site
-          v-for="(site, index) in items"
-          v-bind:key="site.id"
-          v-bind:site="site"
-          v-bind:position="getPosition(index)"
-          v-on:delete="reload"
-          v-on:edit="setEdit"
-        />
-      </Draggable>
-    </div>
+    <div
+      class="sites__wrapper"
+      v-touch:swipe.left="nextPage"
+      v-touch:swipe.right="previousPage">
+      <div class="sites__content">
+        <Draggable
+          class="site-grid"
+          v-model="items"
+          group="sites"
+          v-bind:delay="250"
+          v-bind:delayOnTouchOnly="true"
+          v-bind:data-columns="columns"
+          v-bind:data-rows="rows"
+          v-bind:move="isDraggingAllowed">
+          <Site
+            v-for="(site, index) in items"
+            v-bind:key="site.id"
+            v-bind:site="site"
+            v-bind:position="getPosition(index)"
+            v-on:delete="reload"
+            v-on:edit="setEdit"
+          />
+        </Draggable>
+      </div>
 
-    <Pagination
-      v-bind:total="totalCount"
-      v-bind:limit="limit"
-      v-on:change-page="setPage"
-    />
+      <Pagination
+        v-bind:total="totalCount"
+        v-bind:limit="limit"
+        v-on:change-page="setPage"
+        ref="pagination"
+      />
+    </div>
 
     <div class="sites__actions">
       <ConfigEditForm/>

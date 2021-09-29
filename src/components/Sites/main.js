@@ -157,6 +157,24 @@ export default {
     setPage(page) {
       this.page = page;
     },
+
+    /**
+     * Go to next page.
+     *
+     * @return {void}
+     */
+    nextPage() {
+      this.$refs.pagination.nextPage();
+    },
+
+    /**
+     * Go to previous page.
+     *
+     * @return {void}
+     */
+    previousPage() {
+      this.$refs.pagination.previousPage();
+    },
   },
 
   computed: {
