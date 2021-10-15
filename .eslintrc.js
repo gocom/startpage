@@ -7,7 +7,7 @@ module.exports = {
     webextensions: true,
   },
   parserOptions: {
-    parser: 'babel-eslint',
+    parser: '@babel/eslint-parser',
   },
   plugins: [
     'vue',
@@ -20,7 +20,7 @@ module.exports = {
   rules: {
     'import/extensions': ['error', 'always', {
       js: 'never',
-      vue: 'never'
+      vue: 'never',
     }],
     'class-methods-use-this': ['error', {
       exceptMethods: [
@@ -52,9 +52,9 @@ module.exports = {
     'import/resolver': {
       node: {}, // See https://github.com/benmosher/eslint-plugin-import/issues/1396
       webpack: {
-        config: './webpack.config.js'
-      }
-    }
+        config: './webpack.config.js',
+      },
+    },
   },
   overrides: [
     {

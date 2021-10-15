@@ -5,6 +5,8 @@ const CopyPlugin = require('copy-webpack-plugin');
 const GoogleFontsPlugin = require('google-fonts-plugin');
 const path = require('path');
 const { VueLoaderPlugin } = require('vue-loader');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { version } = require('./package.json');
 
 function transformHtml(content) {
@@ -137,6 +139,14 @@ const config = {
   },
   devServer: {
     port: 12598,
+  },
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin(),
+      new OptimizeCssAssetsPlugin(),
+    ],
+    usedExports: true,
+    removeAvailableModules: true,
   },
 };
 
