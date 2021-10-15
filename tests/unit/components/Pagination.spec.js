@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils';
 import Component from '../../../src/components/Pagination';
+import localVue from '../../mocks/vue';
 
 const $route = {
   params: {
@@ -17,6 +18,7 @@ const $router = {
 
 test('page number', () => {
   const wrapper = mount(Component, {
+    localVue,
     mocks: {
       $route,
       $router,
@@ -46,6 +48,7 @@ test('page number', () => {
 
 test('single page number', () => {
   const wrapper = mount(Component, {
+    localVue,
     mocks: {
       $route,
       $router,
