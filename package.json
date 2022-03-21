@@ -26,7 +26,7 @@
     "@babel/plugin-proposal-optional-chaining": "^7.14.5",
     "@babel/preset-env": "^7.15.8",
     "@babel/runtime-corejs3": "^7.15.4",
-    "@braintree/sanitize-url": "^5.0.2",
+    "@braintree/sanitize-url": "^6.0.0",
     "@fortawesome/fontawesome-free": "^5.14.0",
     "@types/chrome": "^0.0.121",
     "babel-core": "^7.0.0-bridge.0",
