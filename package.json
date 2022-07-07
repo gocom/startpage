@@ -47,7 +47,7 @@
     "localforage-webextensionstorage-driver": "^1.2.2",
     "lodash": "^4.17.21",
     "mini-css-extract-plugin": "^0.9.0",
-    "moment": "^2.27.0",
+    "moment": "^2.29.4",
     "optimize-css-assets-webpack-plugin": "^6.0.1",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "vue": "^2.6.11",
