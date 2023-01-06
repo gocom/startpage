@@ -76,7 +76,7 @@
     "lintspaces-cli": "^0.7.1",
     "stylelint": "^13.6.1",
     "stylelint-config-standard": "^20.0.0",
-    "vue-jest": "^3.0.6",
+    "vue-jest": "^4.0.1",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
   },
