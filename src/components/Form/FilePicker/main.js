@@ -36,6 +36,14 @@ export default {
       type: String,
       default: '',
     },
+    accept: {
+      type: String,
+      default: '',
+    },
+    imageWidth: {
+      type: Number,
+      default: 0,
+    },
   },
 
   data() {
@@ -62,22 +70,70 @@ export default {
       if (file) {
         const fr = new FileReader();
 
-        fr.readAsDataURL(file);
-
         fr.onload = () => {
           this.select(fr.result);
         };
+
+        fr.readAsDataURL(file);
       }
     },
 
-    select(file) {
-      this.file = file;
+    scale(file) {
+      return new Promise((resolve) => {
+        if (!file || this.imageWidth === 0) {
+          resolve(file);
+          return;
+        }
 
-      if (!this.file) {
+        const image = new Image();
+
+        image.onload = () => {
+          const width = image.width <= this.imageWidth
+            ? image.width
+            : this.imageWidth;
+
+          const height = Math.floor((image.height / image.width) * width);
+
+          const canvas = document.createElement('canvas');
+
+          canvas.width = width;
+          canvas.height = height;
+
+          const ctx = canvas.getContext('2d');
+
+          ctx.drawImage(
+            image,
+            0,
+            0,
+            width,
+            height,
+          );
+
+          const data = canvas.toDataURL(
+            'image/jpg',
+            0.7,
+          );
+
+          resolve(data);
+        };
+
+        image.src = file;
+      });
+    },
+
+    select(file) {
+      if (!file) {
         this.$refs.upload.value = null;
+        this.file = null;
+        this.$emit('pick', this.file);
+        return;
       }
 
-      this.$emit('pick', this.file);
+      this.scale(file)
+        .then((result) => {
+          this.file = result;
+          this.$emit('pick', this.file);
+        });
     },
 
     remove() {

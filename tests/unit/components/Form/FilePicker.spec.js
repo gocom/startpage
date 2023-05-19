@@ -24,7 +24,9 @@ test('select and remove a file', () => {
 
   vm.select('filename');
 
-  expect(vm.file).toBe('filename');
+  expect(vm.scale('filename')).resolves.toBe('filename');
+
+  vm.file = 'filename';
 
   vm.remove();
 

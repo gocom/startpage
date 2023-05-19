@@ -42,6 +42,7 @@ export default {
     return {
       site: this.edit || new SiteModel(),
       isOpen: false,
+      hasError: false,
     };
   },
 
@@ -89,6 +90,9 @@ export default {
         .then(() => {
           this.$emit('save');
           this.close();
+        })
+        .catch(() => {
+          this.hasError = true;
         });
     },
 

@@ -53,6 +53,12 @@
       <form
         class="site-edit-form__modal"
         v-on:submit.prevent="save">
+        <div
+          v-if="hasError"
+          class="site-edit-form__error">
+          Saving failed due to a storage error. Image might be too big for the storage.
+        </div>
+
         <div class="site-edit-form__preview">
           <Site v-bind:site="site"/>
         </div>
@@ -120,6 +126,8 @@
               v-bind:id="getUid('thumbnail')"
               v-bind:current="site.thumbnail"
               v-on:pick="setThumbnail"
+              v-bind:imageWidth="640"
+              accept=".png, .jpg, .jpeg"
             />
           </div>
         </div>
@@ -133,6 +141,8 @@
               v-bind:id="getUid('icon')"
               v-bind:current="site.icon"
               v-on:pick="setIcon"
+              v-bind:imageWidth="640"
+              accept=".png, .jpg, .jpeg"
             />
           </div>
         </div>
