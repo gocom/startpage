@@ -1,5 +1,7 @@
-.PHONY: all install build bump-version clean package start stop shell test test-unit lint lint-fix watch help
+.PHONY: all prefix install build bump-version clean package start stop shell test test-unit lint lint-fix watch help
 
+PREFIX ?=
+PREFIX_DIRECTORY_SUFFIX = startpage-build/
 NODE_ENV ?= development
 HOST_UID != id -u
 HOST_GID != id -g
@@ -9,7 +11,15 @@ NPM = $(NODE) npm
 
 all: help
 
-install: build
+prefix:
+ifneq ($(PREFIX),)
+	@echo "Moving build to $(PREFIX)/$(PREFIX_DIRECTORY_SUFFIX)"
+	mkdir -p "$(PREFIX)/$(PREFIX_DIRECTORY_SUFFIX)"
+	cp -rf build/* "$(PREFIX)/$(PREFIX_DIRECTORY_SUFFIX)"
+	rm -rf build
+endif
+
+install: build prefix
 
 node_modules:
 	$(NPM) install
@@ -69,7 +79,7 @@ help:
 	@echo "  $$ make clean"
 	@echo "  Uninstall the project"
 	@echo ""
-	@echo "  $$ make install"
+	@echo "  $$ make install [PREFIX=/path/to/directory]"
 	@echo "  Installs the project"
 	@echo ""
 	@echo "  $$ make lint"
