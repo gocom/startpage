@@ -9,7 +9,7 @@ jobs:
   build:
     continue-on-error: true
     name: Build
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
 

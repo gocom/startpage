@@ -21,7 +21,7 @@ jobs:
         run: make test
 
       - name: Package
-        run: make run package
+        run: make package
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
