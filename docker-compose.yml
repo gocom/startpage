@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+    node:
+        image: node:18
+        volumes:
+            - .:/app
+        environment:
+            - NODE_ENV
+            - NPM_CONFIG_UPDATE_NOTIFIER=false
+            - NODE_OPTIONS=--openssl-legacy-provider
+        working_dir: /app
+        command: npm run start
+        network_mode: bridge
+        user: $HOST_UID:$HOST_GID
+        ports:
+          - "127.0.0.1:12598:12598"

@@ -10,26 +10,21 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-
-      - name: Install
-        run: npm install
+      - name: Build
+        run: make build HOST_UID=0 HOST_GID=0
 
       - name: Test
-        run: npm test
+        run: make test
 
       - name: Package
-        run: npm run package
+        run: make run package
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v1
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
         with:
           name: startpage.zip
           path: dist/startpage.zip
@@ -40,16 +35,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-      - name: Submit coverage to Coveralls
-        continue-on-error: true
-        uses: coverallsapp/github-action@v1.1.0
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Deploy demo
+      - name: Deploy Demo
         continue-on-error: true
         if: github.ref == 'refs/heads/master'
-        uses: JamesIves/github-pages-deploy-action@4.0.0
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: build

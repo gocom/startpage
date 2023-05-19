@@ -14,22 +14,17 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-
-      - name: Install
-        run: npm install
+      - name: Build
+        run: make build HOST_UID=0 HOST_GID=0
 
       - name: Start
         run: |
-          npm start &
+          make start HOST_UID=0 HOST_GID=0
           sleep 10
 
-      - name: Capture screenshot
+      - name: Capture Screenshot
         id: newtab
         uses: swinton/screenshot-website@v1.x
         with:
@@ -44,7 +39,7 @@ jobs:
           cp ${{steps.newtab.outputs.path}} screenshots/
 
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@4.0.0
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: screenshots
           folder: screenshots

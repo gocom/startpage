@@ -11,65 +11,55 @@ Versioning
 
 [Semantic Versioning](https://semver.org/).
 
-Install dependencies
+Development
 ----
 
-The project uses [npm](https://nodejs.org/) to manage dependencies. To install
-dependencies, run:
+### Requirements
+
+Development environment is ran using Docker images to limit host system dependencies. Requirements for the development
+environment are:
+
+* GNU make
+* [Docker](https://www.docker.com/)
+* [docker-compose](https://github.com/docker/compose) installed as a standalone application to PATH
+
+### Available commands
+
+For all available commands, see:
 
 ```
-$ npm install
+$ make help
 ```
 
-Development
------
+### Building
 
-Available commands to ease development, packaging and installing:
-
-```
-$ npm run init
-$ npm run build
-$ npm run build:dev
-$ npm run test
-$ npm run test:unit
-$ npm run lint
-$ npm run lint:fix
-$ npm run package
-$ npm run start
-$ npm run watch
-$ npm run bump-version
-```
-
-Build
------
+To build, run:
 
 ```
-$ npm run build
+$ make build
 ```
 
-Coding style
------
+### Coding style
 
 To verify that your additions follows coding style, run:
 
 ```
-$ npm run lint
+$ make lint
 ```
 
 To try to automatically resolve issues, run:
 
 ```
-$ npm run lint:fix
+$ make lint-fix
 ```
 
-Unit tests
-----
+### Unit tests
 
 All additions should have unit tests, and all tests should pass. To verify that
 tests pass, run:
 
 ```
-$ npm run test:unit
+$ make test-unit
 ```
 
 Configure git
@@ -105,7 +95,7 @@ should contain the version number and changes should be written down as a list:
 Then to bump version numbers:
 
 ```
-$ npm run bump-version
+$ make bump-version
 ```
 
 Commit CHANGELOG.md and package.json and tag a new release:
