@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright (C) 2021 Jukka Svahn
+ * Copyright (C) 2023 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -41,7 +41,7 @@
   &__actions {
     align-self: flex-end;
     display: flex;
-    margin: -2.25rem -0.25rem 1rem -0.25rem;
+    margin: -7.25rem -0.25rem 6rem -0.25rem;
     order: -1;
 
     > * {
@@ -61,7 +61,10 @@
   display: grid;
   grid-column-gap: 3em;
   grid-row-gap: 2em;
+  grid-template-columns: repeat(4, 192px);
+  grid-template-rows: repeat(3, 1fr);
   justify-content: center;
+  min-height: 30.625em;
   user-select: none;
 }
 
@@ -81,6 +84,10 @@
   .site-grid {
     grid-template-columns: repeat(3, 192px);
     grid-template-rows: auto;
+  }
+
+  .sites__actions {
+    margin: -4.25rem -0.25rem 4rem -0.25rem;
   }
 }
 
