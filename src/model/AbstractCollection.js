@@ -180,6 +180,22 @@ class AbstractCollection {
   }
 
   /**
+   * Exports all item data.
+   *
+   * @returns {Promise<*[]>}
+   */
+  async export() {
+    const db = await this.getDb();
+    const items = [];
+
+    await db.iterate((data) => {
+      items.push(data);
+    });
+
+    return items;
+  }
+
+  /**
    * Deletes the given item.
    *
    * @param {AbstractModel} model
