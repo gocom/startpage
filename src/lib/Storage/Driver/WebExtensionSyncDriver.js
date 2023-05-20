@@ -4,8 +4,18 @@
  * {@link https://github.com/gocom/startpage GitHub}
  */
 
+/**
+ * This StorageArea LocalForage storage driver is based on Espen Henriksen's
+ * WebExtension Storage Driver, with added support for key prefixes and
+ * instance namespacing and optimizations. Manifest 2 support is dropped,
+ * leading to some performance benefits.
+ *
+ * {@link https://github.com/esphen/localforage-webExtensionStorage-driver}
+ */
+
 /*
  * Copyright (C) 2023 Jukka Svahn
+ * Copyright (c) 2016 Espen Henriksen
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
