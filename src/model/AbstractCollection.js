@@ -90,22 +90,16 @@ class AbstractCollection {
    *
    * @param {AbstractCollection~itemFn} fn
    *
-   * @return {Promise<AbstractModel|null>}
+   * @return {Promise}
    */
   async iterate(fn) {
-    let current = null;
-
     const db = await this.getDb();
 
-    await db.iterate((data) => {
+    return db.iterate((data) => {
       const model = this.getInstance(data);
-
-      current = model;
 
       return fn(model);
     });
-
-    return current;
   }
 
   /**

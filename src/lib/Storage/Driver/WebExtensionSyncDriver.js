@@ -16,28 +16,6 @@ function getStorage() {
 }
 
 /**
- * Whether storage API outputs promises.
- *
- * @returns {boolean}
- */
-function isPromiseAvailable() {
-  const storage = getStorage();
-
-  try {
-    if (storage
-      && storage.local.get
-      && storage.local.get()
-      && typeof storage.local.get().then === 'function') {
-      return true;
-    }
-  } catch (e) {
-    return false;
-  }
-
-  return false;
-}
-
-/**
  * Gets key prefix.
  *
  * @param {object} options
@@ -67,42 +45,16 @@ function getKeyPrefix(options, defaultConfig) {
  */
 function createDriver(name, property) {
   const storage = getStorage();
-  const isSupported = !!(storage && storage[property]);
 
   /** @var {StorageArea} driver */
-  const driver = isSupported
+  const driver = storage && storage[property]
     ? storage[property]
-    : {
-      clear() {},
-      get() {},
-      remove() {},
-      set() {},
-    };
-
-  /**
-   * Executes StorageArea function.
-   *
-   * @param fn
-   * @param arg
-   *
-   * @returns {*|Promise<unknown>}
-   */
-  function execute(fn, ...arg) {
-    if (isPromiseAvailable()) {
-      return fn.apply(driver, arg);
-    }
-
-    return new Promise((resolve) => {
-      fn.apply(driver, ...arg, (...data) => {
-        resolve(...data);
-      });
-    });
-  }
+    : null;
 
   return {
     dbInfo: {},
     _driver: name,
-    _support: isSupported,
+    _support: driver !== null,
 
     // eslint-disable-next-line no-underscore-dangle
     _initStorage(options) {
@@ -117,15 +69,16 @@ function createDriver(name, property) {
     },
 
     async clear(callback) {
-      const self = this;
-      const items = await execute(driver.get, null);
-      const keys = Object.keys(items);
+      const items = await driver.get();
+      const results = [];
 
-      keys.forEach((key) => {
-        if (key.indexOf(self.dbInfo.keyPrefix) === 0) {
-          driver.remove(key);
+      for (const [key] of Object.entries(items)) {
+        if (key.indexOf(this.dbInfo.keyPrefix) === 0) {
+          results.push(driver.remove(key));
         }
-      });
+      }
+
+      await Promise.all(results);
 
       if (callback) {
         callback();
@@ -133,31 +86,40 @@ function createDriver(name, property) {
     },
 
     async iterate(iterator, callback) {
-      const self = this;
-      const items = await execute(driver.get, null);
-      const keys = Object.keys(items);
+      const items = await driver.get();
+      let index = 0;
 
-      keys.forEach((key, i) => {
-        if (key.indexOf(self.dbInfo.keyPrefix) === 0) {
-          iterator(items[key], key, i);
+      for (const [key, value] of Object.entries(items)) {
+        if (key.indexOf(this.dbInfo.keyPrefix) === 0) {
+          const result = iterator(value, key, index);
+
+          if (result !== undefined) {
+            if (callback) {
+              callback(result);
+            }
+
+            return result;
+          }
         }
-      });
+
+        index += 1;
+      }
 
       if (callback) {
         callback();
       }
+
+      return undefined;
     },
 
     async getItem(key, callback) {
       try {
         const keyName = `${this.dbInfo.keyPrefix}${key}`;
-        let result = await execute(driver.get, keyName);
+        const items = await driver.get(keyName);
 
-        result = result[keyName];
-
-        result = result === undefined
+        const result = items[keyName] === undefined
           ? null
-          : result;
+          : items[keyName];
 
         if (callback) {
           callback(null, result);
@@ -173,24 +135,25 @@ function createDriver(name, property) {
       }
     },
 
-    async key(n, callback) {
-      const self = this;
-      const results = await execute(driver.get, null);
-      const result = Object.keys(results)
-        .filter((key) => key.indexOf(self.dbInfo.keyPrefix));
+    async key(keyIndex, callback) {
+      const keys = await this.keys();
+      const results = Object.keys(keys).slice(keyIndex, 1);
+
+      const key = results.length === 0
+        ? null
+        : results[0];
 
       if (callback) {
-        callback(result);
+        callback(key);
       }
 
-      return result;
+      return key;
     },
 
     async keys(callback) {
-      const self = this;
-      const results = await execute(driver.get, null);
-      const keys = Object.keys(results)
-        .filter((key) => key.indexOf(self.dbInfo.keyPrefix));
+      const items = await driver.get();
+      const keys = Object.keys(items)
+        .filter((key) => key.indexOf(this.dbInfo.keyPrefix) === 0);
 
       if (callback) {
         callback(keys);
@@ -200,10 +163,7 @@ function createDriver(name, property) {
     },
 
     async length(callback) {
-      const self = this;
-      const results = await execute(driver.get, null);
-      const { length } = Object.keys(results)
-        .filter((key) => key.indexOf(self.dbInfo.keyPrefix));
+      const { length } = await this.keys();
 
       if (callback) {
         callback(length);
@@ -213,7 +173,7 @@ function createDriver(name, property) {
     },
 
     async removeItem(key, callback) {
-      await execute(driver.remove, `${this.dbInfo.keyPrefix}${key}`);
+      await driver.remove(`${this.dbInfo.keyPrefix}${key}`);
 
       if (callback) {
         callback();
@@ -223,7 +183,7 @@ function createDriver(name, property) {
     async setItem(key, value, callback) {
       const keyName = `${this.dbInfo.keyPrefix}${key}`;
 
-      await execute(driver.set, {
+      await driver.set({
         [keyName]: value,
       });
 
