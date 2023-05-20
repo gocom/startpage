@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright (C) 2021 Jukka Svahn
+ * Copyright (C) 2023 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -43,6 +43,11 @@
       color: inherit;
       text-decoration: none;
     }
+
+    &--placeholder {
+      cursor: default;
+      pointer-events: none;
+    }
   }
 
   &__preview {
@@ -60,6 +65,10 @@
     position: relative;
     width: 100%;
     transition: all 0.25s;
+
+    .site__link--placeholder & {
+      background: rgba(255, 255, 255, 0.15);
+    }
 
     .site__link:hover &,
     .js-focus-visible .site__link.focus-visible & {

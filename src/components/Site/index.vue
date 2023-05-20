@@ -5,7 +5,7 @@
 -->
 
 <!--
- * Copyright (C) 2021 Jukka Svahn
+ * Copyright (C) 2023 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -31,6 +31,7 @@
     <a
       class="site__link"
       rel="external noreferrer noopener"
+      v-bind:class="{'site__link--placeholder': isPlaceholder}"
       v-bind:aria-label="site.name"
       v-bind:href="sanitizedUrl"
       v-bind:itemid="site.id">
