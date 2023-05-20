@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright (C) 2020 Jukka Svahn
+ * Copyright (C) 2023 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -64,7 +64,8 @@ class AbstractCollection {
    * @return {Promise<AbstractModel>}
    */
   async getItem(id) {
-    const data = await this.db.getItem(id);
+    const db = await this.getDb();
+    const data = await db.getItem(id);
 
     return this.getInstance(data);
   }
@@ -94,7 +95,9 @@ class AbstractCollection {
   async iterate(fn) {
     let current = null;
 
-    await this.db.iterate((data) => {
+    const db = await this.getDb();
+
+    await db.iterate((data) => {
       const model = this.getInstance(data);
 
       current = model;
@@ -121,7 +124,9 @@ class AbstractCollection {
       });
     }
 
-    await this.db.setItem(entity.id, entity);
+    const db = await this.getDb();
+
+    await db.setItem(entity.id, entity);
 
     return entity;
   }
@@ -134,7 +139,7 @@ class AbstractCollection {
    * @return {Promise<AbstractModel[]>}
    */
   async saveMultiple(models) {
-    const promises = await models.map((model) => this.save(model));
+    const promises = models.map((model) => this.save(model));
 
     return Promise.all(promises);
   }
@@ -209,7 +214,9 @@ class AbstractCollection {
    * @return {Promise<void>}
    */
   async deleteById(id) {
-    return this.db.removeItem(id);
+    const db = await this.getDb();
+
+    return db.removeItem(id);
   }
 
   /**
@@ -221,8 +228,9 @@ class AbstractCollection {
    */
   async getNextId() {
     let count = 1;
+    const db = await this.getDb();
 
-    await this.db.length().then((numberOfKeys) => {
+    await db.length().then((numberOfKeys) => {
       count = numberOfKeys + 1;
     });
 
@@ -232,11 +240,11 @@ class AbstractCollection {
   /**
    * Gets storage instance.
    *
-   * @return {LocalForage}
+   * @return {Promise<LocalForage>}
    *
    * @private
    */
-  get db() {
+  async getDb() {
     return Storage.get(this.table);
   }
 

@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright (C) 2020 Jukka Svahn
+ * Copyright (C) 2023 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -27,7 +27,7 @@
  */
 
 import LocalForage from 'localforage';
-import SyncDriver from 'localforage-webextensionstorage-driver/sync';
+import { local as LocalDriver } from './Storage/Driver/WebExtensionSyncDriver';
 
 /**
  * Storage.
@@ -57,11 +57,18 @@ class Storage {
   drivers = [];
 
   /**
+   * Whether drives have been initialized.
+   *
+   * @type {Boolean}
+   */
+  initialized = false;
+
+  /**
    * Constructor.
    */
   constructor() {
     this.drivers = [
-      SyncDriver,
+      'webExtensionLocalStorage',
       LocalForage.LOCALSTORAGE,
       LocalForage.WEBSQL,
       LocalForage.INDEXEDDB,
@@ -73,18 +80,24 @@ class Storage {
    *
    * @param {String} table
    *
-   * @returns {LocalForage}
+   * @returns {Promise<LocalForage>}
    *
    * @private
    */
-  create(table) {
+  async create(table) {
+    /** @var {LocalForage} store */
     const store = LocalForage.createInstance({
       name: this.db,
       storeName: table,
-      driver: this.drivers,
     });
 
-    this.tables[table] = store;
+    if (this.initialized === false) {
+      this.initialized = true;
+
+      await store.defineDriver(LocalDriver);
+    }
+
+    await store.setDriver(this.drivers);
 
     return store;
   }
@@ -94,12 +107,16 @@ class Storage {
    *
    * @param {String} table
    *
-   * @returns {LocalForage}
+   * @returns {Promise<LocalForage>}
    *
    * @public
    */
-  get(table) {
-    return this.tables[table] || this.create(table);
+  async get(table) {
+    if (!this.tables[table]) {
+      this.tables[table] = await this.create(table);
+    }
+
+    return this.tables[table];
   }
 }
 
