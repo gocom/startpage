@@ -35,6 +35,8 @@
   padding: 0 2em;
 
   &__content {
+    display: flex;
+    flex-direction: row;
     position: relative;
   }
 
@@ -58,6 +60,7 @@
 }
 
 .site-grid {
+  flex-grow: 1;
   display: grid;
   grid-column-gap: 3em;
   grid-row-gap: 2em;
@@ -66,6 +69,21 @@
   justify-content: center;
   min-height: 30.625em;
   user-select: none;
+
+  &--dropzone {
+    min-height: 100%;
+    position: absolute;
+  }
+
+  &--previous {
+    padding-right: 3em;
+    right: 100%;
+  }
+
+  &--next {
+    left: 100%;
+    padding-left: 3em;
+  }
 }
 
 @media only screen and (min-width: 1025px) {

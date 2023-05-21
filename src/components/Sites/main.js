@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright (C) 2021 Jukka Svahn
+ * Copyright (C) 2023 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -40,6 +40,7 @@ export default {
     return {
       edit: null,
       isDraggable: true,
+      isUpdating: false,
       sites: [],
       page: 1,
       columns: 4,
@@ -175,6 +176,32 @@ export default {
     previousPage() {
       this.$refs.pagination.previousPage();
     },
+
+    /**
+     * Updates positions.
+     */
+    savePositions(positions) {
+      const sites = this.sites
+        .sort((a, b) => a.position - b.position);
+
+      let position = 0;
+
+      sites.forEach((site) => {
+        const entity = site;
+        position += 1;
+
+        if (positions[entity.id]) {
+          entity.position = positions[entity.id];
+        } else {
+          entity.position = position;
+        }
+      });
+
+      SiteCollection.saveMultiple(sites)
+        .then(() => {
+          this.isDraggable = true;
+        });
+    },
   },
 
   computed: {
@@ -194,6 +221,131 @@ export default {
      */
     totalCount() {
       return this.sites.length;
+    },
+
+    previousPageItems: {
+      /**
+       * Gets items.
+       *
+       * Returns an empty array so that the dropzone does not display any items.
+       *
+       * @returns {Site[]}
+       */
+      get() {
+        return [];
+      },
+
+      /**
+       * Moves items to the previous page.
+       *
+       * @param {Site[]} items
+       */
+      set(items) {
+        this.isDraggable = false;
+        this.isUpdating = true;
+
+        const startPosition = Math.max(0, (this.page * this.limit) - this.limit) + 1;
+        const previousPageStart = Math.max(0, startPosition - this.limit - 1);
+
+        if (items.length === 0 || (previousPageStart === 0 && startPosition === 1)) {
+          return;
+        }
+
+        const previousPageEnd = previousPageStart + this.limit;
+
+        const allSortedItems = this.sites
+          .sort((a, b) => a.position - b.position);
+
+        const currentPageItems = allSortedItems
+          .slice(startPosition - 1, startPosition - this.limit - 1);
+
+        const previousPageItems = allSortedItems
+          .slice(previousPageStart, previousPageEnd);
+
+        const positions = {};
+
+        items.reverse().forEach((site, index) => {
+          positions[site.id] = startPosition - 1 - index;
+        });
+
+        previousPageItems.slice(items.length * -1).forEach((site, index) => {
+          positions[site.id] = startPosition + index;
+        });
+
+        let counter = items.length - 1;
+
+        currentPageItems.forEach((site) => {
+          if (positions[site.id] === undefined) {
+            positions[site.id] = startPosition + counter;
+            counter += 1;
+          }
+        });
+
+        this.savePositions(positions);
+      },
+    },
+
+    nextPageItems: {
+      /**
+       * Gets items.
+       *
+       * Returns an empty array so that the dropzone does not display any items.
+       *
+       * @returns {Site[]}
+       */
+      get() {
+        return [];
+      },
+
+      /**
+       * Moves items to the next page.
+       *
+       * @param {Site[]} items
+       */
+      set(items) {
+        this.isDraggable = false;
+        this.isUpdating = true;
+
+        const startPosition = Math.max(0, (this.page * this.limit) - this.limit) + 1;
+        const endPosition = startPosition + this.limit;
+        const nextPageStart = startPosition + this.limit - 1;
+
+        if (items.length === 0 || nextPageStart >= this.sites.length) {
+          return;
+        }
+
+        const nextPageEnd = nextPageStart + this.limit;
+
+        const allSortedItems = this.sites
+          .sort((a, b) => a.position - b.position);
+
+        const currentPageItems = allSortedItems
+          .slice(startPosition - 1, endPosition - 1);
+
+        const nextPageItems = allSortedItems
+          .slice(nextPageStart, nextPageEnd);
+
+        const positions = {};
+
+        items.forEach((site, index) => {
+          positions[site.id] = endPosition + 1 + index;
+        });
+
+        nextPageItems.slice(0, items.length).forEach((site, index) => {
+          positions[site.id] = endPosition - index;
+        });
+
+        let counter = 0;
+
+        currentPageItems.forEach((site) => {
+          if (positions[site.id] === undefined) {
+            positions[site.id] = startPosition + counter;
+            counter += 1;
+          }
+        });
+
+        this.savePositions(positions);
+      },
     },
 
     items: {
@@ -220,6 +372,17 @@ export default {
        * @param {Site[]} items
        */
       set(items) {
+        if (this.isUpdating) {
+          this.isDraggable = true;
+          this.isUpdating = false;
+
+          return;
+        }
+
+        if (items.length === 0) {
+          return;
+        }
+
         this.isDraggable = false;
 
         const startPosition = Math.max(0, (this.page * this.limit) - this.limit) + 1;
@@ -230,26 +393,7 @@ export default {
           positions[site.id] = startPosition + index;
         });
 
-        const update = this.sites
-          .sort((a, b) => a.position - b.position);
-
-        let position = 0;
-
-        update.forEach((site) => {
-          const entity = site;
-          position += 1;
-
-          if (positions[entity.id]) {
-            entity.position = positions[entity.id];
-          } else {
-            entity.position = position;
-          }
-        });
-
-        SiteCollection.saveMultiple(update)
-          .then(() => {
-            this.isDraggable = true;
-          });
+        this.savePositions(positions);
       },
     },
   },

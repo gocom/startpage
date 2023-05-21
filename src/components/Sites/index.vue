@@ -5,7 +5,7 @@
 -->
 
 <!--
- * Copyright (C) 2021 Jukka Svahn
+ * Copyright (C) 2023 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -34,6 +34,16 @@
       v-touch:swipe.right="previousPage">
       <div class="sites__content">
         <Draggable
+          class="site-grid site-grid--dropzone site-grid--previous"
+          v-model="previousPageItems"
+          group="sites"
+          v-bind:delay="250"
+          v-bind:delayOnTouchOnly="true"
+          v-bind:data-columns="1"
+          v-bind:data-rows="rows"
+          v-bind:move="isDraggingAllowed" />
+
+        <Draggable
           class="site-grid"
           v-model="items"
           group="sites"
@@ -51,6 +61,16 @@
             v-on:edit="setEdit"
           />
         </Draggable>
+
+        <Draggable
+          class="site-grid site-grid--dropzone site-grid--next"
+          v-model="nextPageItems"
+          group="sites"
+          v-bind:delay="250"
+          v-bind:delayOnTouchOnly="true"
+          v-bind:data-columns="1"
+          v-bind:data-rows="rows"
+          v-bind:move="isDraggingAllowed" />
       </div>
 
       <Pagination
