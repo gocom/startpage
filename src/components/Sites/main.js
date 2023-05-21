@@ -222,10 +222,7 @@ export default {
       set(items) {
         this.isDraggable = false;
 
-        const startPosition = items
-          .map((site) => site.position)
-          .sort()
-          .reverse()[0] || 0;
+        const startPosition = Math.max(0, (this.page * this.limit) - this.limit) + 1;
 
         const positions = {};
 
@@ -233,14 +230,19 @@ export default {
           positions[site.id] = startPosition + index;
         });
 
-        const update = [];
+        const update = this.sites
+          .sort((a, b) => a.position - b.position);
 
-        this.sites.forEach((site) => {
+        let position = 0;
+
+        update.forEach((site) => {
           const entity = site;
+          position += 1;
 
           if (positions[entity.id]) {
             entity.position = positions[entity.id];
-            update.push(entity);
+          } else {
+            entity.position = position;
           }
         });
 

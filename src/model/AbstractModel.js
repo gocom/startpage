@@ -55,11 +55,20 @@ class AbstractModel {
   /**
    * Identifier.
    *
-   * @return {String}
+   * @type {String}
    *
    * @public
    */
   id = '';
+
+  /**
+   * Position.
+   *
+   * @type {Number}
+   *
+   * @public
+   */
+  position = 0;
 
   /**
    * Is protected.
@@ -79,6 +88,8 @@ class AbstractModel {
     defaultsDeep(this, data, this.defaults);
 
     this.id = data.id || '';
+
+    this.position = data.position || 0;
 
     this.isProtected = data.isProtected || false;
   }

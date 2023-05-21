@@ -113,9 +113,11 @@ class AbstractCollection {
     const entity = model;
 
     if (!entity.id) {
-      await this.getNextId().then((nextId) => {
-        entity.id = nextId;
-      });
+      entity.id = await this.getNextId();
+    }
+
+    if (!entity.position) {
+      entity.position = await this.getNextPosition();
     }
 
     const db = await this.getDb();
@@ -237,14 +239,23 @@ class AbstractCollection {
    * @private
    */
   async getNextId() {
-    let count = 1;
+    const position = await this.getNextPosition();
+
+    return `${this.model.idPrefix}${position}`;
+  }
+
+  /**
+   * Gets next position.
+   *
+   * @return {Promise<Number>}
+   *
+   * @private
+   */
+  async getNextPosition() {
     const db = await this.getDb();
+    const count = await db.length();
 
-    await db.length().then((numberOfKeys) => {
-      count = numberOfKeys + 1;
-    });
-
-    return `${this.model.idPrefix}${count}`;
+    return count + 1;
   }
 
   /**
