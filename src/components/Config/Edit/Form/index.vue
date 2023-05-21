@@ -73,6 +73,27 @@
           </div>
         </div>
 
+        <div class="config-edit-form__control">
+          <div class="config-edit-form__label">
+            Export Configuration
+          </div>
+          <div class="config-edit-form__input">
+            <button type="button" v-on:click.prevent="exportConfig">Export</button>
+          </div>
+        </div>
+
+        <div class="config-edit-form__control">
+          <div class="config-edit-form__label">
+            <label v-bind:for="getUid('importConfiguration')">Import Configuration</label>
+          </div>
+          <div class="config-edit-form__input">
+            <FilePicker
+              v-bind:id="getUid('importConfiguration')"
+              v-on:pick="importConfig"
+            />
+          </div>
+        </div>
+
         <div class="config-edit-form__actions">
           <button type="submit">Save</button>
           <button type="reset" v-on:click.prevent="close">Cancel</button>

@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright (C) 2021 Jukka Svahn
+ * Copyright (C) 2023 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -32,6 +32,7 @@ import FilePicker from '../../../Form/FilePicker';
 import KeyboardShortcut from '../../../KeyboardShortcut';
 import Modal from '../../../Modal';
 import ConfigStorage from '../../../../model/Config/Storage';
+import SiteCollection from '../../../../model/Site/SiteCollection';
 
 export default {
   data() {
@@ -73,6 +74,10 @@ export default {
       this.isOpen = !this.isOpen;
     },
 
+    reload() {
+      window.location.reload();
+    },
+
     save() {
       ConfigStorage.set('background.color', this.backgroundColor)
         .then((value) => {
@@ -87,6 +92,75 @@ export default {
       this.isOpen = false;
 
       window.location.reload();
+    },
+
+    async exportConfig() {
+      const config = {
+        [SiteCollection.table]: await SiteCollection.export(),
+      };
+
+      const data = JSON.stringify(
+        config,
+        null,
+        2,
+      );
+
+      this.downloadStringAsFile(
+        data,
+        'application/json',
+        'config.json',
+      );
+    },
+
+    /**
+     * Imports config data.
+     *
+     * @param {string} file
+     *
+     * @returns {Promise<void>}
+     */
+    async importConfig(file) {
+      const config = JSON.parse(file);
+      const sites = config[SiteCollection.table];
+
+      if (Array.isArray(sites)) {
+        await SiteCollection.import(sites);
+      }
+
+      this.reload();
+    },
+
+    /**
+     * Prompts file download.
+     *
+     * @param {string} data
+     * @param {string} type
+     * @param {string} filename
+     */
+    downloadStringAsFile(data, type, filename) {
+      const blob = new Blob([data], {
+        type,
+      });
+
+      if (window.navigator.msSaveOrOpenBlob) {
+        window.navigator.msSaveOrOpenBlob(blob, filename);
+        return;
+      }
+
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+
+      a.href = url;
+      a.download = filename;
+
+      document.body.appendChild(a);
+
+      a.click();
+
+      setTimeout(() => {
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      }, 0);
     },
 
     setBackgroundColor(color) {
