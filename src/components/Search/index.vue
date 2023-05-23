@@ -5,7 +5,7 @@
 -->
 
 <!--
- * Copyright (C) 2021 Jukka Svahn
+ * Copyright (C) 2023 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -29,19 +29,23 @@
 <template>
   <section class="search" v-bind:class="{ 'search--active': isActive }">
     <form class="search__form" v-on:submit.prevent="submit" role="search">
-      <label class="search__label" v-bind:for="uid">Search</label>
+      <label class="search__label" v-bind:for="uid">{{ $t('search.label') }}</label>
       <input name="q"
              type="search"
              v-bind:id="uid"
              v-model="query"
-             v-bind:placeholder="placeholder"
+             v-bind:placeholder="$t('search.placeholder', {provider: providerName})"
              v-bind:class="{ search__input: true, 'search__input--active': isActive }"
              v-on:input="search"
              v-on:focus="focus"
              v-on:blur="blur"
              ref="searchInput"/>
-      <button class="search__button search__button--reset" type="reset">Reset</button>
-      <button class="search__button search__button--submit" type="submit">Search</button>
+      <button
+        class="search__button search__button--reset"
+        type="reset">{{ $t('search.reset') }}</button>
+      <button
+        class="search__button search__button--submit"
+        type="submit">{{ $t('search.button') }}</button>
       <aside v-if="isSuggestionsOpen" class="search__suggestions">
         <DropdownMenu v-bind:exits="true" v-on:exit="focusToField">
           <template slot="items">

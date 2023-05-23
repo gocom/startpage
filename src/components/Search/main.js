@@ -38,7 +38,6 @@ export default {
   data() {
     return {
       query: '',
-      placeholderTemplate: 'Search %s...',
       idx: null,
       results: [],
       isActive: false,
@@ -61,12 +60,10 @@ export default {
       return config.search.provider;
     },
 
-    placeholder() {
-      const name = SiteSearch.value
+    providerName() {
+      return SiteSearch.value
         ? SiteSearch.value.name
         : this.provider.name;
-
-      return this.placeholderTemplate.replace('%s', name);
     },
 
     items() {

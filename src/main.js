@@ -27,12 +27,15 @@
  */
 
 import Vue from 'vue';
+import VueI18n from 'vue-i18n';
 import Vue2TouchEvents from 'vue2-touch-events';
 import VueRouter from 'vue-router';
 import App from './components/App';
+import messages from './i18n';
 
 Vue.use(Vue2TouchEvents);
 Vue.use(VueRouter);
+Vue.use(VueI18n);
 
 const routes = [
   {
@@ -46,9 +49,16 @@ const router = new VueRouter({
   routes,
 });
 
+const i18n = new VueI18n({
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages,
+});
+
 /* eslint no-new: "off" */
 new Vue({
   el: '#app',
   render: (h) => h(App),
   router,
+  i18n,
 });
