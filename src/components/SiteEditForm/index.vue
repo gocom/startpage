@@ -53,11 +53,10 @@
       <form
         class="site-edit-form__modal"
         v-on:submit.prevent="save">
-        <div
-          v-if="hasError"
-          class="site-edit-form__error">
-          Saving failed due to a storage error. Image might be too big for the storage.
-        </div>
+
+        <Message v-bind:is-error="true" v-if="hasError">
+          {{ $t('site.error.save')}}
+        </Message>
 
         <div class="site-edit-form__preview">
           <Site v-bind:site="site"/>

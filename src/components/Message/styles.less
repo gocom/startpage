@@ -26,8 +26,26 @@
  * SOFTWARE.
  */
 
-import en from './en';
+.message {
+  align-items: center;
+  background: #809351;
+  color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 11;
 
-export default {
-  en,
-};
+  &--error {
+    background: #885757;
+  }
+
+  &__container {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin: 0 auto;
+    max-width: 80ch;
+    padding: 1rem;
+  }
+}

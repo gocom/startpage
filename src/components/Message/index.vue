@@ -1,10 +1,10 @@
-/**
+<!--
  * Start Page - New tab speed dial.
  *
  * {@link https://github.com/gocom/startpage GitHub}
- */
+-->
 
-/*
+<!--
  * Copyright (C) 2023 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -24,10 +24,19 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- */
+-->
 
-import en from './en';
+<template>
+  <aside class="message" :class="{ 'message--error' : isError }" v-if="isOpen">
+    <div class="message__container">
+      <p class="message__content">
+        <slot></slot>
+      </p>
+    </div>
 
-export default {
-  en,
-};
+    <KeyboardShortcut shortcut="Escape" v-on:down="close"/>
+  </aside>
+</template>
+
+<style lang="less" src="./styles.less"></style>
+<script src="./main.js"></script>

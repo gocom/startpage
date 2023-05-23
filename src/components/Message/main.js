@@ -26,8 +26,46 @@
  * SOFTWARE.
  */
 
-import en from './en';
+import KeyboardShortcut from '../KeyboardShortcut';
 
 export default {
-  en,
+  props: {
+    isOpen: {
+      type: Boolean,
+      default: true,
+    },
+    isError: {
+      type: Boolean,
+      default: false,
+    },
+    message: {
+      type: String,
+      default: '',
+    },
+    closeAfter: {
+      type: Number,
+      default: 5,
+    },
+  },
+
+  components: {
+    KeyboardShortcut,
+  },
+
+  methods: {
+    close() {
+      this.$emit('close');
+
+      this.isOpen = false;
+    },
+  },
+
+  mounted() {
+    if (this.closeAfter) {
+      setTimeout(
+        () => this.close(),
+        this.closeAfter * 1000,
+      );
+    }
+  },
 };
