@@ -80,6 +80,28 @@ class AbstractModel {
   isProtected = false;
 
   /**
+   * Is protected.
+   *
+   * @return {Object}
+   *
+   * @protected
+   */
+  originalData = {};
+
+  /**
+   * Internal data field names.
+   *
+   * @return {String[]}
+   *
+   * @protected
+   */
+  internal = [
+    'id',
+    'position',
+    'isProtected',
+  ];
+
+  /**
    * Constructor.
    *
    * @param {Object} data
@@ -87,11 +109,16 @@ class AbstractModel {
   constructor(data = {}) {
     defaultsDeep(this, data, this.defaults);
 
+    this.originalData = defaultsDeep({}, data, this.defaults);
+
     this.id = data.id || '';
+    this.originalData.id = this.id;
 
     this.position = data.position || 0;
+    this.originalData.position = this.position;
 
     this.isProtected = data.isProtected || false;
+    this.originalData.isProtected = this.isProtected;
   }
 
   /**
@@ -105,6 +132,38 @@ class AbstractModel {
    */
   get defaults() {
     return {};
+  }
+
+  /**
+   * Whether the model has been modified.
+   *
+   * @return {Boolean}
+   */
+  get isModified() {
+    return this.modified.length > 0;
+  }
+
+  /**
+   * Gets an array of modified fields names.
+   *
+   * @return {String[]}
+   */
+  get modified() {
+    const modified = [];
+
+    for (const name of Object.keys(this.defaults)) {
+      if (this.originalData[name] !== this[name]) {
+        modified.push(name);
+      }
+    }
+
+    for (const name of this.internal) {
+      if (this.originalData[name] !== this[name]) {
+        modified.push(name);
+      }
+    }
+
+    return modified;
   }
 }
 

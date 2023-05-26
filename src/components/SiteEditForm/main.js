@@ -79,8 +79,16 @@ export default {
       Object.assign(this.$data, this.$options.data());
     },
 
+    isModified() {
+      return Boolean(this.site && this.site.isModified);
+    },
+
     confirmCancel() {
-      this.isConfirmingCancel = true;
+      if (this.isModified()) {
+        this.isConfirmingCancel = true;
+      } else {
+        this.cancel();
+      }
     },
 
     declineCancel() {
@@ -144,6 +152,9 @@ export default {
     randomize() {
       this.site.backgroundColor = Color.random;
       this.site.textColor = '#ffffff';
+
+      this.site.originalData.backgroundColor = this.site.backgroundColor;
+      this.site.originalData.textColor = this.site.textColor;
     },
 
     setTextColor(color) {

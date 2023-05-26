@@ -164,7 +164,7 @@
 
         <div class="site-edit-form__actions">
           <button type="submit">Save</button>
-          <button type="reset" v-on:click.prevent="cancel">Cancel</button>
+          <button type="reset" v-on:click.prevent="confirmCancel">Cancel</button>
         </div>
 
         <KeyboardShortcut shortcut="Escape" v-on:down="confirmCancel"/>
