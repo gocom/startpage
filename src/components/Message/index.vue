@@ -30,7 +30,9 @@
   <aside class="message" :class="{ 'message--error' : isError }" v-if="isOpen">
     <div class="message__container">
       <p class="message__content">
-        <slot></slot>
+        <slot>
+          {{ message }}
+        </slot>
       </p>
     </div>
 

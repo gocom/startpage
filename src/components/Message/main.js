@@ -29,11 +29,13 @@
 import KeyboardShortcut from '../KeyboardShortcut';
 
 export default {
+  data() {
+    return {
+      isOpen: true,
+    };
+  },
+
   props: {
-    isOpen: {
-      type: Boolean,
-      default: true,
-    },
     isError: {
       type: Boolean,
       default: false,
@@ -45,6 +47,10 @@ export default {
     closeAfter: {
       type: Number,
       default: 5,
+    },
+    id: {
+      type: String,
+      default: '',
     },
   },
 
@@ -58,6 +64,12 @@ export default {
 
       this.isOpen = false;
     },
+
+    open() {
+      this.$emit('open');
+
+      this.isOpen = true;
+    },
   },
 
   mounted() {
@@ -67,5 +79,14 @@ export default {
         this.closeAfter * 1000,
       );
     }
+  },
+
+  watch: {
+    message() {
+      this.open();
+    },
+    id() {
+      this.open();
+    },
   },
 };

@@ -29,6 +29,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.27.0",
     "vue": "^2.6.11",
+    "vue-autofocus-directive": "^1.0.4",
     "vue-i18n": "^8.28.2",
     "vue-router": "^3.3.4",
     "vue2-touch-events": "^3.2.2",

@@ -35,7 +35,31 @@ export default {
   },
   site: {
     error: {
-      save: 'Saving failed due to a storage error. Image might be too big for the storage.',
+      save: 'Saving failed due to a storage error. Image might be too big for the storage. Error: {error}.',
     },
+    open: {
+      confirm: {
+        save: 'Save and open',
+        discard: 'Discard and open',
+        cancel: 'Cancel',
+        title: 'Discard currently open site?',
+        message: 'Do you want to discard the currently open site, or save it before opening the new one?',
+      },
+    },
+    edit: {
+      cancel: {
+        confirm: {
+          save: 'Save',
+          discard: 'Discard',
+          cancel: 'Cancel',
+          title: 'Discard currently open site?',
+          message: 'Do you want to discard the currently open site, or save it before closing it?',
+        },
+      },
+    },
+  },
+  confirm: {
+    yes: 'Yes',
+    no: 'No',
   },
 };

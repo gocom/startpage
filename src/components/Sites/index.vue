@@ -88,6 +88,7 @@
         v-bind:edit="edit"
         v-on:save="save"
         v-on:cancel="cancel"
+        v-on:decline="decline"
       />
     </div>
   </section>

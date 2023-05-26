@@ -34,9 +34,20 @@
           <h1 class="dialog__title" v-if="title">{{ title }}</h1>
           <p class="dialog__message" v-if="message">{{ message }}</p>
         </div>
-        <div class="dialog__actions">
-          <button type="submit" v-on:click.prevent="confirm" ref="confirm">Yes</button>
-          <button type="reset" v-on:click.prevent="decline">No</button>
+        <div class="dialog__actions" ref="actions">
+          <slot name="actions">
+            <button
+              type="submit"
+              v-autofocus
+              v-on:click.prevent="confirm">
+              {{ confirmButtonLabel || $t('confirm.yes') }}
+            </button>
+            <button
+              type="reset"
+              v-on:click.prevent="decline">
+              {{ declineButtonLabel || $t('confirm.no') }}
+            </button>
+          </slot>
         </div>
       </form>
     </div>

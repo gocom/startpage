@@ -38,6 +38,14 @@ export default {
       type: String,
       default: '',
     },
+    confirmButtonLabel: {
+      type: String,
+      default: '',
+    },
+    declineButtonLabel: {
+      type: String,
+      default: '',
+    },
   },
 
   components: {

@@ -112,6 +112,8 @@ export default {
     reload() {
       const sites = [];
 
+      this.edit = null;
+
       SiteCollection.iterate((model) => {
         sites.push(model);
       }).then(() => {
@@ -136,6 +138,17 @@ export default {
      * @return {void}
      */
     cancel() {
+      this.edit = null;
+
+      this.reload();
+    },
+
+    /**
+     * Editing was declined.
+     *
+     * @return {void}
+     */
+    decline() {
       this.edit = null;
     },
 

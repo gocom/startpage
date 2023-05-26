@@ -5,7 +5,7 @@
 -->
 
 <!--
- * Copyright (C) 2021 Jukka Svahn
+ * Copyright (C) 2023 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -31,7 +31,7 @@
     <button
       v-if="isOpen"
       type="button"
-      v-on:click="close"
+      v-on:click="confirmCancel"
       aria-label="Close site editor"
       aria-current="true"
       title="Close site editor"
@@ -54,9 +54,12 @@
         class="site-edit-form__modal"
         v-on:submit.prevent="save">
 
-        <Message v-bind:is-error="true" v-if="hasError">
-          {{ $t('site.error.save')}}
-        </Message>
+        <Message
+          v-bind:is-error="true"
+          v-if="hasError"
+          v-on:close="hasError = false"
+          v-bind:message="$t('site.error.save', { error })"
+        />
 
         <div class="site-edit-form__preview">
           <Site v-bind:site="site"/>
@@ -161,12 +164,64 @@
 
         <div class="site-edit-form__actions">
           <button type="submit">Save</button>
-          <button type="reset" v-on:click.prevent="close">Cancel</button>
+          <button type="reset" v-on:click.prevent="cancel">Cancel</button>
         </div>
 
-        <KeyboardShortcut shortcut="Escape" v-on:down="close"/>
+        <KeyboardShortcut shortcut="Escape" v-on:down="confirmCancel"/>
+
+        <Confirm
+          v-if="isConfirmingCancel"
+          v-bind:title="$t('site.edit.cancel.confirm.title')"
+          v-bind:message="$t('site.edit.cancel.confirm.message')"
+          v-on:decline="declineCancel"
+          v-on:confirm="cancel">
+          <template v-slot:actions>
+            <button
+              type="submit"
+              v-autofocus
+              v-on:click.prevent="save">
+              {{ $t('site.edit.cancel.confirm.save') }}
+            </button>
+            <button
+              type="button"
+              v-on:click.prevent="cancel">
+              {{ $t('site.edit.cancel.confirm.discard') }}
+            </button>
+            <button
+              type="reset"
+              v-on:click.prevent="declineCancel">
+              {{ $t('site.edit.cancel.confirm.cancel') }}
+            </button>
+          </template>
+        </Confirm>
       </form>
     </Modal>
+
+    <Confirm
+      v-if="isConfirmingOpen"
+      v-bind:title="$t('site.open.confirm.title')"
+      v-bind:message="$t('site.open.confirm.message')"
+      v-on:decline="declineOpen"
+      v-on:confirm="open">
+      <template v-slot:actions>
+        <button
+          type="submit"
+          v-autofocus
+          v-on:click.prevent="save">
+          {{ $t('site.open.confirm.save') }}
+        </button>
+        <button
+          type="button"
+          v-on:click.prevent="open">
+          {{ $t('site.open.confirm.discard') }}
+        </button>
+        <button
+          type="reset"
+          v-on:click.prevent="declineOpen">
+          {{ $t('site.open.confirm.cancel') }}
+        </button>
+      </template>
+    </Confirm>
   </div>
 </template>
 

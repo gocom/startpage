@@ -52,6 +52,7 @@
   }
 
   &__content {
+    max-width: 80ch;
     padding: 2rem;
   }
 
@@ -62,21 +63,17 @@
 
   &__actions {
     background: @config[@input][@hover][@background];
-    justify-content: flex-end;
+    flex-direction: row-reverse;
     display: flex;
+    gap: 0.5rem;
     margin: 1rem 0 0 0;
     padding: 2rem;
 
-    button {
-      margin-left: 0.5rem;
-    }
-
     button[type=submit] {
       .button.primary();
-
-      order: 2;
     }
 
+    button[type=button],
     button[type=reset] {
       .button.secondary();
     }

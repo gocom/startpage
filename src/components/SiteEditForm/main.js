@@ -37,13 +37,18 @@ import Modal from '../Modal';
 import Site from '../Site';
 import Color from '../../lib/Color';
 import KeyboardShortcut from '../KeyboardShortcut';
+import Confirm from '../Dialog/Confirm';
 
 export default {
   data() {
     return {
-      site: this.edit || new SiteModel(),
+      site: null,
       isOpen: false,
       hasError: false,
+      error: null,
+      isConfirmingCancel: false,
+      isConfirmingOpen: false,
+      openingSite: null,
     };
   },
 
@@ -55,6 +60,7 @@ export default {
   },
 
   components: {
+    Confirm,
     ColorPicker,
     IconPicker,
     FilePicker,
@@ -73,36 +79,71 @@ export default {
       Object.assign(this.$data, this.$options.data());
     },
 
-    close() {
-      this.site = new SiteModel();
+    confirmCancel() {
+      this.isConfirmingCancel = true;
+    },
 
-      this.isOpen = false;
+    declineCancel() {
+      this.isConfirmingCancel = false;
+    },
 
+    cancel() {
       this.$emit('cancel');
+      this.site = null;
+      this.isOpen = false;
+      this.isConfirmingCancel = false;
+    },
+
+    confirmOpen() {
+      this.isConfirmingOpen = true;
+    },
+
+    declineOpen() {
+      this.$emit('decline');
+      this.openingSite = null;
+      this.isConfirmingOpen = false;
     },
 
     open() {
-      this.randomize();
+      if (this.isOpen) {
+        this.$emit('cancel');
+      }
+
+      this.site = this.openingSite || new SiteModel();
+
+      this.openingSite = null;
+      this.isConfirmingOpen = false;
+
+      if (!this.site.id) {
+        this.randomize();
+      }
 
       this.isOpen = true;
     },
 
     save() {
+      this.isConfirmingCancel = false;
+
       SiteCollection.save(this.site)
         .then(() => {
           this.$emit('save');
-          this.close();
+
+          if (this.openingSite) {
+            this.open();
+          } else {
+            this.site = null;
+            this.isOpen = false;
+          }
         })
-        .catch(() => {
+        .catch((reason) => {
+          this.error = reason.message;
           this.hasError = true;
         });
     },
 
     randomize() {
-      if (!this.site.id) {
-        this.site.backgroundColor = Color.random;
-        this.site.textColor = '#ffffff';
-      }
+      this.site.backgroundColor = Color.random;
+      this.site.textColor = '#ffffff';
     },
 
     setTextColor(color) {
@@ -127,11 +168,19 @@ export default {
   },
 
   watch: {
-    edit(site) {
-      if (site) {
-        this.site = site;
-        this.isOpen = true;
-      }
+    edit: {
+      handler(site) {
+        if (site) {
+          this.openingSite = site;
+
+          if (this.isOpen) {
+            this.confirmOpen();
+          } else {
+            this.open();
+          }
+        }
+      },
+      immediate: true,
     },
   },
 };

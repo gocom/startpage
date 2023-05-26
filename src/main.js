@@ -30,12 +30,14 @@ import Vue from 'vue';
 import VueI18n from 'vue-i18n';
 import Vue2TouchEvents from 'vue2-touch-events';
 import VueRouter from 'vue-router';
+import autofocus from 'vue-autofocus-directive';
 import App from './components/App';
 import messages from './i18n';
 
 Vue.use(Vue2TouchEvents);
 Vue.use(VueRouter);
 Vue.use(VueI18n);
+Vue.directive('autofocus', autofocus);
 
 const routes = [
   {
