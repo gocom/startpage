@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright (C) 2021 Jukka Svahn
+ * Copyright (C) 2023 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -26,29 +26,32 @@
  * SOFTWARE.
  */
 
-import 'focus-visible';
-import '@fortawesome/fontawesome-free/css/all.css';
-import './external.css';
-import Drop from '../Drop';
-import Background from '../Background';
-import Loader from '../Loader';
-import Clock from '../Clock';
-import Search from '../Search';
-import Sites from '../Sites';
-
 export default {
-  name: 'app',
+  methods: {
+    /**
+     * Event listener.
+     *
+     * @param {Event} event
+     */
+    listener(event) {
+      if (!event.target.matches('input[type=file]')) {
+        event.preventDefault();
 
-  components: {
-    Drop,
-    Background,
-    Loader,
-    Clock,
-    Search,
-    Sites,
+        if (event.dataTransfer) {
+          event.dataTransfer.effectAllowed = 'none';
+          event.dataTransfer.dropEffect = 'none';
+        }
+      }
+    },
   },
 
   mounted() {
-    document.body.classList.add('ready');
+    window.addEventListener('dragover', this.listener);
+    window.addEventListener('drop', this.listener);
+  },
+
+  beforeDestroy() {
+    window.removeEventListener('dragover', this.listener);
+    window.removeEventListener('drop', this.listener);
   },
 };

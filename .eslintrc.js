@@ -32,6 +32,9 @@ module.exports = {
         'collection',
       ],
     }],
+    'no-param-reassign': ['error', {
+      props: false,
+    }],
     'no-restricted-syntax': [
       'error',
       {

@@ -28,6 +28,7 @@
 
 <template>
   <main>
+    <Drop/>
     <Background/>
     <Search/>
     <Sites/>

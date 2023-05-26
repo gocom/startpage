@@ -1,11 +1,11 @@
-/**
+<!--
  * Start Page - New tab speed dial.
  *
  * {@link https://github.com/gocom/startpage GitHub}
- */
+-->
 
-/*
- * Copyright (C) 2021 Jukka Svahn
+<!--
+ * Copyright (C) 2023 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -24,31 +24,10 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- */
+-->
 
-import 'focus-visible';
-import '@fortawesome/fontawesome-free/css/all.css';
-import './external.css';
-import Drop from '../Drop';
-import Background from '../Background';
-import Loader from '../Loader';
-import Clock from '../Clock';
-import Search from '../Search';
-import Sites from '../Sites';
+<template>
+    <section class="drop" v-if="false"></section>
+</template>
 
-export default {
-  name: 'app',
-
-  components: {
-    Drop,
-    Background,
-    Loader,
-    Clock,
-    Search,
-    Sites,
-  },
-
-  mounted() {
-    document.body.classList.add('ready');
-  },
-};
+<script src="./main.js"></script>
