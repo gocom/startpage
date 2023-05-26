@@ -103,7 +103,11 @@ export default {
     },
 
     confirmOpen() {
-      this.isConfirmingOpen = true;
+      if (this.isModified()) {
+        this.isConfirmingOpen = true;
+      } else {
+        this.open();
+      }
     },
 
     declineOpen() {
@@ -113,7 +117,7 @@ export default {
     },
 
     open() {
-      if (this.isOpen) {
+      if (this.isConfirmingOpen) {
         this.$emit('cancel');
       }
 
