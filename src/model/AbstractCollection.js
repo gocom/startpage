@@ -122,7 +122,7 @@ class AbstractCollection {
 
     const db = await this.getDb();
 
-    await db.setItem(entity.id, entity);
+    await db.setItem(entity.id, entity.data);
 
     return entity;
   }
@@ -143,42 +143,29 @@ class AbstractCollection {
   /**
    * Imports the given items.
    *
-   * This replaces the last import set. This is intended to be used with
-   * items that are loaded from the config.
-   *
    * @param {AbstractModel[]} models
    *
    * @return {Promise<void>}
    */
   async import(models) {
-    const startPosition = -1 - models.length;
-    const ids = [];
+    const sorted = [...models];
+    const startPosition = await this.getNextPosition();
 
-    const constant = models.map((model, index) => {
-      const entity = model;
+    sorted
+      .map((model, index) => {
+        if (!model.position) {
+          model.position = models.length + index;
+        }
 
-      if (!entity.id) {
-        const positional = String(index + 1);
+        return model;
+      })
+      .sort((a, b) => a.position - b.position)
+      .forEach((model, index) => {
+        model.position = startPosition + index;
+        model.id = `${this.model.idPrefix}${model.position}`;
+      });
 
-        entity.id = `${this.model.importIdPrefix}${positional}`;
-      }
-
-      ids.push(entity.id);
-
-      if (!entity.position) {
-        entity.position = startPosition + index;
-      }
-
-      return entity;
-    });
-
-    await this.iterate((model) => {
-      if (String(model.id || '').startsWith(this.model.importIdPrefix) && !ids.includes(model.id)) {
-        this.delete(model);
-      }
-    });
-
-    return this.saveMultiple(constant);
+    return this.saveMultiple(sorted);
   }
 
   /**
@@ -187,11 +174,10 @@ class AbstractCollection {
    * @returns {Promise<*[]>}
    */
   async export() {
-    const db = await this.getDb();
     const items = [];
 
-    await db.iterate((data) => {
-      items.push(data);
+    await this.iterate((model) => {
+      items.push(model.data);
     });
 
     return items;
@@ -211,10 +197,6 @@ class AbstractCollection {
       return Promise.reject(new Error('Model does not have identifier.'));
     }
 
-    if (entity.isProtected) {
-      return Promise.reject(new Error('Model is protected and can not be removed.'));
-    }
-
     return this.deleteById(entity.id);
   }
 
@@ -229,6 +211,23 @@ class AbstractCollection {
     const db = await this.getDb();
 
     return db.removeItem(id);
+  }
+
+  /**
+   * Deletes all but the given items.
+   *
+   * @param {AbstractModel[]} models
+   *
+   * @return {Promise<void>}
+   */
+  async deleteAllBut(models) {
+    const ids = models.map((model) => model.id);
+
+    await this.iterate((model) => {
+      if (!ids.includes(model.id)) {
+        this.delete(model);
+      }
+    });
   }
 
   /**

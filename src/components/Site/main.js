@@ -77,7 +77,7 @@ export default {
      * @return {boolean}
      */
     isEditable() {
-      return this.site && this.site.id && !this.site.isProtected;
+      return this.site && this.site.id;
     },
 
     /**

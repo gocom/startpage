@@ -44,15 +44,6 @@ class AbstractModel {
   static idPrefix = '_id_';
 
   /**
-   * Prefix added to imported item's identifiers.
-   *
-   * @type {String}
-   *
-   * @static
-   */
-  static importIdPrefix = '_im_';
-
-  /**
    * Identifier.
    *
    * @type {String}
@@ -73,15 +64,6 @@ class AbstractModel {
   /**
    * Is protected.
    *
-   * @return {Boolean}
-   *
-   * @public
-   */
-  isProtected = false;
-
-  /**
-   * Is protected.
-   *
    * @return {Object}
    *
    * @protected
@@ -98,7 +80,6 @@ class AbstractModel {
   internal = [
     'id',
     'position',
-    'isProtected',
   ];
 
   /**
@@ -116,9 +97,6 @@ class AbstractModel {
 
     this.position = data.position || 0;
     this.originalData.position = this.position;
-
-    this.isProtected = data.isProtected || false;
-    this.originalData.isProtected = this.isProtected;
   }
 
   /**
@@ -132,6 +110,25 @@ class AbstractModel {
    */
   get defaults() {
     return {};
+  }
+
+  /**
+   * Gets key-value data export.
+   *
+   * @return {Object}
+   */
+  get data() {
+    const data = {};
+
+    for (const name of Object.keys(this.defaults)) {
+      data[name] = this[name];
+    }
+
+    for (const name of this.internal) {
+      data[name] = this[name];
+    }
+
+    return data;
   }
 
   /**
