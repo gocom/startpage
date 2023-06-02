@@ -1,10 +1,10 @@
-/**
+<!--
  * Start Page - New tab speed dial.
  *
  * {@link https://github.com/gocom/startpage GitHub}
- */
+-->
 
-/*
+<!--
  * Copyright (C) 2023 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -24,47 +24,30 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- */
+-->
 
-export default {
-  search: {
-    label: 'Search',
-    placeholder: 'Search {provider}...',
-    button: 'Search',
-    reset: 'Reset',
-  },
-  site: {
-    error: {
-      save: 'Saving failed due to a storage error. Image might be too big for the storage. Error: {error}.',
-    },
-    open: {
-      confirm: {
-        save: 'Save and open',
-        discard: 'Discard and open',
-        cancel: 'Cancel',
-        title: 'Discard currently open site?',
-        message: 'Do you want to discard the currently open site, or save it before opening the new one?',
-      },
-    },
-    edit: {
-      cancel: {
-        confirm: {
-          save: 'Save',
-          discard: 'Discard',
-          cancel: 'Cancel',
-          title: 'Discard currently open site?',
-          message: 'Do you want to discard the currently open site, or save it before closing it?',
-        },
-      },
-    },
-  },
-  confirm: {
-    yes: 'Yes',
-    no: 'No',
-  },
-  config: {
-    error: {
-      import: 'Importing configuration failed. Please check that the given file is valid. Error: {error}',
-    },
-  },
-};
+<template>
+  <div class="config-edit-form__control">
+    <Message
+      v-bind:is-error="true"
+      v-if="hasError"
+      v-on:close="error = null"
+      v-bind:message="$t('config.error.import', { error })"
+    />
+
+    <div class="config-edit-form__label">
+      <label v-bind:for="getUid('importConfiguration')">Import Configuration</label>
+    </div>
+    <div class="config-edit-form__input">
+      <FilePicker
+        v-bind:id="getUid('importConfiguration')"
+        v-on:pick="importConfig"
+        v-bind:showPreview="false"
+        v-bind:readAsText="true"
+        accept=".json"
+      />
+    </div>
+  </div>
+</template>
+
+<script src="./main.js"></script>

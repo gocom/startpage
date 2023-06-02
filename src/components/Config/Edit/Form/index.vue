@@ -5,7 +5,7 @@
 -->
 
 <!--
- * Copyright (C) 2021 Jukka Svahn
+ * Copyright (C) 2023 Jukka Svahn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -73,26 +73,8 @@
           </div>
         </div>
 
-        <div class="config-edit-form__control">
-          <div class="config-edit-form__label">
-            Export Configuration
-          </div>
-          <div class="config-edit-form__input">
-            <button type="button" v-on:click.prevent="exportConfig">Export</button>
-          </div>
-        </div>
-
-        <div class="config-edit-form__control">
-          <div class="config-edit-form__label">
-            <label v-bind:for="getUid('importConfiguration')">Import Configuration</label>
-          </div>
-          <div class="config-edit-form__input">
-            <FilePicker
-              v-bind:id="getUid('importConfiguration')"
-              v-on:pick="importConfig"
-            />
-          </div>
-        </div>
+        <Export/>
+        <Import/>
 
         <div class="config-edit-form__actions">
           <button type="submit">Save</button>

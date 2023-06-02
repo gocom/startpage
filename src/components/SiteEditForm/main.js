@@ -44,7 +44,6 @@ export default {
     return {
       site: null,
       isOpen: false,
-      hasError: false,
       error: null,
       isConfirmingCancel: false,
       isConfirmingOpen: false,
@@ -73,6 +72,12 @@ export default {
   mixins: [
     UniqueId,
   ],
+
+  computed: {
+    hasError() {
+      return Boolean(this.error);
+    },
+  },
 
   methods: {
     reset() {
@@ -135,6 +140,7 @@ export default {
 
     save() {
       this.isConfirmingCancel = false;
+      this.error = '';
 
       SiteCollection.save(this.site)
         .then(() => {
@@ -149,7 +155,6 @@ export default {
         })
         .catch((reason) => {
           this.error = reason.message;
-          this.hasError = true;
         });
     },
 

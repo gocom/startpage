@@ -141,37 +141,39 @@ class AbstractCollection {
   }
 
   /**
-   * Imports the given items.
+   * Imports the given data items.
    *
-   * @param {AbstractModel[]} models
+   * @param {Object[]} items
    *
    * @return {Promise<void>}
    */
-  async import(models) {
-    const sorted = [...models];
+  async import(items) {
+    const models = items.map((data, index) => {
+      const model = this.getInstance(data);
+
+      if (!model.position) {
+        model.position = items.length + index;
+      }
+
+      return model;
+    });
+
     const startPosition = await this.getNextPosition();
 
-    sorted
-      .map((model, index) => {
-        if (!model.position) {
-          model.position = models.length + index;
-        }
-
-        return model;
-      })
+    models
       .sort((a, b) => a.position - b.position)
       .forEach((model, index) => {
         model.position = startPosition + index;
         model.id = `${this.model.idPrefix}${model.position}`;
       });
 
-    return this.saveMultiple(sorted);
+    return this.saveMultiple(models);
   }
 
   /**
    * Exports all item data.
    *
-   * @returns {Promise<*[]>}
+   * @returns {Promise<Object[]>}
    */
   async export() {
     const items = [];

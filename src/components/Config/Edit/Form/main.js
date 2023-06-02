@@ -32,7 +32,8 @@ import FilePicker from '../../../Form/FilePicker';
 import KeyboardShortcut from '../../../KeyboardShortcut';
 import Modal from '../../../Modal';
 import ConfigStorage from '../../../../model/Config/Storage';
-import SiteCollection from '../../../../model/Site/SiteCollection';
+import Export from '../../Export';
+import Import from '../../Import';
 
 export default {
   data() {
@@ -49,6 +50,8 @@ export default {
     FilePicker,
     KeyboardShortcut,
     Modal,
+    Export,
+    Import,
   },
 
   mixins: [
@@ -92,75 +95,6 @@ export default {
       this.isOpen = false;
 
       window.location.reload();
-    },
-
-    async exportConfig() {
-      const config = {
-        [SiteCollection.table]: await SiteCollection.export(),
-      };
-
-      const data = JSON.stringify(
-        config,
-        null,
-        2,
-      );
-
-      this.downloadStringAsFile(
-        data,
-        'application/json',
-        'config.json',
-      );
-    },
-
-    /**
-     * Imports config data.
-     *
-     * @param {string} file
-     *
-     * @returns {Promise<void>}
-     */
-    async importConfig(file) {
-      const config = JSON.parse(file);
-      const sites = config[SiteCollection.table];
-
-      if (Array.isArray(sites)) {
-        await SiteCollection.import(sites);
-      }
-
-      this.reload();
-    },
-
-    /**
-     * Prompts file download.
-     *
-     * @param {string} data
-     * @param {string} type
-     * @param {string} filename
-     */
-    downloadStringAsFile(data, type, filename) {
-      const blob = new Blob([data], {
-        type,
-      });
-
-      if (window.navigator.msSaveOrOpenBlob) {
-        window.navigator.msSaveOrOpenBlob(blob, filename);
-        return;
-      }
-
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-
-      a.href = url;
-      a.download = filename;
-
-      document.body.appendChild(a);
-
-      a.click();
-
-      setTimeout(() => {
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
-      }, 0);
     },
 
     setBackgroundColor(color) {

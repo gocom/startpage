@@ -44,6 +44,14 @@ export default {
       type: Number,
       default: 0,
     },
+    showPreview: {
+      type: Boolean,
+      default: true,
+    },
+    readAsText: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   data() {
@@ -54,7 +62,7 @@ export default {
 
   computed: {
     hasPreview() {
-      return Boolean(this.file);
+      return this.showPreview && Boolean(this.file);
     },
 
     preview() {
@@ -74,7 +82,11 @@ export default {
           this.select(fr.result);
         };
 
-        fr.readAsDataURL(file);
+        if (this.readAsText) {
+          fr.readAsText(file);
+        } else {
+          fr.readAsDataURL(file);
+        }
       }
     },
 

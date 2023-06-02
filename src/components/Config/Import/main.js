@@ -26,45 +26,64 @@
  * SOFTWARE.
  */
 
+import UniqueId from '../../../mixins/UniqueId';
+import FilePicker from '../../Form/FilePicker';
+import SiteCollection from '../../../model/Site/SiteCollection';
+import Message from '../../Message';
+
 export default {
-  search: {
-    label: 'Search',
-    placeholder: 'Search {provider}...',
-    button: 'Search',
-    reset: 'Reset',
+  data() {
+    return {
+      error: null,
+    };
   },
-  site: {
-    error: {
-      save: 'Saving failed due to a storage error. Image might be too big for the storage. Error: {error}.',
-    },
-    open: {
-      confirm: {
-        save: 'Save and open',
-        discard: 'Discard and open',
-        cancel: 'Cancel',
-        title: 'Discard currently open site?',
-        message: 'Do you want to discard the currently open site, or save it before opening the new one?',
-      },
-    },
-    edit: {
-      cancel: {
-        confirm: {
-          save: 'Save',
-          discard: 'Discard',
-          cancel: 'Cancel',
-          title: 'Discard currently open site?',
-          message: 'Do you want to discard the currently open site, or save it before closing it?',
-        },
-      },
+
+  components: {
+    Message,
+    FilePicker,
+  },
+
+  mixins: [
+    UniqueId,
+  ],
+
+  computed: {
+    hasError() {
+      return Boolean(this.error);
     },
   },
-  confirm: {
-    yes: 'Yes',
-    no: 'No',
-  },
-  config: {
-    error: {
-      import: 'Importing configuration failed. Please check that the given file is valid. Error: {error}',
+
+  methods: {
+    /**
+     * Reloads view.
+     *
+     * @return {void}
+     */
+    reload() {
+      window.location.reload();
+    },
+
+    /**
+     * Imports config data.
+     *
+     * @param {string} file
+     *
+     * @returns {Promise<void>}
+     */
+    async importConfig(file) {
+      try {
+        const config = JSON.parse(file);
+
+        const sites = config[SiteCollection.table];
+
+        if (Array.isArray(sites)) {
+          await SiteCollection.import(sites);
+        }
+
+        this.reload();
+      } catch (e) {
+        this.error = e.message;
+      }
     },
   },
 };
