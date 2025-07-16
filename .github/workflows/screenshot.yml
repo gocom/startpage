@@ -24,11 +24,11 @@ jobs:
           make start HOST_UID=0 HOST_GID=0
           sleep 10
 
-      - name: Capture Screenshot
-        run: make screenshot HOST_UID=0 HOST_GID=0
+      # - name: Capture Screenshot
+      #  run: make screenshot HOST_UID=0 HOST_GID=0
 
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: screenshots
-          folder: screenshots
+      # - name: Deploy
+      #  uses: JamesIves/github-pages-deploy-action@v4
+      #  with:
+      #    branch: screenshots
+      #    folder: screenshots
