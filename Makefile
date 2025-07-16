@@ -1,4 +1,4 @@
-.PHONY: all prefix install build bump-version clean package start stop shell test test-unit lint lint-fix watch help
+.PHONY: all prefix install build bump-version clean package screenshot start stop shell test test-unit lint lint-fix watch help
 
 PREFIX ?=
 PREFIX_DIRECTORY_SUFFIX = startpage-build/
@@ -31,7 +31,7 @@ bump-version: node_modules
 	$(NPM) run bump-version
 
 clean:
-	$(NODE) rm -rf build dist node_modules
+	$(NODE) rm -rf build dist node_modules screenshots
 
 package:
 	$(NPM) run package
@@ -61,6 +61,9 @@ lint-fix: node_modules
 watch: node_modules
 	$(NPM) watch
 
+screenshot: node_modules
+	$(DOCKER_COMPOSE) run --rm capture-website http://node:12598 --output=/screenshots/screenshot.png --overwrite
+
 help:
 	@echo "Manage project"
 	@echo ""
@@ -87,6 +90,9 @@ help:
 	@echo ""
 	@echo "  $$ make package"
 	@echo "  Package build result to a distributable ZIP file"
+	@echo ""
+	@echo "  $$ make screenshot"
+	@echo "  Take screenshot"
 	@echo ""
 	@echo "  $$ make shell"
 	@echo "  Login to Node container"

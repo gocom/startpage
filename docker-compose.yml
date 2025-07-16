@@ -9,7 +9,17 @@ services:
             - NODE_OPTIONS=--openssl-legacy-provider
         working_dir: /app
         command: npm run start
-        network_mode: bridge
         user: $HOST_UID:$HOST_GID
         ports:
           - "127.0.0.1:12598:12598"
+        networks:
+          - proxy
+
+    capture-website:
+      image: ghcr.io/gocom/capture-website:master
+      volumes:
+        - ./screenshots:/screenshots
+      networks:
+        - proxy
+networks:
+  proxy:
