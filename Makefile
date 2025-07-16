@@ -5,7 +5,7 @@ PREFIX_DIRECTORY_SUFFIX = startpage-build/
 NODE_ENV ?= development
 HOST_UID != id -u
 HOST_GID != id -g
-DOCKER_COMPOSE ?= HOST_UID=$(HOST_UID) HOST_GID=$(HOST_GID) NODE_ENV=$(NODE_ENV) docker-compose
+DOCKER_COMPOSE ?= HOST_UID=$(HOST_UID) HOST_GID=$(HOST_GID) NODE_ENV=$(NODE_ENV) docker compose
 NODE = $(DOCKER_COMPOSE) run --rm node
 NPM = $(NODE) npm
 
