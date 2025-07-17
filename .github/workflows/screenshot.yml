@@ -27,8 +27,8 @@ jobs:
       - name: Capture Screenshot
         run: make screenshot
 
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: screenshots
-          folder: screenshots
+      #- name: Deploy
+      #  uses: JamesIves/github-pages-deploy-action@v4
+      #  with:
+      #    branch: screenshots
+      #    folder: screenshots
