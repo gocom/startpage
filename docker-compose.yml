@@ -21,5 +21,8 @@ services:
         - ./screenshots:/screenshots
       networks:
         - proxy
+      cap_add:
+        - SYS_ADMIN
+
 networks:
   proxy:
