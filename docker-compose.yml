@@ -16,7 +16,7 @@ services:
           - proxy
 
     capture-website:
-      image: ghcr.io/gocom/capture-website:master
+      image: ghcr.io/gocom/capture-website:0.1.0
       volumes:
         - ./screenshots:/screenshots
       networks:
