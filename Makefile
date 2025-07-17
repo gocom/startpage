@@ -62,7 +62,7 @@ watch: node_modules
 	$(NPM) watch
 
 screenshot: node_modules
-	$(DOCKER_COMPOSE) run --rm capture-website http://node:12598 --output=/screenshots/newtab.png --overwrite
+	$(DOCKER_COMPOSE) run --rm capture-website http://node:12598 --output=/screenshots/newtab.png --overwrite --width=1280 --height=960
 
 help:
 	@echo "Manage project"

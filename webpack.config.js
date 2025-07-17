@@ -136,6 +136,7 @@ const config = {
   devServer: {
     host: '0.0.0.0',
     port: 12598,
+    disableHostCheck: true,
   },
   optimization: {
     minimizer: [
